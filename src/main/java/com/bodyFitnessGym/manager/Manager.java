@@ -13,9 +13,19 @@ import com.bodyFitnessGym.persistence.DataBaseAcces;
 
 public class Manager {
 
+	public static Manager manager;
 	private ArrayList<Servicio> se = new ArrayList<>();
 	private ArrayList<Clase> clase = new ArrayList<>();
 	private ArrayList<Alumno> a = new ArrayList<>();
+
+	public static Manager getInstance() {
+		if (manager == null)
+			return new Manager();
+		return manager;
+	}
+	
+	private Manager() {
+	}
 
 	public void init() {
 		Servicio servicio = new Servicio("1", "Sppining", "re lajate dhasbdas", 100000.0);
