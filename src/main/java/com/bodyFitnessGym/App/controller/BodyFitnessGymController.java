@@ -45,7 +45,7 @@ public class BodyFitnessGymController {
 		manager.init();
 		for (Alumno a : manager.getA()) {
 			if(a.getId().equalsIgnoreCase(id)) {
-				manager.getA().remove(a);
+				manager.remove(a);
 				return JsonManager.toJson(a);	
 			}
 		}
@@ -55,7 +55,7 @@ public class BodyFitnessGymController {
 	@RequestMapping(value="/alumno",method=RequestMethod.PUT)
 	public String updateAlumno(@Valid @RequestBody Alumno p) {
 		Manager manager=Manager.getInstance();
-		manager.getA().add(p);
+		manager.add(p);
 		return JsonManager.toJson(p);
 	}
 	

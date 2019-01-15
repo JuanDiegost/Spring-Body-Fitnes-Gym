@@ -72,6 +72,14 @@ public class Manager {
 	public void setA(ArrayList<Alumno> a) {
 		this.a = a;
 	}
+	
+	public void remove(Alumno alumno) {
+		a.remove(alumno);
+	}
+	
+	public void add(Alumno alumno) {
+		a.add(alumno);
+	}
 
 	public void listarAlumnos() {
 		ArrayList<Alumno> alumnos = new ArrayList<Alumno>();
