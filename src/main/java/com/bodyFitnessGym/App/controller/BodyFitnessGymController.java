@@ -58,7 +58,8 @@ public class BodyFitnessGymController {
 	@RequestMapping(value="/alumno",method=RequestMethod.POST)
 	public String createAlumno(@Valid @RequestBody Alumno p) {
 		Manager manager=Manager.getInstance();
-		manager.getA().add(p);
+		System.out.println(p.getId());
+		manager.add(p);
 		return JsonManager.toJson(p);
 	}
 }
