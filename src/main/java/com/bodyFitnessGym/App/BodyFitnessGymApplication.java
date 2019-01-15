@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class BodyFitnessGymApplication {
 
 	public static void main(String[] args) {
-		System.setProperty("server.port","5000");
+		System.setProperty("server.port","80");
 		SpringApplication.run(BodyFitnessGymApplication.class, args);
 		
 	}
