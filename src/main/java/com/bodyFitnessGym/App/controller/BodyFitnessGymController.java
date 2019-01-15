@@ -18,21 +18,18 @@ public class BodyFitnessGymController {
 	@RequestMapping(value="/servicios",method=RequestMethod.GET)
 	public String helloWorld() {
 		Manager  manager=Manager.getInstance();
-		manager.init();
 		return JsonManager.toJson(manager.getSe());
 	}
 	
 	@RequestMapping(value="/alumnos",method=RequestMethod.GET)
 	public String getAlumnos() {
 		Manager  manager=Manager.getInstance();
-		manager.init();
 		return JsonManager.toJson(manager.getA());
 	}
 	
 	@RequestMapping(value="/alumno/{id}",method=RequestMethod.GET)
 	public String getAlumno(@PathVariable String id) {
 		Manager  manager=Manager.getInstance();
-		manager.init();
 		for (Alumno a : manager.getA()) {
 			if(a.getId().equalsIgnoreCase(id)) return JsonManager.toJson(a);
 		}
@@ -42,7 +39,6 @@ public class BodyFitnessGymController {
 	@RequestMapping(value="/alumno/{id}",method=RequestMethod.DELETE)
 	public String deletAlumno(@PathVariable String id) {
 		Manager  manager=Manager.getInstance();
-		manager.init();
 		for (Alumno a : manager.getA()) {
 			if(a.getId().equalsIgnoreCase(id)) {
 				manager.remove(a);

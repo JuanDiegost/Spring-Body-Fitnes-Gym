@@ -25,6 +25,7 @@ public class Manager {
 	}
 	
 	private Manager() {
+		init();
 	}
 
 	public void init() {
