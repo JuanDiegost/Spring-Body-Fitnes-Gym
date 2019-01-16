@@ -18,7 +18,7 @@ public class Subscripcion {
 	private Date fechaInicio;
 	private Date fechaFin;
 	private int numeroSeciones;
-	@ManyToOne(cascade = CascadeType.REMOVE)
+	@ManyToOne
 	private Servicio servicio;
 	
 	public Long getId() {

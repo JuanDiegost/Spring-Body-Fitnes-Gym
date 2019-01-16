@@ -19,7 +19,7 @@ public class Clase {
 	private String dia;
 	private String horaInicio;
 	private String horaFin;
-	@ManyToOne(cascade = CascadeType.REMOVE)
+	@ManyToOne
 	private Servicio servicio;
 
 	public Long getId() {
