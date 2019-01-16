@@ -229,17 +229,18 @@ public class BodyFitnessGymController {
 	public String createPregunta(@Valid @RequestBody Pregunta p) {
 		return JsonManager.toJson(preguntaRepository.save(p));
 	}
+	
 
 	// ----------Progresos---------------------------------------//
 
 	@RequestMapping(value = "/progresos/alumno/{id}", method = RequestMethod.GET)
 	public String getProgresosAlumno(@PathVariable("id") Long idAlumno) {
-		return JsonManager.toJson(progresoRepository.findById(idAlumno));
+		return JsonManager.toJson(estudianteRepository.findById(idAlumno).get().getProgresos());
 	}
 
 	@RequestMapping(value = "/progreso/{id}", method = RequestMethod.GET)
 	public String getProgreso(@PathVariable("id") Long idProgreso) {
-		return JsonManager.toJson(progresoRepository.findById(idProgreso));
+		return JsonManager.toJson(progresoRepository.findById(idProgreso).get());
 	}
 
 	@RequestMapping(value = "/progreso", method = RequestMethod.DELETE)
@@ -266,34 +267,39 @@ public class BodyFitnessGymController {
 	// ----------subscripciones---------------------------------------//
 
 	@RequestMapping(value = "/subscripciones/alumno/{id}", method = RequestMethod.GET)
-	public String getSubscripcionesAlumno(@PathVariable("id") String idAlumno) {
-		return "subscripcion";
+	public String getSubscripcionesAlumno(@PathVariable("id") Long idAlumno) {
+		return JsonManager.toJson(estudianteRepository.findById(idAlumno).get().getProgresos());
 	}
 
 	@RequestMapping(value = "/subscripciones", method = RequestMethod.GET)
 	public String getSubscripciones() {
-		return "subscripciones";
+		return JsonManager.toJson(subscripcionRepository.findAll());
 	}
 
 	@RequestMapping(value = "/subscripcion/{id}", method = RequestMethod.GET)
-	public String getSubscripcion(@PathVariable("id") String id) {
-		return "subscripcion";
+	public String getSubscripcion(@PathVariable("id") Long id) {
+		return JsonManager.toJson(subscripcionRepository.findById(id));
 	}
 
 	@RequestMapping(value = "/subscripcion/{id}", method = RequestMethod.DELETE)
-	public String deletSubscripcion(@PathVariable String idProgreso) {
-		return "subscripcion";
+	public String deletSubscripcion(@PathVariable("id") Long idProgreso) {
+		progresoRepository.deleteById(idProgreso);
+		return "Borrado";
 
 	}
 
 	@RequestMapping(value = "/subscripcion", method = RequestMethod.PUT)
 	public String updateSubscripcion(@Valid @RequestBody Subscripcion p) {
-		return "subscripcion";
+		return JsonManager.toJson(subscripcionRepository.save(p));
 	}
 
-	@RequestMapping(value = "/subscripcion/{id}", method = RequestMethod.POST)
-	public String createSubscripcion(@Valid @RequestBody Subscripcion p, @PathVariable("id") String idEstudiante) {
-		return "subscripcion";
+	@RequestMapping(value = "/subscripcion/alumno/{id}", method = RequestMethod.POST)
+	public String createSubscripcion(@Valid @RequestBody Subscripcion p, @PathVariable("id") Long idEstudiante) {
+		Subscripcion subscripcion= subscripcionRepository.save(p);
+		Alumno alumno=estudianteRepository.findById(idEstudiante).get();
+		alumno.addSubscripcion(subscripcion);
+		estudianteRepository.save(alumno);
+		return JsonManager.toJson(subscripcion);
 	}
 
 }
