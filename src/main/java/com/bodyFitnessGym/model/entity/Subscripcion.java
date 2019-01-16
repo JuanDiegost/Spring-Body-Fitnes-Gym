@@ -2,6 +2,7 @@ package com.bodyFitnessGym.model.entity;
 
 import java.sql.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,7 +18,7 @@ public class Subscripcion {
 	private Date fechaInicio;
 	private Date fechaFin;
 	private int numeroSeciones;
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.REMOVE)
 	private Servicio servicio;
 	
 	public Long getId() {

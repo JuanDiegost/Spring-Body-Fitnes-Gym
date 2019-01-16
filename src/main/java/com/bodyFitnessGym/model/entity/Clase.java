@@ -1,5 +1,6 @@
 package com.bodyFitnessGym.model.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,7 +19,7 @@ public class Clase {
 	private String dia;
 	private String horaInicio;
 	private String horaFin;
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.REMOVE)
 	private Servicio servicio;
 
 	public Long getId() {
