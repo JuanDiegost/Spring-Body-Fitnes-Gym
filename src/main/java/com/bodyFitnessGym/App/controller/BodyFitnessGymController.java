@@ -243,8 +243,8 @@ public class BodyFitnessGymController {
 		return JsonManager.toJson(progresoRepository.findById(idProgreso).get());
 	}
 
-	@RequestMapping(value = "/progreso", method = RequestMethod.DELETE)
-	public String deletProgreso(@PathVariable Long idProgreso) {
+	@RequestMapping(value = "/progreso/1", method = RequestMethod.DELETE)
+	public String deletProgreso(@PathVariable("id") Long idProgreso) {
 		progresoRepository.deleteById(idProgreso);
 		return "Borrado";
 
