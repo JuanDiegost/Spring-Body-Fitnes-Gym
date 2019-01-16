@@ -29,7 +29,7 @@ public class Manager {
 	}
 
 	public void init() {
-		Servicio servicio = new Servicio("1", "Sppining", "re lajate dhasbdas", 100000.0);
+	/*	Servicio servicio = new Servicio("1", "Sppining", "re lajate dhasbdas", 100000.0);
 		Servicio servicio2 = new Servicio("2", "zamba", "re lajate dhasbdas", 100000.0);
 		Servicio servicio3 = new Servicio("3", "baile", "re lajate dhasbdas", 100000.0);
 		Servicio servicio4 = new Servicio("4", "asd", "re lajate dhasbdas", 100000.0);
@@ -44,10 +44,10 @@ public class Manager {
 		this.clase.add(clase2);
 		this.clase.add(clase3);
 		Subscripcion subscripcion = new Subscripcion("1", new Date(234234), new Date(4324234), 0, servicio4);
-		Alumno alumno = new Alumno("2", "sadas", "sdsds", "32423432", "sadas@adsa.com", "sad34", "adsadas",
-				new Date(324234), 'M', new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
-		alumno.addSubscripcion(subscripcion);
-		a.add(alumno);
+		//Alumno alumno = new Alumno("2", "sadas", "sdsds", "32423432", "sadas@adsa.com", "sad34", "adsadas",
+			//	new Date(324234), 'M', new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+		//alumno.addSubscripcion(subscripcion);
+		//a.add(alumno);*/
 	}
 
 	public ArrayList<Servicio> getSe() {

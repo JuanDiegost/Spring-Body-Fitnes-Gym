@@ -1,21 +1,17 @@
 package com.bodyFitnessGym.model.entity;
 
-public class Pregunta {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
+@Entity
+public class Pregunta {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private String id;
 	private String descripcion;
 	private String nombre;
-
-	public Pregunta() {
-		super();
-	}
-
-	public Pregunta(String id, String descripcion, String nombre) {
-		super();
-		this.id = id;
-		this.descripcion = descripcion;
-		this.nombre = nombre;
-	}
 
 	public String getId() {
 		return id;

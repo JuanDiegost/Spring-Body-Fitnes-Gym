@@ -1,26 +1,22 @@
 package com.bodyFitnessGym.model.entity;
 
-public class MovimientoCaja {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
+@Entity
+public class MovimientoCaja {
+	@Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
 	private String id;
 	private String descripcion;
 	private String tipo;
 	private double valor;
+	@OneToOne
 	private Subscripcion subscripcion;
 
-	public MovimientoCaja(String id, String descripcion, String tipo, double valor, Subscripcion subscripcion) {
-		super();
-		this.id = id;
-		this.descripcion = descripcion;
-		this.tipo = tipo;
-		this.valor = valor;
-		this.subscripcion = subscripcion;
-	}
-
-	public MovimientoCaja() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
 
 	public String getId() {
 		return id;

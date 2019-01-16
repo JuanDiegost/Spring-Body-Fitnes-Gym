@@ -5,10 +5,19 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
 import com.bodyFitnessGym.persistence.DataBaseAcces;
 
+@Entity // This tells Hibernate to make a table out of this class
 public class Alumno {
 
+	@Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
 	private String id;
 	private String nombre;
 	private String dni;
@@ -18,40 +27,15 @@ public class Alumno {
 	private String contrasena;
 	private Date fechaNacimiento;
 	private char genero;
+    
+	@OneToMany
 	private ArrayList<Subscripcion> subscripciones;
+    
+    @OneToMany
 	private ArrayList<Pregunta> preguntas;
-	private ArrayList<Progreso> progresos;
 
-	public Alumno() {
-		super();
-	}
-
-	public Alumno(String id, String nombre, String dni, String telefono, String email, String usuario,
-			String contrasena, Date fechaNacimiento, char genero, ArrayList<Subscripcion> subscripciones,
-			ArrayList<Pregunta> preguntas, ArrayList<Progreso> progresos) {
-		super();
-		this.id = id;
-		this.nombre = nombre;
-		this.dni = dni;
-		this.telefono = telefono;
-		this.email = email;
-		this.usuario = usuario;
-		this.contrasena = contrasena;
-		this.fechaNacimiento = fechaNacimiento;
-		this.genero = genero;
-		this.subscripciones = new ArrayList<>();
-		this.preguntas = new ArrayList<>();
-		this.progresos = new ArrayList<>();
-		for (Progreso progreso : progresos) {
-			this.progresos.add(progreso);
-		}
-		for (Pregunta pregunta : preguntas) {
-			this.preguntas.add(pregunta);
-		}
-		for (Subscripcion subscripcion : subscripciones) {
-			this.subscripciones.add(subscripcion);
-		}
-	}
+    @OneToMany
+    private ArrayList<Progreso> progresos;
 
 	public String getId() {
 		return id;

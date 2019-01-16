@@ -1,25 +1,20 @@
 package com.bodyFitnessGym.model.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Administrador {
 
+	@Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
 	private String id;
 	private String nombre;
 	private String dni;
 	private String usuario;
 	private String contrasena;
-
-	public Administrador() {
-		super();
-	}
-
-	public Administrador(String id, String nombre, String dni, String usuario, String contrasena) {
-		super();
-		this.id = id;
-		this.nombre = nombre;
-		this.dni = dni;
-		this.usuario = usuario;
-		this.contrasena = contrasena;
-	}
 
 	public String getId() {
 		return id;

@@ -2,12 +2,22 @@ package com.bodyFitnessGym.model.entity;
 
 import java.sql.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+@Entity
 public class Subscripcion {
 
+	@Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
 	private String id;
 	private Date fechaInicio;
 	private Date fechaFin;
 	private int numeroSeciones;
+	@ManyToOne
 	private Servicio servicio;
 
 	public Subscripcion(String id, Date fechaInicio, Date fechaFin, int numeroSeciones,Servicio servicio) {

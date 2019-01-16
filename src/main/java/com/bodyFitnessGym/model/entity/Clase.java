@@ -1,7 +1,16 @@
 package com.bodyFitnessGym.model.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+@Entity
 public class Clase {
 
+	@Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
 	private String id;
 	private String nombre;
 	private String descripcion;
@@ -9,20 +18,8 @@ public class Clase {
 	private String dia;
 	private String horaInicio;
 	private String horaFin;
+	@ManyToOne
 	private Servicio servicio;
-
-	public Clase(String id, String nombre, String descripcion, int numeroCupos, String dia, String horaInicio,
-			String horaFin, Servicio servicio) {
-		super();
-		this.id = id;
-		this.nombre = nombre;
-		this.descripcion = descripcion;
-		this.numeroCupos = numeroCupos;
-		this.dia = dia;
-		this.horaInicio = horaInicio;
-		this.horaFin = horaFin;
-		this.servicio = servicio;
-	}
 
 	public String getId() {
 		return id;

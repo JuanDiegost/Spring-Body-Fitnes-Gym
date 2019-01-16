@@ -1,26 +1,19 @@
 package com.bodyFitnessGym.model.entity;
 
-public class Entrenador {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
+@Entity
+public class Entrenador {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private String id;
 	private String dni;
 	private String nombre;
 	private String telefono;
 	private String email;
-
-	public Entrenador(String id, String dni, String nombre, String telefono, String email) {
-		super();
-		this.id = id;
-		this.dni = dni;
-		this.nombre = nombre;
-		this.telefono = telefono;
-		this.email = email;
-	}
-
-	public Entrenador() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
 
 	public String getId() {
 		return id;
