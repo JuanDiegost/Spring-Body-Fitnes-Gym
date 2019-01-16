@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,12 +14,12 @@ import javax.persistence.OneToMany;
 
 import com.bodyFitnessGym.persistence.DataBaseAcces;
 
-@Entity // This tells Hibernate to make a table out of this class
+@Entity
 public class Alumno {
 
 	@Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-	private String id;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
 	private String nombre;
 	private String dni;
 	private String telefono;
@@ -27,21 +28,21 @@ public class Alumno {
 	private String contrasena;
 	private Date fechaNacimiento;
 	private char genero;
-    
+
 	@OneToMany
-	private ArrayList<Subscripcion> subscripciones;
-    
-    @OneToMany
-	private ArrayList<Pregunta> preguntas;
+	private List<Subscripcion> subscripciones;
 
-    @OneToMany
-    private ArrayList<Progreso> progresos;
+	@OneToMany
+	private List<Pregunta> preguntas;
 
-	public String getId() {
+	@OneToMany
+	private List<Progreso> progresos;
+
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -109,7 +110,7 @@ public class Alumno {
 		this.genero = genero;
 	}
 
-	public ArrayList<Subscripcion> getSubscripciones() {
+	public List<Subscripcion> getSubscripciones() {
 		return subscripciones;
 	}
 
@@ -117,11 +118,7 @@ public class Alumno {
 		this.subscripciones = subscripciones;
 	}
 
-	public void addSubscripcion(Subscripcion subscripcion) {
-		subscripciones.add(subscripcion);
-	}
-
-	public ArrayList<Pregunta> getPreguntas() {
+	public List<Pregunta> getPreguntas() {
 		return preguntas;
 	}
 
@@ -129,12 +126,16 @@ public class Alumno {
 		this.preguntas = preguntas;
 	}
 
-	public ArrayList<Progreso> getProgresos() {
+	public List<Progreso> getProgresos() {
 		return progresos;
 	}
 
 	public void setProgresos(ArrayList<Progreso> progresos) {
 		this.progresos = progresos;
+	}
+
+	public void addSubscripcion(Subscripcion subscripcion) {
+		subscripciones.add(subscripcion);
 	}
 
 	public void addPregunta(Pregunta pregunta) {
@@ -148,7 +149,7 @@ public class Alumno {
 	public void inserIntoDataBase() throws SQLException {
 		PreparedStatement sta = DataBaseAcces.getInstance().getConnection()
 				.prepareStatement("INSERT INTO ALUMNO VALUES(?,?,?,?,?,?,?,?,?)");
-		sta.setString(1, id);
+		sta.setLong(1, id);
 		sta.setString(2, nombre);
 		sta.setString(3, dni);
 		sta.setString(4, telefono);

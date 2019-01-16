@@ -9,17 +9,17 @@ import javax.persistence.Id;
 public class Entrenador {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private String id;
+	private Long id;
 	private String dni;
 	private String nombre;
 	private String telefono;
 	private String email;
 
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

@@ -88,7 +88,7 @@ public class Manager {
 			ResultSet resultset = DataBaseAcces.getInstance().getStatement().executeQuery("SELECT * FROM ALUMNOS");
 			while (resultset.next()) {
 				Alumno alumno = new Alumno();
-				alumno.setId(resultset.getString(1));
+				//alumno.setId(resultset.getString(1));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

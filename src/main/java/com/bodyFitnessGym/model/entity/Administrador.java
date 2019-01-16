@@ -10,17 +10,17 @@ public class Administrador {
 
 	@Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-	private String id;
+	private Long id;
 	private String nombre;
 	private String dni;
 	private String usuario;
 	private String contrasena;
 
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

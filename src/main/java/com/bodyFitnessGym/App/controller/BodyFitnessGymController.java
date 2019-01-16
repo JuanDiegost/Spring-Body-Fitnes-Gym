@@ -19,13 +19,38 @@ import com.bodyFitnessGym.model.entity.Progreso;
 import com.bodyFitnessGym.model.entity.Servicio;
 import com.bodyFitnessGym.model.entity.Subscripcion;
 import com.bodyFitnessGym.persistence.JsonManager;
+import com.bodyFitnessGym.repository.AdministradorRepository;
+import com.bodyFitnessGym.repository.ClaseRepository;
+import com.bodyFitnessGym.repository.EntrenadorRepository;
 import com.bodyFitnessGym.repository.EstudianteRepository;
+import com.bodyFitnessGym.repository.MovimientoRepository;
+import com.bodyFitnessGym.repository.PreguntaRepository;
+import com.bodyFitnessGym.repository.ProgresoRepository;
+import com.bodyFitnessGym.repository.ServicioRepository;
+import com.bodyFitnessGym.repository.SubscripcionRepository;
 
 @RestController
 public class BodyFitnessGymController {
 
 	@Autowired
 	private EstudianteRepository estudianteRepository;
+	@Autowired
+	private AdministradorRepository administradorRepository;
+	@Autowired
+	private ClaseRepository claseRepository;
+	@Autowired
+	private EntrenadorRepository entrenadorRepository;
+	@Autowired
+	private MovimientoRepository movimientoRepository;
+	@Autowired
+	private PreguntaRepository preguntaRepository;
+	@Autowired
+	private ProgresoRepository progresoRepository;
+	@Autowired
+	private ServicioRepository servicioRepository;
+	@Autowired
+	private SubscripcionRepository subscripcionRepository;
+
 	// ----------Alumnos---------------------------------------//
 
 	@RequestMapping(value = "/alumnos", method = RequestMethod.GET)
@@ -34,14 +59,14 @@ public class BodyFitnessGymController {
 	}
 
 	@RequestMapping(value = "/alumno/{id}", method = RequestMethod.GET)
-	public String getAlumno(@PathVariable String id) {
+	public String getAlumno(@PathVariable Long id) {
 		if (estudianteRepository.existsById(id))
 			return JsonManager.toJson(estudianteRepository.findById(id));
 		return "No se encontro al estudiante";
 	}
 
 	@RequestMapping(value = "/alumno/{id}", method = RequestMethod.DELETE)
-	public String deletAlumno(@PathVariable String id) {
+	public String deletAlumno(@PathVariable Long id) {
 		if (estudianteRepository.existsById(id)) {
 			estudianteRepository.deleteById(id);
 			return "Estudiante eliminado";
@@ -65,168 +90,177 @@ public class BodyFitnessGymController {
 
 	@RequestMapping(value = "/servicios", method = RequestMethod.GET)
 	public String getServicios() {
-		return "servicios";
+		return JsonManager.toJson(servicioRepository.findAll());
 	}
 
 	@RequestMapping(value = "/servicio/{id}", method = RequestMethod.GET)
-	public String getServicio(@PathVariable String id) {
-		return "servicios";
+	public String getServicio(@PathVariable Long id) {
+		return JsonManager.toJson(estudianteRepository.findById(id));
 	}
 
 	@RequestMapping(value = "/servicio/{id}", method = RequestMethod.DELETE)
-	public String deletServicio(@PathVariable String id) {
-		return "servicios";
-
+	public String deletServicio(@PathVariable Long id) {
+		servicioRepository.deleteById(id);
+		return "Borrado";
 	}
 
 	@RequestMapping(value = "/servicio", method = RequestMethod.PUT)
 	public String updateServicio(@Valid @RequestBody Servicio p) {
-		return "servicios";
+		return JsonManager.toJson(servicioRepository.save(p));
 	}
 
 	@RequestMapping(value = "/servicio", method = RequestMethod.POST)
 	public String createServicio(@Valid @RequestBody Servicio p) {
-		return "servicios";
+		return JsonManager.toJson(servicioRepository.save(p));
 	}
 
 	// ----------Clases---------------------------------------//
 
 	@RequestMapping(value = "/clases", method = RequestMethod.GET)
 	public String getClases() {
-		return "Clases";
+		return JsonManager.toJson(claseRepository.findAll());
 	}
 
 	@RequestMapping(value = "/clase/{id}", method = RequestMethod.GET)
-	public String getClases(@PathVariable String id) {
-		return "Clases";
+	public String getClases(@PathVariable Long id) {
+		return JsonManager.toJson(servicioRepository.findById(id));
 	}
 
 	@RequestMapping(value = "/clase/{id}", method = RequestMethod.DELETE)
-	public String deletClases(@PathVariable String id) {
-		return "Clases";
+	public String deletClases(@PathVariable Long id) {
+		claseRepository.deleteById(id);
+		return "Borrado";
 
 	}
 
 	@RequestMapping(value = "/clase", method = RequestMethod.PUT)
 	public String updateClases(@Valid @RequestBody Clase p) {
-		return "Clases";
+		return JsonManager.toJson(claseRepository.save(p));
 	}
 
 	@RequestMapping(value = "/clases", method = RequestMethod.POST)
 	public String createClases(@Valid @RequestBody Clase p) {
-		return "Clases";
+		return JsonManager.toJson(claseRepository.save(p));
 	}
 
 	// ----------Entrenador---------------------------------------//
 
 	@RequestMapping(value = "/entrenadores", method = RequestMethod.GET)
 	public String getEntrenadores() {
-		return "Entrenadores";
+		return JsonManager.toJson(entrenadorRepository.findAll());
 	}
 
 	@RequestMapping(value = "/entrenador/{id}", method = RequestMethod.GET)
-	public String getEntrenador(@PathVariable String id) {
-		return "Entrenador";
+	public String getEntrenador(@PathVariable Long id) {
+		return JsonManager.toJson(entrenadorRepository.findById(id));
 	}
 
 	@RequestMapping(value = "/entrenador/{id}", method = RequestMethod.DELETE)
-	public String deletEntrenador(@PathVariable String id) {
-		return "Entrenador";
+	public String deletEntrenador(@PathVariable Long id) {
+		entrenadorRepository.deleteById(id);
+		return "Borrado";
 
 	}
 
 	@RequestMapping(value = "/entrenador", method = RequestMethod.PUT)
 	public String updateEntrenador(@Valid @RequestBody Entrenador p) {
-		return "Entrenador";
+		return JsonManager.toJson(entrenadorRepository.save(p));
 	}
 
 	@RequestMapping(value = "/entrenador", method = RequestMethod.POST)
 	public String createEntrenador(@Valid @RequestBody Entrenador p) {
-		return "Entrenador";
+		return JsonManager.toJson(entrenadorRepository.save(p));
 	}
 
 	// ----------Movimiento de caja---------------------------------------//
 
 	@RequestMapping(value = "/movimientos", method = RequestMethod.GET)
 	public String getMoviminetos() {
-		return "Movimientos";
+		return JsonManager.toJson(movimientoRepository.findAll());
 	}
 
 	@RequestMapping(value = "/movimiento/{id}", method = RequestMethod.GET)
-	public String getMovimiento(@PathVariable String id) {
-		return "movimiento";
+	public String getMovimiento(@PathVariable Long id) {
+		return JsonManager.toJson(movimientoRepository.findById(id));
 	}
 
 	@RequestMapping(value = "/movimiento/{id}", method = RequestMethod.DELETE)
-	public String deletMovimiento(@PathVariable String id) {
-		return "movimiento";
+	public String deletMovimiento(@PathVariable Long id) {
+		movimientoRepository.deleteById(id);
+		return "borrado";
 
 	}
 
 	@RequestMapping(value = "/movimiento", method = RequestMethod.PUT)
 	public String updateMovimiento(@Valid @RequestBody MovimientoCaja p) {
-		return "movimiento";
+		return JsonManager.toJson(movimientoRepository.save(p));
 	}
 
 	@RequestMapping(value = "/movimiento", method = RequestMethod.POST)
 	public String createMovimiento(@Valid @RequestBody MovimientoCaja p) {
-		return "Movimiento";
+		return JsonManager.toJson(movimientoRepository.save(p));
 	}
 
 	// ----------Preguntas---------------------------------------//
 
 	@RequestMapping(value = "/preguntas", method = RequestMethod.GET)
 	public String getPreguntas() {
-		return "preguntas";
+		return JsonManager.toJson(preguntaRepository.findAll());
 	}
 
 	@RequestMapping(value = "/pregunta/{id}", method = RequestMethod.GET)
-	public String getPregunta(@PathVariable String id) {
-		return "Pregunta";
+	public String getPregunta(@PathVariable Long id) {
+		return JsonManager.toJson(preguntaRepository.findById(id));
 	}
 
 	@RequestMapping(value = "/pregunta/{id}", method = RequestMethod.DELETE)
-	public String deletPregunta(@PathVariable String id) {
-		return "Pregunta";
+	public String deletPregunta(@PathVariable Long id) {
+		preguntaRepository.deleteById(id);
+		return "borrado";
 
 	}
 
 	@RequestMapping(value = "/pregunta", method = RequestMethod.PUT)
 	public String updatePregunta(@Valid @RequestBody Pregunta p) {
-		return "Pregunta";
+		return JsonManager.toJson(preguntaRepository.save(p));
 	}
 
 	@RequestMapping(value = "/pregunta", method = RequestMethod.POST)
 	public String createPregunta(@Valid @RequestBody Pregunta p) {
-		return "Movimiento";
+		return JsonManager.toJson(preguntaRepository.save(p));
 	}
 
 	// ----------Progresos---------------------------------------//
 
 	@RequestMapping(value = "/progresos/alumno/{id}", method = RequestMethod.GET)
-	public String getProgresosAlumno(@PathVariable String idAlumno) {
-		return "Progreso";
+	public String getProgresosAlumno(@PathVariable Long idAlumno) {
+		return JsonManager.toJson(progresoRepository.findById(idAlumno));
 	}
 
 	@RequestMapping(value = "/progreso/{id}", method = RequestMethod.GET)
-	public String getProgreso(@PathVariable String idProgreso) {
-		return "Progreso";
+	public String getProgreso(@PathVariable Long idProgreso) {
+		return JsonManager.toJson(progresoRepository.findById(idProgreso));
 	}
 
 	@RequestMapping(value = "/progreso", method = RequestMethod.DELETE)
-	public String deletProgreso(@PathVariable String idProgreso) {
-		return "Progreso";
+	public String deletProgreso(@PathVariable Long idProgreso) {
+		progresoRepository.deleteById(idProgreso);
+		return "Borrado";
 
 	}
 
 	@RequestMapping(value = "/progreso", method = RequestMethod.PUT)
 	public String updateProgreso(@Valid @RequestBody Progreso p) {
-		return "Progreso";
+		return JsonManager.toJson(progresoRepository.save(p));
 	}
 
 	@RequestMapping(value = "/progreso/{id}", method = RequestMethod.POST)
-	public String createProgreso(@Valid @RequestBody Progreso p, @PathVariable String idEstudiante) {
-		return "Progreso";
+	public String createProgreso(@Valid @RequestBody Progreso p, @PathVariable Long idEstudiante) {
+		p=progresoRepository.save(p);
+		Alumno alumno=estudianteRepository.findById(idEstudiante).get();
+		alumno.addProgreso(p);
+		estudianteRepository.save(alumno);
+		return JsonManager.toJson(p);
 	}
 
 	// ----------subscripciones---------------------------------------//

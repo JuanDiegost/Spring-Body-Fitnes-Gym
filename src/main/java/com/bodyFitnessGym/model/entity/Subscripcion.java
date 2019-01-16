@@ -13,33 +13,18 @@ public class Subscripcion {
 
 	@Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-	private String id;
+	private Long id;
 	private Date fechaInicio;
 	private Date fechaFin;
 	private int numeroSeciones;
 	@ManyToOne
 	private Servicio servicio;
-
-	public Subscripcion(String id, Date fechaInicio, Date fechaFin, int numeroSeciones,Servicio servicio) {
-		super();
-		this.id = id;
-		this.fechaInicio = fechaInicio;
-		this.fechaFin = fechaFin;
-		this.numeroSeciones = numeroSeciones;
-		this.servicio=servicio;
-	}
-
-	public Subscripcion() {
-		super();
-	}
 	
-
-	
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

@@ -9,16 +9,16 @@ import javax.persistence.Id;
 public class Servicio {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private String id;
+	private Long id;
 	private String nombre;
 	private String descripcion;
 	private double precio;
 
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

@@ -10,7 +10,7 @@ import javax.persistence.OneToOne;
 public class MovimientoCaja {
 	@Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-	private String id;
+	private Long id;
 	private String descripcion;
 	private String tipo;
 	private double valor;
@@ -18,11 +18,11 @@ public class MovimientoCaja {
 	private Subscripcion subscripcion;
 
 
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
