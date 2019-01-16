@@ -127,7 +127,7 @@ public class BodyFitnessGymController {
 
 	@RequestMapping(value = "/entrenadores", method = RequestMethod.GET)
 	public String getEntrenadores() {
-		return "Clases";
+		return "Entrenadores";
 	}
 
 	@RequestMapping(value = "/entrenador/{id}", method = RequestMethod.GET)
@@ -245,7 +245,7 @@ public class BodyFitnessGymController {
 		return "subscripcion";
 	}
 	
-	@RequestMapping(value = "/subscripciones/", method = RequestMethod.GET)
+	@RequestMapping(value = "/subscripciones", method = RequestMethod.GET)
 	public String getSubscripciones() {
 		return "subscripciones";
 	}
