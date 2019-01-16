@@ -233,12 +233,12 @@ public class BodyFitnessGymController {
 	// ----------Progresos---------------------------------------//
 
 	@RequestMapping(value = "/progresos/alumno/{id}", method = RequestMethod.GET)
-	public String getProgresosAlumno(@PathVariable Long idAlumno) {
+	public String getProgresosAlumno(@PathVariable("id") Long idAlumno) {
 		return JsonManager.toJson(progresoRepository.findById(idAlumno));
 	}
 
 	@RequestMapping(value = "/progreso/{id}", method = RequestMethod.GET)
-	public String getProgreso(@PathVariable Long idProgreso) {
+	public String getProgreso(@PathVariable("id") Long idProgreso) {
 		return JsonManager.toJson(progresoRepository.findById(idProgreso));
 	}
 
@@ -255,7 +255,7 @@ public class BodyFitnessGymController {
 	}
 
 	@RequestMapping(value = "/progreso/{id}", method = RequestMethod.POST)
-	public String createProgreso(@Valid @RequestBody Progreso p, @PathVariable Long idEstudiante) {
+	public String createProgreso(@Valid @PathVariable("id") Long idEstudiante,@Valid @RequestBody Progreso p) {
 		p=progresoRepository.save(p);
 		Alumno alumno=estudianteRepository.findById(idEstudiante).get();
 		alumno.addProgreso(p);
@@ -266,7 +266,7 @@ public class BodyFitnessGymController {
 	// ----------subscripciones---------------------------------------//
 
 	@RequestMapping(value = "/subscripciones/alumno/{id}", method = RequestMethod.GET)
-	public String getSubscripcionesAlumno(@PathVariable String idAlumno) {
+	public String getSubscripcionesAlumno(@PathVariable("id") String idAlumno) {
 		return "subscripcion";
 	}
 
@@ -276,11 +276,11 @@ public class BodyFitnessGymController {
 	}
 
 	@RequestMapping(value = "/subscripcion/{id}", method = RequestMethod.GET)
-	public String getSubscripcion(@PathVariable String idProgreso) {
+	public String getSubscripcion(@PathVariable("id") String id) {
 		return "subscripcion";
 	}
 
-	@RequestMapping(value = "/subscripcion", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/subscripcion/{id}", method = RequestMethod.DELETE)
 	public String deletSubscripcion(@PathVariable String idProgreso) {
 		return "subscripcion";
 
@@ -292,7 +292,7 @@ public class BodyFitnessGymController {
 	}
 
 	@RequestMapping(value = "/subscripcion/{id}", method = RequestMethod.POST)
-	public String createSubscripcion(@Valid @RequestBody Subscripcion p, @PathVariable String idEstudiante) {
+	public String createSubscripcion(@Valid @RequestBody Subscripcion p, @PathVariable("id") String idEstudiante) {
 		return "subscripcion";
 	}
 
