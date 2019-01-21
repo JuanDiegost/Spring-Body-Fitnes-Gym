@@ -27,3 +27,7 @@
 - /movimiento/{id} GET , DELET
 - /movimiento POST PUT
 
+
+
+faltantes:
+-> en clase movimiento de caja agregar la fecha
