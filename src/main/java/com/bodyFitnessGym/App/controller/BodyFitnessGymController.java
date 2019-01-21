@@ -273,34 +273,34 @@ public class BodyFitnessGymController {
 
 	// ----------subscripciones---------------------------------------//
 
-	@RequestMapping(value = "/subscripciones/alumno/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/suscripciones/alumno/{id}", method = RequestMethod.GET)
 	public String getSubscripcionesAlumno(@PathVariable("id") Long idAlumno) {
 		return JsonManager.toJson(estudianteRepository.findById(idAlumno).get().getProgresos());
 	}
 
-	@RequestMapping(value = "/subscripciones", method = RequestMethod.GET)
+	@RequestMapping(value = "/suscripciones", method = RequestMethod.GET)
 	public String getSubscripciones() {
 		return JsonManager.toJson(subscripcionRepository.findAll());
 	}
 
-	@RequestMapping(value = "/subscripcion/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/suscripcion/{id}", method = RequestMethod.GET)
 	public String getSubscripcion(@PathVariable("id") Long id) {
 		return JsonManager.toJson(subscripcionRepository.findById(id));
 	}
 
-	@RequestMapping(value = "/subscripcion/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/suscripcion/{id}", method = RequestMethod.DELETE)
 	public String deletSubscripcion(@PathVariable("id") Long idProgreso) {
 		progresoRepository.deleteById(idProgreso);
 		return "Borrado";
 
 	}
 
-	@RequestMapping(value = "/subscripcion", method = RequestMethod.PUT)
+	@RequestMapping(value = "/suscripcion", method = RequestMethod.PUT)
 	public String updateSubscripcion(@Valid @RequestBody Subscripcion p) {
 		return JsonManager.toJson(subscripcionRepository.save(p));
 	}
 
-	@RequestMapping(value = "/subscripcion/alumno/{id}/servicio/{idServicio}", method = RequestMethod.POST)
+	@RequestMapping(value = "/suscripcion/alumno/{id}/servicio/{idServicio}", method = RequestMethod.POST)
 	public String createSubscripcion(@Valid @RequestBody Subscripcion p, @PathVariable("id") Long idEstudiante,
 			@PathVariable("idServicio") Long idServicio) {
 		Servicio servicio = servicioRepository.findById(idServicio).get();
