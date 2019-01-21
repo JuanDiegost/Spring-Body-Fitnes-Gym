@@ -138,8 +138,10 @@ public class BodyFitnessGymController {
 		return JsonManager.toJson(claseRepository.save(p));
 	}
 
-	@RequestMapping(value = "/clases", method = RequestMethod.POST)
-	public String createClases(@Valid @RequestBody Clase p) {
+	@RequestMapping(value = "/clase/{idServicio}", method = RequestMethod.POST)
+	public String createClases(@Valid @RequestBody Clase p, @PathVariable("idServicio") Long idServicio) {
+		Servicio servicio = servicioRepository.findById(idServicio).get();
+		p.setServicio(servicio);
 		return JsonManager.toJson(claseRepository.save(p));
 	}
 
@@ -196,6 +198,12 @@ public class BodyFitnessGymController {
 		return JsonManager.toJson(movimientoRepository.save(p));
 	}
 
+	@RequestMapping(value = "/movimiento/{idSuscripcion}", method = RequestMethod.POST)
+	public String createMovimiento(@Valid @RequestBody MovimientoCaja p,
+			@Valid @PathVariable("idSuscripcion") Long idEstudiante) {
+		return JsonManager.toJson(movimientoRepository.save(p));
+	}
+
 	@RequestMapping(value = "/movimiento", method = RequestMethod.POST)
 	public String createMovimiento(@Valid @RequestBody MovimientoCaja p) {
 		return JsonManager.toJson(movimientoRepository.save(p));
@@ -229,7 +237,6 @@ public class BodyFitnessGymController {
 	public String createPregunta(@Valid @RequestBody Pregunta p) {
 		return JsonManager.toJson(preguntaRepository.save(p));
 	}
-	
 
 	// ----------Progresos---------------------------------------//
 
@@ -256,9 +263,9 @@ public class BodyFitnessGymController {
 	}
 
 	@RequestMapping(value = "/progreso/{id}", method = RequestMethod.POST)
-	public String createProgreso(@Valid @PathVariable("id") Long idEstudiante,@Valid @RequestBody Progreso p) {
-		p=progresoRepository.save(p);
-		Alumno alumno=estudianteRepository.findById(idEstudiante).get();
+	public String createProgreso(@Valid @PathVariable("id") Long idEstudiante, @Valid @RequestBody Progreso p) {
+		p = progresoRepository.save(p);
+		Alumno alumno = estudianteRepository.findById(idEstudiante).get();
 		alumno.addProgreso(p);
 		estudianteRepository.save(alumno);
 		return JsonManager.toJson(p);
@@ -293,10 +300,13 @@ public class BodyFitnessGymController {
 		return JsonManager.toJson(subscripcionRepository.save(p));
 	}
 
-	@RequestMapping(value = "/subscripcion/alumno/{id}", method = RequestMethod.POST)
-	public String createSubscripcion(@Valid @RequestBody Subscripcion p, @PathVariable("id") Long idEstudiante) {
-		Subscripcion subscripcion= subscripcionRepository.save(p);
-		Alumno alumno=estudianteRepository.findById(idEstudiante).get();
+	@RequestMapping(value = "/subscripcion/alumno/{id}/{idServicio}", method = RequestMethod.POST)
+	public String createSubscripcion(@Valid @RequestBody Subscripcion p, @PathVariable("id") Long idEstudiante,
+			@PathVariable("idServicio") Long idServicio) {
+		Servicio servicio = servicioRepository.findById(idServicio).get();
+		p.setServicio(servicio);
+		Subscripcion subscripcion = subscripcionRepository.save(p);
+		Alumno alumno = estudianteRepository.findById(idEstudiante).get();
 		alumno.addSubscripcion(subscripcion);
 		estudianteRepository.save(alumno);
 		return JsonManager.toJson(subscripcion);
