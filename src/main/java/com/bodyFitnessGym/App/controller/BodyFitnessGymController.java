@@ -300,7 +300,7 @@ public class BodyFitnessGymController {
 		return JsonManager.toJson(subscripcionRepository.save(p));
 	}
 
-	@RequestMapping(value = "/subscripcion/alumno/{id}/{idServicio}", method = RequestMethod.POST)
+	@RequestMapping(value = "/subscripcion/alumno/{id}/servicio/{idServicio}", method = RequestMethod.POST)
 	public String createSubscripcion(@Valid @RequestBody Subscripcion p, @PathVariable("id") Long idEstudiante,
 			@PathVariable("idServicio") Long idServicio) {
 		Servicio servicio = servicioRepository.findById(idServicio).get();
