@@ -55,7 +55,7 @@ public class BodyFitnessGymController {
 
 	@RequestMapping(value = "/alumnos", method = RequestMethod.GET)
 	public String getAlumnos() {
-		return JsonManager.toJson(estudianteRepository.findAll());
+		return JsonManager.toJson(estudianteRepository.findAllAlumno());
 	}
 
 	@RequestMapping(value = "/alumno/{id}", method = RequestMethod.GET)
