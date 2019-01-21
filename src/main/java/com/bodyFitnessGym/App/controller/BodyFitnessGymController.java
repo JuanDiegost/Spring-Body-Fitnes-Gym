@@ -123,8 +123,14 @@ public class BodyFitnessGymController {
 
 	@RequestMapping(value = "/clase/{id}", method = RequestMethod.GET)
 	public String getClases(@PathVariable Long id) {
-		return JsonManager.toJson(servicioRepository.findById(id));
+		return JsonManager.toJson(claseRepository.findById(id));
 	}
+	
+	@RequestMapping(value = "/clase/servicio/{id}", method = RequestMethod.GET)
+	public String getClasesByIdServicio(@PathVariable Long id) {
+		return JsonManager.toJson(claseRepository.findAllClaseByIdServicio(id));
+	}
+
 
 	@RequestMapping(value = "/clase/{id}", method = RequestMethod.DELETE)
 	public String deletClases(@PathVariable Long id) {
