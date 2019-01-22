@@ -55,7 +55,13 @@ public class BodyFitnessGymController {
 
 	@RequestMapping(value = "/alumnos", method = RequestMethod.GET)
 	public String getAlumnos() {
-		return JsonManager.toJson(estudianteRepository.findAllAlumno());
+		Iterable<Alumno> list=estudianteRepository.findAll();
+		int count=1;
+		for (Alumno alumno : list) {
+			alumno.setPosition(count);
+			count++;
+		}
+		return JsonManager.toJson(list);
 	}
 
 	@RequestMapping(value = "/alumno/{id}", method = RequestMethod.GET)
@@ -207,6 +213,7 @@ public class BodyFitnessGymController {
 	@RequestMapping(value = "/movimiento/{idSuscripcion}", method = RequestMethod.POST)
 	public String createMovimiento(@Valid @RequestBody MovimientoCaja p,
 			@Valid @PathVariable("idSuscripcion") Long idEstudiante) {
+		
 		return JsonManager.toJson(movimientoRepository.save(p));
 	}
 

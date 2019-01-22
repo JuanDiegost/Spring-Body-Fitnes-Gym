@@ -12,6 +12,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+
+import org.springframework.data.annotation.Transient;
 
 import com.bodyFitnessGym.persistence.DataBaseAcces;
 
@@ -19,7 +22,8 @@ import com.bodyFitnessGym.persistence.DataBaseAcces;
 public class Alumno {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "exception_seq_generator")
+	@SequenceGenerator(name = "exception_seq_generator", sequenceName = "exception_seq", allocationSize=1)
 	private Long id;
 	private String nombre;
 	private String dni;
@@ -32,6 +36,9 @@ public class Alumno {
 
 	@OneToMany(cascade = CascadeType.REMOVE)
 	private List<Subscripcion> subscripciones;
+	
+	@Transient
+	private int position;
 
 	@OneToMany
 	private List<Pregunta> preguntas;
@@ -145,6 +152,27 @@ public class Alumno {
 
 	public void addProgreso(Progreso progreso) {
 		progresos.add(progreso);
+	}
+
+
+	public int getPosition() {
+		return position;
+	}
+
+	public void setPosition(int position) {
+		this.position = position;
+	}
+
+	public void setSubscripciones(List<Subscripcion> subscripciones) {
+		this.subscripciones = subscripciones;
+	}
+
+	public void setPreguntas(List<Pregunta> preguntas) {
+		this.preguntas = preguntas;
+	}
+
+	public void setProgresos(List<Progreso> progresos) {
+		this.progresos = progresos;
 	}
 
 	public void inserIntoDataBase() throws SQLException {

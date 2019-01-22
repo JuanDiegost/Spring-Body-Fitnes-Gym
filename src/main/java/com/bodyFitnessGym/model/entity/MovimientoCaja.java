@@ -1,5 +1,7 @@
 package com.bodyFitnessGym.model.entity;
 
+import java.sql.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,6 +18,7 @@ public class MovimientoCaja {
 	private double valor;
 	@OneToOne
 	private Subscripcion subscripcion;
+	private Date fecha;
 
 
 	public Long getId() {
@@ -56,6 +59,14 @@ public class MovimientoCaja {
 
 	public void setSubscripcion(Subscripcion subscripcion) {
 		this.subscripcion = subscripcion;
+	}
+
+	public Date getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
 	}
 
 }
