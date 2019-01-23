@@ -17,6 +17,8 @@ import javax.persistence.SequenceGenerator;
 import org.springframework.data.annotation.Transient;
 
 import com.bodyFitnessGym.persistence.DataBaseAcces;
+import com.bodyFitnessGym.persistence.JsonManager;
+import com.mashape.unirest.http.exceptions.UnirestException;
 
 @Entity
 public class Alumno {
@@ -46,6 +48,9 @@ public class Alumno {
 	@OneToMany(cascade = CascadeType.REMOVE)
 	private List<Progreso> progresos;
 
+	@OneToMany(cascade = CascadeType.REMOVE)
+	private List<ProgresoImagen> progresosImagen;
+	
 	public Long getId() {
 		return id;
 	}
@@ -154,7 +159,23 @@ public class Alumno {
 		progresos.add(progreso);
 	}
 
-
+	public void addProgresoImagen(ProgresoImagen progresoImagen) throws UnirestException {
+		ArrayList<Double> clusters = JsonManager.getClusterValues("");
+		progresoImagen.setClusterCuerpo(clusters.get(0));
+		progresoImagen.setClusterSombra(clusters.get(1));
+		if (progresosImagen.size()==0) {
+			progresosImagen.add(progresoImagen);
+		}else {
+			ProgresoImagen ultimoProgreso = progresosImagen.get(progresosImagen.size()-1);
+			progresoImagen.setMasaCorporal((    (progresoImagen.getClusterCuerpo()+progresoImagen.getClusterSombra())
+					* ultimoProgreso.getMasaCorporal())
+					/(ultimoProgreso.getClusterCuerpo()+ ultimoProgreso.getClusterSombra()));
+			progresoImagen.setGrasaCorporal((    (1/progresoImagen.getClusterSombra())
+					* ultimoProgreso.getGrasaCorporal())
+					/(1/ ultimoProgreso.getClusterSombra()));
+		}
+	}
+	
 	public int getPosition() {
 		return position;
 	}
@@ -173,6 +194,14 @@ public class Alumno {
 
 	public void setProgresos(List<Progreso> progresos) {
 		this.progresos = progresos;
+	}
+	
+	public List<ProgresoImagen> getImagenProgresos() {
+		return progresosImagen;
+	}
+
+	public void setImagenProgresos(List<ProgresoImagen> imagenProgresos) {
+		this.progresosImagen = imagenProgresos;
 	}
 
 	public void inserIntoDataBase() throws SQLException {

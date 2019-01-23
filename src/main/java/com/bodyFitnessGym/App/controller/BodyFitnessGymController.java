@@ -8,11 +8,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.bodyFitnessGym.manager.Manager;
 import com.bodyFitnessGym.model.entity.Alumno;
 import com.bodyFitnessGym.model.entity.Clase;
 import com.bodyFitnessGym.model.entity.Entrenador;
+import com.bodyFitnessGym.model.entity.ProgresoImagen;
 import com.bodyFitnessGym.model.entity.MovimientoCaja;
 import com.bodyFitnessGym.model.entity.Pregunta;
 import com.bodyFitnessGym.model.entity.Progreso;
@@ -23,11 +22,13 @@ import com.bodyFitnessGym.repository.AdministradorRepository;
 import com.bodyFitnessGym.repository.ClaseRepository;
 import com.bodyFitnessGym.repository.EntrenadorRepository;
 import com.bodyFitnessGym.repository.EstudianteRepository;
+import com.bodyFitnessGym.repository.ImagenProgresoRepository;
 import com.bodyFitnessGym.repository.MovimientoRepository;
 import com.bodyFitnessGym.repository.PreguntaRepository;
 import com.bodyFitnessGym.repository.ProgresoRepository;
 import com.bodyFitnessGym.repository.ServicioRepository;
 import com.bodyFitnessGym.repository.SubscripcionRepository;
+import com.mashape.unirest.http.exceptions.UnirestException;
 
 @RestController
 public class BodyFitnessGymController {
@@ -47,6 +48,8 @@ public class BodyFitnessGymController {
 	@Autowired
 	private ProgresoRepository progresoRepository;
 	@Autowired
+	private ImagenProgresoRepository progresoImagenRepository;
+	@Autowired
 	private ServicioRepository servicioRepository;
 	@Autowired
 	private SubscripcionRepository subscripcionRepository;
@@ -55,8 +58,8 @@ public class BodyFitnessGymController {
 
 	@RequestMapping(value = "/alumnos", method = RequestMethod.GET)
 	public String getAlumnos() {
-		Iterable<Alumno> list=estudianteRepository.findAll();
-		int count=1;
+		Iterable<Alumno> list = estudianteRepository.findAll();
+		int count = 1;
 		for (Alumno alumno : list) {
 			alumno.setPosition(count);
 			count++;
@@ -131,12 +134,11 @@ public class BodyFitnessGymController {
 	public String getClases(@PathVariable Long id) {
 		return JsonManager.toJson(claseRepository.findById(id));
 	}
-	
+
 	@RequestMapping(value = "/clase/servicio/{id}", method = RequestMethod.GET)
 	public String getClasesByIdServicio(@PathVariable Long id) {
 		return JsonManager.toJson(claseRepository.findAllClaseByIdServicio(id));
 	}
-
 
 	@RequestMapping(value = "/clase/{id}", method = RequestMethod.DELETE)
 	public String deletClases(@PathVariable Long id) {
@@ -213,7 +215,7 @@ public class BodyFitnessGymController {
 	@RequestMapping(value = "/movimiento/{idSuscripcion}", method = RequestMethod.POST)
 	public String createMovimiento(@Valid @RequestBody MovimientoCaja p,
 			@Valid @PathVariable("idSuscripcion") Long idEstudiante) {
-		
+
 		return JsonManager.toJson(movimientoRepository.save(p));
 	}
 
@@ -281,6 +283,47 @@ public class BodyFitnessGymController {
 		Alumno alumno = estudianteRepository.findById(idEstudiante).get();
 		alumno.addProgreso(p);
 		estudianteRepository.save(alumno);
+		return JsonManager.toJson(p);
+	}
+
+	// ----------Progresos Imagen---------------------------------------//
+
+	@RequestMapping(value = "/progresosImagen/alumno/{id}", method = RequestMethod.GET)
+	public String getProgresosImagenAlumno(@PathVariable("id") Long idAlumno) {
+		return JsonManager.toJson(estudianteRepository.findById(idAlumno).get().getImagenProgresos());
+	}
+
+	@RequestMapping(value = "/progresoImagen/{id}", method = RequestMethod.GET)
+	public String getProgresoImagen(@PathVariable("id") Long idProgresoImagen) {
+		return JsonManager.toJson(progresoImagenRepository.findById(idProgresoImagen).get());
+	}
+
+	@RequestMapping(value = "/progresoImagen/{id}", method = RequestMethod.DELETE)
+	public String deletProgresoImagen(@PathVariable("id") Long idProgresoImagen) {
+		progresoImagenRepository.deleteById(idProgresoImagen);
+		return "Borrado";
+
+	}
+
+	@RequestMapping(value = "/progresoImagen", method = RequestMethod.PUT)
+	public String updateProgresoImagen(@Valid @RequestBody ProgresoImagen p) {
+		return JsonManager.toJson(progresoImagenRepository.save(p));
+	}
+
+	@RequestMapping(value = "/progresoImagen/{id}", method = RequestMethod.POST)
+	public String createProgresoImagen(@Valid @PathVariable("id") Long idEstudiante,
+			@Valid @RequestBody ProgresoImagen p) {
+		Alumno alumno = estudianteRepository.findById(idEstudiante).get();
+		try {
+			System.out.println("entro");
+			alumno.addProgresoImagen(p);
+			System.out.println("salio");
+
+			estudianteRepository.save(alumno);
+			p = progresoImagenRepository.save(p);
+		} catch (UnirestException e) {
+			e.printStackTrace();
+		}
 		return JsonManager.toJson(p);
 	}
 
