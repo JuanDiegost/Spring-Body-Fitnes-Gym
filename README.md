@@ -14,7 +14,7 @@
 
 - /clases GET
  - /clase/{id} GET , DELET
-- /clase POST PUT
+- /clase/servicio/{idServicio}/entrenador/{idEntrenador} POST 
 
 - /entrenadores GET
 - /entrenador/{id} GET , DELET
