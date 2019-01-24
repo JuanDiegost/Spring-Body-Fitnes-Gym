@@ -12,37 +12,35 @@ import javax.persistence.OneToOne;
 public class MovimientoCaja {
 	@Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-	private Long id;
-	private String descripcion;
-	private String tipo;
+	private Long idMovimiento;
+	private String descripcionMovimiento;
 	private double valor;
+	private String tipo;
+	private Date fechaMovimiento;
+	
 	@OneToOne
 	private Subscripcion subscripcion;
-	private Date fecha;
 
-
-	public Long getId() {
-		return id;
+	public MovimientoCaja() {
+		super();
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	//--------------Getters&Setters-------------------
+	
+	public Long getIdMovimiento() {
+		return idMovimiento;
 	}
 
-	public String getDescripcion() {
-		return descripcion;
+	public void setIdMovimiento(Long idMovimiento) {
+		this.idMovimiento = idMovimiento;
 	}
 
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
+	public String getDescripcionMovimiento() {
+		return descripcionMovimiento;
 	}
 
-	public String getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
+	public void setDescripcionMovimiento(String descripcionMovimiento) {
+		this.descripcionMovimiento = descripcionMovimiento;
 	}
 
 	public double getValor() {
@@ -53,6 +51,22 @@ public class MovimientoCaja {
 		this.valor = valor;
 	}
 
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+
+	public Date getFechaMovimiento() {
+		return fechaMovimiento;
+	}
+
+	public void setFechaMovimiento(Date fechaMovimiento) {
+		this.fechaMovimiento = fechaMovimiento;
+	}
+
 	public Subscripcion getSubscripcion() {
 		return subscripcion;
 	}
@@ -60,13 +74,4 @@ public class MovimientoCaja {
 	public void setSubscripcion(Subscripcion subscripcion) {
 		this.subscripcion = subscripcion;
 	}
-
-	public Date getFecha() {
-		return fecha;
-	}
-
-	public void setFecha(Date fecha) {
-		this.fecha = fecha;
-	}
-
 }

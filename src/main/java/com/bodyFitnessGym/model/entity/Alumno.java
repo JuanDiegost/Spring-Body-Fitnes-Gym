@@ -1,11 +1,8 @@
 package com.bodyFitnessGym.model.entity;
 
 import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,10 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
-
+import javax.validation.Valid;
 import org.springframework.data.annotation.Transient;
-
-import com.bodyFitnessGym.persistence.DataBaseAcces;
 import com.bodyFitnessGym.persistence.JsonManager;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
@@ -25,86 +20,121 @@ public class Alumno {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "exception_seq_generator")
-	@SequenceGenerator(name = "exception_seq_generator", sequenceName = "exception_seq", allocationSize=1)
-	private Long id;
-	private String nombre;
-	private String dni;
-	private String telefono;
-	private String email;
-	private String usuario;
-	private String contrasena;
+	@SequenceGenerator(name = "exception_seq_generator", sequenceName = "exception_seq", allocationSize = 1)
+	private Long idAlumno;
+	private String dniAlumno;
+	private String nombreAlumno;
+	private String telefonoAlumno;
+	private String emailAlumno;
+	private String urlImagenUsuario;
+	private String usuarioAlumno;
+	private String contrasenia;
 	private Date fechaNacimiento;
 	private char genero;
 
 	@OneToMany(cascade = CascadeType.REMOVE)
-	private List<Subscripcion> subscripciones;
-	
+	private List<Subscripcion> historialSuscripcion;
+
 	@Transient
 	private int position;
 
 	@OneToMany
-	private List<Pregunta> preguntas;
+	private List<Pregunta> historialMedico;
 
 	@OneToMany(cascade = CascadeType.REMOVE)
-	private List<Progreso> progresos;
+	private List<Progreso> historialProgreso;
 
 	@OneToMany(cascade = CascadeType.REMOVE)
-	private List<ProgresoImagen> progresosImagen;
+	private List<ProgresoImagen> historialProgresoImagen;
+
+	@OneToMany
+	private List<Clase> asistencia;
+
+	public Alumno() {
+		super();
+	}
+
+	public void addProgresoImagen(ProgresoImagen progresoImagen) throws UnirestException {
+		ArrayList<Double> clusters = JsonManager.getClusterValues(progresoImagen.getUrl());
+		progresoImagen.setClusterCuerpo(clusters.get(0));
+		progresoImagen.setClusterSombra(clusters.get(1));
+		if (historialProgresoImagen.size() == 0) {
+			historialProgresoImagen.add(progresoImagen);
+		} else {
+			ProgresoImagen ultimoProgreso = historialProgresoImagen.get(historialProgresoImagen.size() - 1);
+			progresoImagen.setMasaCorporal(((progresoImagen.getClusterCuerpo() + progresoImagen.getClusterSombra())
+					* ultimoProgreso.getMasaCorporal())
+					/ (ultimoProgreso.getClusterCuerpo() + ultimoProgreso.getClusterSombra()));
+			progresoImagen
+					.setGrasaCorporal(((1 / progresoImagen.getClusterSombra()) * ultimoProgreso.getGrasaCorporal())
+							/ (1 / ultimoProgreso.getClusterSombra()));
+			historialProgresoImagen.add(progresoImagen);
+		}
+	}
 	
-	public Long getId() {
-		return id;
+	// -------------getters&Setters-----------------------------
+	public Long getIdAlumno() {
+		return idAlumno;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setIdAlumno(Long idAlumno) {
+		this.idAlumno = idAlumno;
 	}
 
-	public String getNombre() {
-		return nombre;
+	public String getDniAlumno() {
+		return dniAlumno;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setDniAlumno(String dniAlumno) {
+		this.dniAlumno = dniAlumno;
 	}
 
-	public String getDni() {
-		return dni;
+	public String getNombreAlumno() {
+		return nombreAlumno;
 	}
 
-	public void setDni(String dni) {
-		this.dni = dni;
+	public void setNombreAlumno(String nombreAlumno) {
+		this.nombreAlumno = nombreAlumno;
 	}
 
-	public String getTelefono() {
-		return telefono;
+	public String getTelefonoAlumno() {
+		return telefonoAlumno;
 	}
 
-	public void setTelefono(String telefono) {
-		this.telefono = telefono;
+	public void setTelefonoAlumno(String telefonoAlumno) {
+		this.telefonoAlumno = telefonoAlumno;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getEmailAlumno() {
+		return emailAlumno;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setEmailAlumno(String emailAlumno) {
+		this.emailAlumno = emailAlumno;
 	}
 
-	public String getUsuario() {
-		return usuario;
+	public String getUrlImagenUsuario() {
+		return urlImagenUsuario;
 	}
 
-	public void setUsuario(String usuario) {
-		this.usuario = usuario;
+	public void setUrlImagenUsuario(String urlImagenUsuario) {
+		this.urlImagenUsuario = urlImagenUsuario;
 	}
 
-	public String getContrasena() {
-		return contrasena;
+	public String getUsuarioAlumno() {
+		return usuarioAlumno;
 	}
 
-	public void setContrasena(String contrasena) {
-		this.contrasena = contrasena;
+	public void setUsuarioAlumno(String usuarioAlumno) {
+		this.usuarioAlumno = usuarioAlumno;
+	}
+
+	public String getContrasenia() {
+		return contrasenia;
+	}
+
+	public void setContrasenia(String contrasenia) {
+		this.contrasenia = contrasenia;
 	}
 
 	public Date getFechaNacimiento() {
@@ -123,60 +153,14 @@ public class Alumno {
 		this.genero = genero;
 	}
 
-	public List<Subscripcion> getSubscripciones() {
-		return subscripciones;
+	public List<Subscripcion> getHistorialSuscripcion() {
+		return historialSuscripcion;
 	}
 
-	public void setSubscripciones(ArrayList<Subscripcion> subscripciones) {
-		this.subscripciones = subscripciones;
+	public void setHistorialSuscripcion(List<Subscripcion> historialSuscripcion) {
+		this.historialSuscripcion = historialSuscripcion;
 	}
 
-	public List<Pregunta> getPreguntas() {
-		return preguntas;
-	}
-
-	public void setPreguntas(ArrayList<Pregunta> preguntas) {
-		this.preguntas = preguntas;
-	}
-
-	public List<Progreso> getProgresos() {
-		return progresos;
-	}
-
-	public void setProgresos(ArrayList<Progreso> progresos) {
-		this.progresos = progresos;
-	}
-
-	public void addSubscripcion(Subscripcion subscripcion) {
-		subscripciones.add(subscripcion);
-	}
-
-	public void addPregunta(Pregunta pregunta) {
-		preguntas.add(pregunta);
-	}
-
-	public void addProgreso(Progreso progreso) {
-		progresos.add(progreso);
-	}
-
-	public void addProgresoImagen(ProgresoImagen progresoImagen) throws UnirestException {
-		ArrayList<Double> clusters = JsonManager.getClusterValues(progresoImagen.getUrl());
-		progresoImagen.setClusterCuerpo(clusters.get(0));
-		progresoImagen.setClusterSombra(clusters.get(1));
-		if (progresosImagen.size()==0) {
-			progresosImagen.add(progresoImagen);
-		}else {
-			ProgresoImagen ultimoProgreso = progresosImagen.get(progresosImagen.size()-1);
-			progresoImagen.setMasaCorporal((    (progresoImagen.getClusterCuerpo()+progresoImagen.getClusterSombra())
-					* ultimoProgreso.getMasaCorporal())
-					/(ultimoProgreso.getClusterCuerpo()+ ultimoProgreso.getClusterSombra()));
-			progresoImagen.setGrasaCorporal((    (1/progresoImagen.getClusterSombra())
-					* ultimoProgreso.getGrasaCorporal())
-					/(1/ ultimoProgreso.getClusterSombra()));
-			progresosImagen.add(progresoImagen);
-		}
-	}
-	
 	public int getPosition() {
 		return position;
 	}
@@ -185,39 +169,43 @@ public class Alumno {
 		this.position = position;
 	}
 
-	public void setSubscripciones(List<Subscripcion> subscripciones) {
-		this.subscripciones = subscripciones;
+	public List<Pregunta> getHistorialMedico() {
+		return historialMedico;
 	}
 
-	public void setPreguntas(List<Pregunta> preguntas) {
-		this.preguntas = preguntas;
+	public void setHistorialMedico(List<Pregunta> historialMedico) {
+		this.historialMedico = historialMedico;
 	}
 
-	public void setProgresos(List<Progreso> progresos) {
-		this.progresos = progresos;
-	}
-	
-	public List<ProgresoImagen> getImagenProgresos() {
-		return progresosImagen;
+	public List<Progreso> getHistorialProgreso() {
+		return historialProgreso;
 	}
 
-	public void setImagenProgresos(List<ProgresoImagen> imagenProgresos) {
-		this.progresosImagen = imagenProgresos;
+	public void setHistorialProgreso(List<Progreso> historialProgreso) {
+		this.historialProgreso = historialProgreso;
 	}
 
-	public void inserIntoDataBase() throws SQLException {
-		PreparedStatement sta = DataBaseAcces.getInstance().getConnection()
-				.prepareStatement("INSERT INTO ALUMNO VALUES(?,?,?,?,?,?,?,?,?)");
-		sta.setLong(1, id);
-		sta.setString(2, nombre);
-		sta.setString(3, dni);
-		sta.setString(4, telefono);
-		sta.setString(5, email);
-		sta.setString(6, usuario);
-		sta.setString(7, contrasena);
-		sta.setDate(8, fechaNacimiento);
-		sta.setString(9, genero == 'M' ? "Masculino" : "Femenino");
-		sta.execute();
+	public List<ProgresoImagen> getHistorialProgresoImagen() {
+		return historialProgresoImagen;
 	}
 
+	public void setHistorialProgresoImagen(List<ProgresoImagen> progresosImagen) {
+		this.historialProgresoImagen = progresosImagen;
+	}
+
+	public List<Clase> getAsistencia() {
+		return asistencia;
+	}
+
+	public void setAsistencia(List<Clase> asistencia) {
+		this.asistencia = asistencia;
+	}
+
+	public void addProgreso(@Valid Progreso p) {
+		this.historialProgreso.add(p);
+	}
+
+	public void addSubscripcion(Subscripcion subscripcion) {
+		this.historialSuscripcion.add(subscripcion);
+	}
 }

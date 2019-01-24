@@ -11,28 +11,33 @@ import javax.persistence.Id;
 public class Progreso {
 
 	@Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-	private Long id;
-	private String nombre;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long idProgreso;
+	private String nombreProgreso;
 	private String unidadMedida;
 	private double informe;
-	private Date fecha;
+	private Date fechaPrgreso;
 
-
-	public Long getId() {
-		return id;
+	public Progreso() {
+		super();
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	// ----------getters&Setters----------------------
+
+	public Long getIdProgreso() {
+		return idProgreso;
 	}
 
-	public String getNombre() {
-		return nombre;
+	public void setIdProgreso(Long idProgreso) {
+		this.idProgreso = idProgreso;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public String getNombreProgreso() {
+		return nombreProgreso;
+	}
+
+	public void setNombreProgreso(String nombreProgreso) {
+		this.nombreProgreso = nombreProgreso;
 	}
 
 	public String getUnidadMedida() {
@@ -51,12 +56,11 @@ public class Progreso {
 		this.informe = informe;
 	}
 
-	public Date getFecha() {
-		return fecha;
+	public Date getFechaPrgreso() {
+		return fechaPrgreso;
 	}
 
-	public void setFecha(Date fecha) {
-		this.fecha = fecha;
+	public void setFechaPrgreso(Date fechaPrgreso) {
+		this.fechaPrgreso = fechaPrgreso;
 	}
-
 }

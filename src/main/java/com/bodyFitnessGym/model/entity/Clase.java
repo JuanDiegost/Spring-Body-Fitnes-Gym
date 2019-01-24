@@ -1,41 +1,78 @@
 package com.bodyFitnessGym.model.entity;
 
-import javax.persistence.CascadeType;
+import java.sql.Date;
+import java.sql.Time;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Clase {
 
 	@Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-	private Long id;
-	private String nombre;
+	private Long idClase;
+	private Date dia;
+	private Time horaInicio;
+	private Time horaFin;
 	private String descripcion;
 	private int numeroCupos;
-	private String dia;
-	private String horaInicio;
-	private String horaFin;
+	
+	@OneToOne
+	private Entrenador entrendor;
+	
 	@ManyToOne
 	private Servicio servicio;
+	
+	@OneToMany
+	private List<Alumno> asistencia;
 
-	public Long getId() {
-		return id;
+	public Clase() {
+		super();
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void addAsistencia(Alumno alumno) {
+		this.asistencia.add(alumno);
+	}
+	
+	//--------Getters&Setters---------------------
+	
+	public Long getIdClase() {
+		return idClase;
 	}
 
-	public String getNombre() {
-		return nombre;
+	public void setIdClase(Long idClase) {
+		this.idClase = idClase;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public Date getDia() {
+		return dia;
+	}
+
+	public void setDia(Date dia) {
+		this.dia = dia;
+	}
+
+	public Time getHoraInicio() {
+		return horaInicio;
+	}
+
+	public void setHoraInicio(Time horaInicio) {
+		this.horaInicio = horaInicio;
+	}
+
+	public Time getHoraFin() {
+		return horaFin;
+	}
+
+	public void setHoraFin(Time horaFin) {
+		this.horaFin = horaFin;
 	}
 
 	public String getDescripcion() {
@@ -54,28 +91,12 @@ public class Clase {
 		this.numeroCupos = numeroCupos;
 	}
 
-	public String getDia() {
-		return dia;
+	public Entrenador getEntrendor() {
+		return entrendor;
 	}
 
-	public void setDia(String dia) {
-		this.dia = dia;
-	}
-
-	public String getHoraInicio() {
-		return horaInicio;
-	}
-
-	public void setHoraInicio(String horaInicio) {
-		this.horaInicio = horaInicio;
-	}
-
-	public String getHoraFin() {
-		return horaFin;
-	}
-
-	public void setHoraFin(String horaFin) {
-		this.horaFin = horaFin;
+	public void setEntrendor(Entrenador entrendor) {
+		this.entrendor = entrendor;
 	}
 
 	public Servicio getServicio() {
@@ -86,8 +107,13 @@ public class Clase {
 		this.servicio = servicio;
 	}
 
-	public Clase() {
-		super();
+	public List<Alumno> getAsistencia() {
+		return asistencia;
 	}
+
+	public void setAsistencia(List<Alumno> asistencia) {
+		this.asistencia = asistencia;
+	}
+	
 
 }

@@ -15,6 +15,10 @@ public class Administrador {
 	private String dni;
 	private String usuario;
 	private String contrasena;
+	
+	public Administrador() {
+		super();
+	}
 
 	public Long getId() {
 		return id;

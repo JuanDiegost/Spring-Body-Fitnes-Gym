@@ -1,41 +1,59 @@
 package com.bodyFitnessGym.model.entity;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import javax.persistence.OneToMany;
+
 @Entity
 public class Servicio {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
-	private String nombre;
-	private String descripcion;
+	private Long idServicio;
+	private String nombreServicio;
+	private String descripcionServicio;
 	private double precio;
-
-	public Long getId() {
-		return id;
+	private String tipoServicio;
+	
+	@OneToMany
+	private List<Entrenador> entrenadorServicio;
+	
+	public Servicio() {
+		super();
+	}
+	
+	public void addEntrenador(Entrenador entrenador) {
+		this.entrenadorServicio.add(entrenador);
+	}
+	
+	//--------getter&setters-------------------------
+	
+	public Long getIdServicio() {
+		return idServicio;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setIdServicio(Long idServicio) {
+		this.idServicio = idServicio;
 	}
 
-	public String getNombre() {
-		return nombre;
+	public String getNombreServicio() {
+		return nombreServicio;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setNombreServicio(String nombreServicio) {
+		this.nombreServicio = nombreServicio;
 	}
 
-	public String getDescripcion() {
-		return descripcion;
+	public String getDescripcionServicio() {
+		return descripcionServicio;
 	}
 
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
+	public void setDescripcionServicio(String descripcionServicio) {
+		this.descripcionServicio = descripcionServicio;
 	}
 
 	public double getPrecio() {
@@ -46,4 +64,19 @@ public class Servicio {
 		this.precio = precio;
 	}
 
+	public String getTipoServicio() {
+		return tipoServicio;
+	}
+
+	public void setTipoServicio(String tipoServicio) {
+		this.tipoServicio = tipoServicio;
+	}
+
+	public List<Entrenador> getEntrenadorServicio() {
+		return entrenadorServicio;
+	}
+
+	public void setEntrenadorServicio(List<Entrenador> entrenadorServicio) {
+		this.entrenadorServicio = entrenadorServicio;
+	}
 }

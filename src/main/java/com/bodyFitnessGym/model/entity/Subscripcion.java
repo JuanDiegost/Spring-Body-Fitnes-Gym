@@ -2,31 +2,45 @@ package com.bodyFitnessGym.model.entity;
 
 import java.sql.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Subscripcion {
 
 	@Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-	private Long id;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long idSuscripcion;
 	private Date fechaInicio;
 	private Date fechaFin;
-	private int numeroSeciones;
+	private int sesiones;
+	private double precioSuscripcion;
+
+	@OneToOne
+	private MovimientoCaja movimientoDeCaja;
+
+	@OneToOne
+	private Alumno historialSuscripcion;
+
 	@ManyToOne
 	private Servicio servicio;
 	
-	public Long getId() {
-		return id;
+	public Subscripcion() {
+		super();
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	//------getters&Setters---------------------
+	
+	public Long getIdSuscripcion() {
+		return idSuscripcion;
+	}
+
+	public void setIdSuscripcion(Long idSuscripcion) {
+		this.idSuscripcion = idSuscripcion;
 	}
 
 	public Date getFechaInicio() {
@@ -45,12 +59,36 @@ public class Subscripcion {
 		this.fechaFin = fechaFin;
 	}
 
-	public int getNumeroSeciones() {
-		return numeroSeciones;
+	public int getSesiones() {
+		return sesiones;
 	}
 
-	public void setNumeroSeciones(int numeroSeciones) {
-		this.numeroSeciones = numeroSeciones;
+	public void setSesiones(int sesiones) {
+		this.sesiones = sesiones;
+	}
+
+	public double getPrecioSuscripcion() {
+		return precioSuscripcion;
+	}
+
+	public void setPrecioSuscripcion(double precioSuscripcion) {
+		this.precioSuscripcion = precioSuscripcion;
+	}
+
+	public MovimientoCaja getMovimientoDeCaja() {
+		return movimientoDeCaja;
+	}
+
+	public void setMovimientoDeCaja(MovimientoCaja movimientoDeCaja) {
+		this.movimientoDeCaja = movimientoDeCaja;
+	}
+
+	public Alumno getHistorialSuscripcion() {
+		return historialSuscripcion;
+	}
+
+	public void setHistorialSuscripcion(Alumno historialSuscripcion) {
+		this.historialSuscripcion = historialSuscripcion;
 	}
 
 	public Servicio getServicio() {
@@ -60,6 +98,4 @@ public class Subscripcion {
 	public void setServicio(Servicio servicio) {
 		this.servicio = servicio;
 	}
-
-	
 }

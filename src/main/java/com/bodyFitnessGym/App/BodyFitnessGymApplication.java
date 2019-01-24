@@ -9,14 +9,13 @@ import com.bodyFitnessGym.model.entity.Alumno;
 
 @SpringBootApplication
 @EnableJpaRepositories("com.bodyFitnessGym.repository")
-@EntityScan(basePackageClasses=Alumno.class)
+@EntityScan(basePackageClasses = Alumno.class)
 public class BodyFitnessGymApplication {
 
 	public static void main(String[] args) {
-		//System.setProperty("server.port","7324");
+		// System.setProperty("server.port","7324");
 		SpringApplication.run(BodyFitnessGymApplication.class, args);
-		
+
 	}
 
 }
-

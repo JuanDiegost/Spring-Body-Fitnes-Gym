@@ -9,32 +9,29 @@ import javax.persistence.Id;
 public class Pregunta {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
-	private String descripcion;
-	private String nombre;
-
-	public Long getId() {
-		return id;
+	private Long idPregunta;
+	private String nombrePregunta;
+	private String descripcionPregunta;
+	
+	public Pregunta() {
+		super();
 	}
-
-	public void setId(Long id) {
-		this.id = id;
+	public Long getIdPregunta() {
+		return idPregunta;
 	}
-
-	public String getDescripcion() {
-		return descripcion;
+	public void setIdPregunta(Long idPregunta) {
+		this.idPregunta = idPregunta;
 	}
-
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
+	public String getNombrePregunta() {
+		return nombrePregunta;
 	}
-
-	public String getNombre() {
-		return nombre;
+	public void setNombrePregunta(String nombrePregunta) {
+		this.nombrePregunta = nombrePregunta;
 	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public String getDescripcionPregunta() {
+		return descripcionPregunta;
 	}
-
+	public void setDescripcionPregunta(String descripcionPregunta) {
+		this.descripcionPregunta = descripcionPregunta;
+	}
 }
