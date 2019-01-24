@@ -1,7 +1,5 @@
 package com.bodyFitnessGym.App.controller;
 
-import java.util.Collection;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,12 +83,6 @@ public class BodyFitnessGymController {
 		return "No se encontro al estudiante";
 	}
 
-	@RequestMapping(value = "/alumno/todos", method = RequestMethod.DELETE)
-	public String deletAlumnos() {
-		estudianteRepository.deleteAll();
-		return "Estudiantes eliminados";
-	}
-
 	@RequestMapping(value = "/alumno", method = RequestMethod.PUT)
 	public String updateAlumno(@Valid @RequestBody Alumno p) {
 		estudianteRepository.save(p);
@@ -128,11 +120,7 @@ public class BodyFitnessGymController {
 
 	@RequestMapping(value = "/servicio", method = RequestMethod.POST)
 	public String createServicio(@Valid @RequestBody Servicio p) {
-		if (servicioRepository.findAllServicesByName(p.getNombre()).isEmpty()) {
-			return JsonManager.toJson(servicioRepository.save(p));
-		} else {
-			return "no valido";
-		}
+		return JsonManager.toJson(servicioRepository.save(p));
 	}
 
 	// ----------Clases---------------------------------------//
@@ -187,12 +175,7 @@ public class BodyFitnessGymController {
 	public String deletEntrenador(@PathVariable Long id) {
 		entrenadorRepository.deleteById(id);
 		return "Borrado";
-	}
 
-	@RequestMapping(value = "/entrenador/todos", method = RequestMethod.DELETE)
-	public String deletEntrenadores() {
-		entrenadorRepository.deleteAll();
-		return "Borrados";
 	}
 
 	@RequestMapping(value = "/entrenador", method = RequestMethod.PUT)
@@ -222,12 +205,6 @@ public class BodyFitnessGymController {
 		movimientoRepository.deleteById(id);
 		return "borrado";
 
-	}
-
-	@RequestMapping(value = "/movimiento/todos", method = RequestMethod.DELETE)
-	public String deletAllMovimiento() {
-		movimientoRepository.deleteAll();
-		return "borrados";
 	}
 
 	@RequestMapping(value = "/movimiento", method = RequestMethod.PUT)
@@ -338,14 +315,12 @@ public class BodyFitnessGymController {
 			@Valid @RequestBody ProgresoImagen p) {
 		Alumno alumno = estudianteRepository.findById(idEstudiante).get();
 		try {
-			System.out.println("entro");
-			System.out.println("salio");
-			p = progresoImagenRepository.save(p);
 			alumno.addProgresoImagen(p);
+			p = progresoImagenRepository.save(p);
 			estudianteRepository.save(alumno);
-
 		} catch (UnirestException e) {
 			e.printStackTrace();
+			return e.getMessage();
 		}
 		return JsonManager.toJson(p);
 	}

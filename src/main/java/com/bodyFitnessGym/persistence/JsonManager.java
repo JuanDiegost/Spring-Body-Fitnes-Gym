@@ -20,13 +20,16 @@ public class JsonManager {
 	
 	public static ArrayList<Double> getClusterValues(String url) throws UnirestException {
 		ArrayList<Double> clusters = new ArrayList<Double>();
-		HttpResponse<JsonNode> jsonResponse = Unirest.get("http://mkweb.bcgsc.ca/color-summarizer/?url=https://i.imgur.com/UDZtbDm.png/37/88847543_d1eb68c5b9_m.jpg&precision=low&json=1&num_clusters=3")
-				  .asJson();
+		HttpResponse<JsonNode> jsonResponse = Unirest.get(
+				"http://mkweb.bcgsc.ca/color-summarizer/?url="+url+"&precision=low&json=1&num_clusters=3")
+				.asJson();
+
 		JSONObject a = jsonResponse.getBody().getObject().getJSONObject("clusters");
-		int backgroundcluster = (Integer) ((JSONObject)((JSONObject)jsonResponse.getBody().getObject().get("pixels")).get("0")).get("cluster");
+		int backgroundcluster = (Integer) ((JSONObject) ((JSONObject) jsonResponse.getBody().getObject().get("pixels"))
+				.get("0")).get("cluster");
 		for (int i = 0; i < 3; i++) {
-			if (backgroundcluster !=i) {
-				clusters.add((Double)((JSONObject)a.get(i+"")).get("f"));	
+			if (backgroundcluster != i) {
+				clusters.add((Double) ((JSONObject) a.get(i + "")).get("f"));
 			}
 		}
 		return clusters;

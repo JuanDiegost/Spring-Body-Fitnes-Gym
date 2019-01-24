@@ -160,7 +160,7 @@ public class Alumno {
 	}
 
 	public void addProgresoImagen(ProgresoImagen progresoImagen) throws UnirestException {
-		ArrayList<Double> clusters = JsonManager.getClusterValues("");
+		ArrayList<Double> clusters = JsonManager.getClusterValues(progresoImagen.getUrl());
 		progresoImagen.setClusterCuerpo(clusters.get(0));
 		progresoImagen.setClusterSombra(clusters.get(1));
 		if (progresosImagen.size()==0) {
@@ -173,6 +173,7 @@ public class Alumno {
 			progresoImagen.setGrasaCorporal((    (1/progresoImagen.getClusterSombra())
 					* ultimoProgreso.getGrasaCorporal())
 					/(1/ ultimoProgreso.getClusterSombra()));
+			progresosImagen.add(progresoImagen);
 		}
 	}
 	
