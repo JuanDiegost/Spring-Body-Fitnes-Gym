@@ -313,6 +313,7 @@ public class BodyFitnessGymController {
 	@RequestMapping(value = "/progresoImagen/{id}", method = RequestMethod.POST)
 	public String createProgresoImagen(@Valid @PathVariable("id") Long idEstudiante,
 			@Valid @RequestBody ProgresoImagen p) {
+		System.out.println("ola");
 		Alumno alumno = estudianteRepository.findById(idEstudiante).get();
 		try {
 			alumno.addProgresoImagen(p);

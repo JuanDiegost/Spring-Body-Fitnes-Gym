@@ -30,7 +30,27 @@
 - /movimiento/{id} GET , DELET
 - /movimiento POST PUT
 
+- /preguntas GET
+- /pregunta/{id} GET , DELET
+- /pregunta POST PUT
 
+- /progresos/alumno/{id} GET  (el id es del alumno)
+- /progreso/{id} GET  (el id es del progreso)
+- /progreso POST PUT , DELET
+- /progreso/{id} POST   (el id es del alumno)
 
-faltantes:
+- /progresoImagen/alumno/{id} GET  (el id es del alumno)
+- /progresoImagen/{id} GET  (el id es del progreso)
+- /progresoImagen POST PUT , DELET
+- /progresoImagen/{id} POST   (el id es del alumno)
 
+- /progresoImagen/alumno/{id} GET  (el id es del alumno)
+- /progresoImagen/{id} GET  (el id es del progreso)
+- /progresoImagen POST PUT , DELET
+- /progresoImagen/{id} POST   (el id es del alumno)
+
+- /suscripciones/alumno/{id} GET  (el id es del alumno)
+- /suscripciones GET  
+- /suscripciones/{id} GET  (el id es de la suscripcion)
+- /suscripciones/ POST PUT , DELET
+- /suscripcion/alumno/{id}/servicio/{idServicio} POST   (el id es del alumno)
