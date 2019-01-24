@@ -19,17 +19,10 @@ public class Servicio {
 	private double precio;
 	private String tipoServicio;
 	
-	@OneToMany
-	private List<Entrenador> entrenadorServicio;
-	
 	public Servicio() {
 		super();
 	}
-	
-	public void addEntrenador(Entrenador entrenador) {
-		this.entrenadorServicio.add(entrenador);
-	}
-	
+		
 	//--------getter&setters-------------------------
 	
 	public Long getIdServicio() {
@@ -70,13 +63,5 @@ public class Servicio {
 
 	public void setTipoServicio(String tipoServicio) {
 		this.tipoServicio = tipoServicio;
-	}
-
-	public List<Entrenador> getEntrenadorServicio() {
-		return entrenadorServicio;
-	}
-
-	public void setEntrenadorServicio(List<Entrenador> entrenadorServicio) {
-		this.entrenadorServicio = entrenadorServicio;
 	}
 }
