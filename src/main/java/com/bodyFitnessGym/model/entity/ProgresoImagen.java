@@ -18,7 +18,7 @@ public class ProgresoImagen {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String url;
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone="GMT-5")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd-HH:mm:ss", timezone="GMT-5")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date fechaProgresoImagen;
 	private double masaCorporal;

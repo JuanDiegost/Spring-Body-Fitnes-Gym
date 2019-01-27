@@ -20,7 +20,7 @@ public class Progreso {
 	private String nombreProgreso;
 	private String unidadMedida;
 	private double informe;
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone="GMT-5")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd-HH:mm:ss", timezone="GMT-5")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date fechaPrgreso;
 
