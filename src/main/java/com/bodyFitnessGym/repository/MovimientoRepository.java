@@ -8,10 +8,11 @@ import com.bodyFitnessGym.model.entity.MovimientoCaja;
 
 public interface MovimientoRepository extends CrudRepository<MovimientoCaja, Long>{
 
-	@Query(value = "SELECT * FROM movimiento_caja m WHERE m.tipo = 'ingreso'", nativeQuery = true)
-	Collection<MovimientoCaja> findAllingresos();
-	
-	@Query(value = "SELECT * FROM movimiento_caja m WHERE m.tipo = 'egreso'", nativeQuery = true)
-	Collection<MovimientoCaja> findAllegresos();
+	@Query(value = "SELECT * FROM movimiento_caja m WHERE m.tipo = (:filtro) AND m.fecha_movimiento >= (:fechaInicial) AND m.fecha_movimiento <= (:fechaFinal)", nativeQuery = true)
+	Collection<MovimientoCaja> findAllFiltered(String filtro, String fechaInicial, String fechaFinal);
 
+	@Query(value = "SELECT * FROM movimiento_caja WHERE m.fecha_movimiento >= (:fechaInicial) AND m.fecha_movimiento <= (:fechaFinal)", nativeQuery = true)
+	Collection<MovimientoCaja> findAll(String fechaInicial, String fechaFinal);
+
+	
 }

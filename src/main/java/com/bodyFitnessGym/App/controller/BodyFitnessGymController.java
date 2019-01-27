@@ -78,6 +78,20 @@ public class BodyFitnessGymController {
 		return "Usuario no existe";
 	}
 	
+	@RequestMapping(value = "/login/alumno/{usuario}/{password}", method = RequestMethod.GET)
+	public String loginAlumno( @PathVariable("usuario") String usuario, @PathVariable("password") String password) {
+		return JsonManager.toJson(estudianteRepository.authenticate(usuario, password));
+	}
+	
+	@RequestMapping(value = "/login/admin/{usuario}/{password}", method = RequestMethod.GET)
+	public String loginAdmin( @PathVariable("usuario") String usuario, @PathVariable("password") String password) {
+		return JsonManager.toJson(administradorRepository.authenticate(usuario, password));
+	}
+	
+	@RequestMapping(value = "/login/entrenador/{usuario}/{password}", method = RequestMethod.GET)
+	public String loginEntrenador( @PathVariable("usuario") String usuario, @PathVariable("password") String password) {
+		return JsonManager.toJson(entrenadorRepository.authenticate(usuario, password));
+	}
 	
 	// ----------Alumnos---------------------------------------//
 
@@ -270,27 +284,13 @@ public class BodyFitnessGymController {
 		return JsonManager.toJson(movimientoRepository.findAll());
 	}
 	
-	@RequestMapping(value = "/movimientos/{filtro}", method = RequestMethod.GET)
-	public String getMoviminetosFiltrados(@PathVariable ("filtro") String filtro) {
-		if (filtro.toLowerCase().equals("ingresos")) {
-			return JsonManager.toJson(movimientoRepository.findAllingresos());
+	@RequestMapping(value = "/movimientos/{filtro}/{fechaInicio}/{fechaFinal}", method = RequestMethod.GET)
+	public String getMoviminetosFiltrados(@PathVariable ("filtro") String filtro, @PathVariable ("fechaInicio") String fechaInicio, @PathVariable ("fechaFinal") String fechaFinal) {
+		if (filtro.toLowerCase().equals("todos")) {
+			return JsonManager.toJson(movimientoRepository.findAll(fechaInicio, fechaFinal));
 		}
-		if (filtro.toLowerCase().equals("egresos")) {
-			return JsonManager.toJson(movimientoRepository.findAllegresos());
-		}
-		if (filtro.toLowerCase().equals("ambos")) {
-			return JsonManager.toJson(movimientoRepository.findAll());
-		}
-		return "error en el llamado al servicio";
+		return JsonManager.toJson(movimientoRepository.findAllFiltered(filtro, fechaInicio, fechaFinal));
 	}
-//	@RequestMapping(value = "/movimientos", method = RequestMethod.GET)
-//	public String getMoviminetos() {
-//		return JsonManager.toJson(movimientoRepository.findAll());
-//	}
-	
-	
-	
-	
 
 	@RequestMapping(value = "/movimiento/{id}", method = RequestMethod.GET)
 	public String getMovimiento(@PathVariable Long id) {

@@ -6,6 +6,10 @@
 
 - /login/{usuario}/{contrasenia}   este devuelve un alumno, entrenador o admin, lo que encuentre primero con esas credenciales
 
+- /login/alumno/{usuario}/{contrasenia}   login especifico para alumnos
+- /login/admin/{usuario}/{contrasenia}    login especifico para admins
+- /login/entrenador/{usuario}/{contrasenia} login especifico para entrenadores
+
 - https://spring-body-fitness-gym.herokuapp.com/alumnos  Devuelve la lista de alumnos [GET]
 - https://spring-body-fitness-gym.herokuapp.com/alumno/{ID} devuelve el alumno con el id {ID} [G]
 - https://spring-body-fitness-gym.herokuapp.com/alumno Guarda un alumno con peticion [POST]
@@ -35,7 +39,7 @@
 - /entrenador POST PUT
 
 - /movimientos GET
-- /movimientos/{filtro}     filtro puede ser igual a = "ingresos, "egresos" o "ambos"
+- /movimientos/{filtro}/{fechaInicial}/{fechaFinal}     filtro puede ser igual a = "todos" o por tipo p.ej: "ingreso" o "egreso" y las fechas vienen en el formato establecido (yyyy-MM-dd HH:mm:ss)
 - /movimiento/todos DELET borra todos
 - /movimiento/{id} GET , DELET
 - /movimiento POST PUT
