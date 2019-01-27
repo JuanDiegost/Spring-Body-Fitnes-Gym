@@ -248,6 +248,28 @@ public class BodyFitnessGymController {
 	public String getMoviminetos() {
 		return JsonManager.toJson(movimientoRepository.findAll());
 	}
+	
+	@RequestMapping(value = "/movimientos/{filtro}", method = RequestMethod.GET)
+	public String getMoviminetosFiltrados(@PathVariable ("filtro") String filtro) {
+		if (filtro.toLowerCase().equals("ingresos")) {
+			return JsonManager.toJson(movimientoRepository.findAllingresos());
+		}
+		if (filtro.toLowerCase().equals("egresos")) {
+			return JsonManager.toJson(movimientoRepository.findAllegresos());
+		}
+		if (filtro.toLowerCase().equals("ambos")) {
+			return JsonManager.toJson(movimientoRepository.findAll());
+		}
+		return "erroren el llamado al servicio";
+	}
+//	@RequestMapping(value = "/movimientos", method = RequestMethod.GET)
+//	public String getMoviminetos() {
+//		return JsonManager.toJson(movimientoRepository.findAll());
+//	}
+	
+	
+	
+	
 
 	@RequestMapping(value = "/movimiento/{id}", method = RequestMethod.GET)
 	public String getMovimiento(@PathVariable Long id) {

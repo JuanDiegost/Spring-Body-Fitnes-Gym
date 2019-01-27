@@ -30,6 +30,7 @@
 - /entrenador POST PUT
 
 - /movimientos GET
+- /movimientos/{filtro}     filtro puede ser igual a = "ingresos, "egresos" o "ambos"
 - /movimiento/todos DELET borra todos
 - /movimiento/{id} GET , DELET
 - /movimiento POST PUT
@@ -66,3 +67,5 @@ Relaciones Many To Many
 - alumno - asistencia
 - Entrenador - entrenador servicio
 
+login alumno entrenador admin
+servicio para filtrar movimientos por egreso ingreso y ambos
