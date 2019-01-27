@@ -1,6 +1,6 @@
 package com.bodyFitnessGym.model.entity;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.Valid;
 import org.springframework.data.annotation.Transient;
 import com.bodyFitnessGym.persistence.JsonManager;
@@ -32,6 +34,7 @@ public class Alumno {
 	private String usuarioAlumno;
 	private String contrasenia;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone="GMT-5")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date fechaNacimiento;
 	private char genero;
 	private String grupoSanguineo;

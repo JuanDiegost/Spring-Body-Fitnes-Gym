@@ -14,7 +14,7 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 public class JsonManager {
 
 	public static String toJson(Object obj) {
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").create();
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		return gson.toJson(obj);
 	}
 	
