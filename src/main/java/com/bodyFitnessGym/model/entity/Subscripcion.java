@@ -23,9 +23,6 @@ public class Subscripcion {
 	@OneToOne
 	private MovimientoCaja movimientoDeCaja;
 
-	@OneToOne
-	private Alumno historialSuscripcion;
-
 	@ManyToOne
 	private Servicio servicio;
 	
@@ -81,14 +78,6 @@ public class Subscripcion {
 
 	public void setMovimientoDeCaja(MovimientoCaja movimientoDeCaja) {
 		this.movimientoDeCaja = movimientoDeCaja;
-	}
-
-	public Alumno getHistorialSuscripcion() {
-		return historialSuscripcion;
-	}
-
-	public void setHistorialSuscripcion(Alumno historialSuscripcion) {
-		this.historialSuscripcion = historialSuscripcion;
 	}
 
 	public Servicio getServicio() {
