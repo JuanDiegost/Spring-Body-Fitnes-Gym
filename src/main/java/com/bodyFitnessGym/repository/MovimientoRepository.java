@@ -11,7 +11,7 @@ public interface MovimientoRepository extends CrudRepository<MovimientoCaja, Lon
 	@Query(value = "SELECT * FROM movimiento_caja m WHERE m.tipo = (:filtro) AND m.fecha_movimiento >= (:fechaInicial) AND m.fecha_movimiento <= (:fechaFinal)", nativeQuery = true)
 	Collection<MovimientoCaja> findAllFiltered(String filtro, String fechaInicial, String fechaFinal);
 
-	@Query(value = "SELECT * FROM movimiento_caja WHERE m.fecha_movimiento >= (:fechaInicial) AND m.fecha_movimiento <= (:fechaFinal)", nativeQuery = true)
+	@Query(value = "SELECT * FROM movimiento_caja m WHERE m.fecha_movimiento >= (:fechaInicial) AND m.fecha_movimiento <= (:fechaFinal)", nativeQuery = true)
 	Collection<MovimientoCaja> findAll(String fechaInicial, String fechaFinal);
 
 	
