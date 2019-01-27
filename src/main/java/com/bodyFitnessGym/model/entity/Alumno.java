@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.validation.Valid;
 import org.springframework.data.annotation.Transient;
@@ -39,7 +40,7 @@ public class Alumno {
 	@Transient
 	private int position;
 
-	@OneToMany
+	@ManyToMany
 	private List<Pregunta> historialMedico;
 
 	@OneToMany(cascade = CascadeType.REMOVE)
@@ -48,7 +49,7 @@ public class Alumno {
 	@OneToMany(cascade = CascadeType.REMOVE)
 	private List<ProgresoImagen> historialProgresoImagen;
 
-	@OneToMany
+	@ManyToMany
 	private List<Horario> asistencia;
 
 	public Alumno() {

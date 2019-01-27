@@ -23,7 +23,7 @@ public class Subscripcion {
 	@OneToOne
 	private MovimientoCaja movimientoDeCaja;
 
-	@ManyToOne
+	@OneToOne
 	private Servicio servicio;
 	
 	public Subscripcion() {

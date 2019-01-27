@@ -233,7 +233,15 @@ public class BodyFitnessGymController {
 	public String createEntrenador(@Valid @RequestBody Entrenador p) {
 		return JsonManager.toJson(entrenadorRepository.save(p));
 	}
-
+	
+	@RequestMapping(value = "/entrenador/{idEntrenador}/servicio/{idServicio}", method = RequestMethod.GET)
+	public String agregarServicioEntrenador(@PathVariable ("idEntrenador") Long idEntrenador,@PathVariable ("idServicio") Long idServicio) {
+		Entrenador entrenador = entrenadorRepository.findById(idEntrenador).get();
+		Servicio servicio = servicioRepository.findById(idServicio).get();
+		entrenador.addServicio(servicio);
+		entrenadorRepository.save(entrenador);
+		return JsonManager.toJson(entrenador);
+	}
 	// ----------Movimiento de caja---------------------------------------//
 
 	@RequestMapping(value = "/movimientos", method = RequestMethod.GET)
