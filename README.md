@@ -1,6 +1,11 @@
 # Spring-Body-Fitnes-Gym
 
 ## URL JSON
+
+- Servicio de login
+
+- /login/{usuario}/{contrasenia}   este devuelve un alumno, entrenador o admin, lo que encuentre primero con esas credenciales
+
 - https://spring-body-fitness-gym.herokuapp.com/alumnos  Devuelve la lista de alumnos [GET]
 - https://spring-body-fitness-gym.herokuapp.com/alumno/{ID} devuelve el alumno con el id {ID} [G]
 - https://spring-body-fitness-gym.herokuapp.com/alumno Guarda un alumno con peticion [POST]

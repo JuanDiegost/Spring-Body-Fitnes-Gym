@@ -58,6 +58,14 @@ public class BodyFitnessGymController {
 	@Autowired
 	private SubscripcionRepository subscripcionRepository;
 
+	//------------logins---------------------------------------//
+	
+	@RequestMapping(value = "/login/{usuario}/{password}", method = RequestMethod.GET)
+	public String login( @PathVariable("usuario") String usuario, @PathVariable("password") String password) {
+		return JsonManager.toJson(estudianteRepository.authenticate(usuario, password));		
+	}
+	
+	
 	// ----------Alumnos---------------------------------------//
 
 	@RequestMapping(value = "/alumnos", method = RequestMethod.GET)
@@ -260,7 +268,7 @@ public class BodyFitnessGymController {
 		if (filtro.toLowerCase().equals("ambos")) {
 			return JsonManager.toJson(movimientoRepository.findAll());
 		}
-		return "erroren el llamado al servicio";
+		return "error en el llamado al servicio";
 	}
 //	@RequestMapping(value = "/movimientos", method = RequestMethod.GET)
 //	public String getMoviminetos() {
