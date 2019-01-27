@@ -14,6 +14,7 @@ import javax.persistence.SequenceGenerator;
 import javax.validation.Valid;
 import org.springframework.data.annotation.Transient;
 import com.bodyFitnessGym.persistence.JsonManager;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
 @Entity
@@ -30,6 +31,7 @@ public class Alumno {
 	private String urlImagenUsuario;
 	private String usuarioAlumno;
 	private String contrasenia;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone="GMT-5")
 	private Date fechaNacimiento;
 	private char genero;
 	private String grupoSanguineo;

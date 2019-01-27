@@ -9,13 +9,17 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 public class Subscripcion {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long idSuscripcion;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone="GMT-5")
 	private Date fechaInicio;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone="GMT-5")
 	private Date fechaFin;
 	private int sesiones;
 	private double precioSuscripcion;

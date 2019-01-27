@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 public class MovimientoCaja {
 	@Id
@@ -16,6 +18,7 @@ public class MovimientoCaja {
 	private String descripcionMovimiento;
 	private double valor;
 	private String tipo;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone="GMT-5")
 	private Date fechaMovimiento;
 	
 	@OneToOne
