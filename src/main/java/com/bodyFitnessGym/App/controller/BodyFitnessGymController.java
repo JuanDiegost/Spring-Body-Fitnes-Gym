@@ -1,13 +1,14 @@
 package com.bodyFitnessGym.App.controller;
 
+import java.util.Collection;
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import com.bodyFitnessGym.model.entity.Administrador;
 import com.bodyFitnessGym.model.entity.Alumno;
 import com.bodyFitnessGym.model.entity.Clase;
 import com.bodyFitnessGym.model.entity.Entrenador;
@@ -62,7 +63,19 @@ public class BodyFitnessGymController {
 	
 	@RequestMapping(value = "/login/{usuario}/{password}", method = RequestMethod.GET)
 	public String login( @PathVariable("usuario") String usuario, @PathVariable("password") String password) {
-		return JsonManager.toJson(estudianteRepository.authenticate(usuario, password));		
+		Collection<Administrador> admin = administradorRepository.authenticate(usuario, password);
+		if (admin.size() > 0) {
+			return JsonManager.toJson(admin);
+		}
+		Collection<Alumno> alumno = estudianteRepository.authenticate(usuario, password);
+		if (alumno.size() > 0) {
+			return JsonManager.toJson(alumno);
+		}
+		Collection<Entrenador> entrenador = entrenadorRepository.authenticate(usuario, password);
+		if (entrenador.size() > 0) {
+			return JsonManager.toJson(entrenador);
+		}
+		return "Usuario no existe";
 	}
 	
 	
@@ -449,5 +462,4 @@ public class BodyFitnessGymController {
 		estudianteRepository.save(alumno);
 		return JsonManager.toJson(subscripcion);
 	}
-
 }

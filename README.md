@@ -71,6 +71,3 @@ Relaciones Many To Many
 - Alumno - historial medico
 - alumno - asistencia
 - Entrenador - entrenador servicio
-
-login alumno entrenador admin
-servicio para filtrar movimientos por egreso ingreso y ambos
