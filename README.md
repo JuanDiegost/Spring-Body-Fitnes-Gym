@@ -16,6 +16,10 @@
  - /clase/{id} GET , DELET
 - /clase/servicio/{idServicio}/entrenador/{idEntrenador} POST 
 
+- /horarios GET
+ - /horario/{id} GET , DELET
+- /horario/clase/{idClase} POST 
+
 - /entrenadores GET
 - /entrenador/{id} GET , DELET
 - /entrenador POST PUT

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bodyFitnessGym.model.entity.Alumno;
 import com.bodyFitnessGym.model.entity.Clase;
 import com.bodyFitnessGym.model.entity.Entrenador;
+import com.bodyFitnessGym.model.entity.Horario;
 import com.bodyFitnessGym.model.entity.ProgresoImagen;
 import com.bodyFitnessGym.model.entity.MovimientoCaja;
 import com.bodyFitnessGym.model.entity.Pregunta;
@@ -22,6 +23,7 @@ import com.bodyFitnessGym.repository.AdministradorRepository;
 import com.bodyFitnessGym.repository.ClaseRepository;
 import com.bodyFitnessGym.repository.EntrenadorRepository;
 import com.bodyFitnessGym.repository.EstudianteRepository;
+import com.bodyFitnessGym.repository.HorarioRepository;
 import com.bodyFitnessGym.repository.ImagenProgresoRepository;
 import com.bodyFitnessGym.repository.MovimientoRepository;
 import com.bodyFitnessGym.repository.PreguntaRepository;
@@ -39,6 +41,8 @@ public class BodyFitnessGymController {
 	private AdministradorRepository administradorRepository;
 	@Autowired
 	private ClaseRepository claseRepository;
+	@Autowired
+	private HorarioRepository horarioRepository;
 	@Autowired
 	private EntrenadorRepository entrenadorRepository;
 	@Autowired
@@ -156,11 +160,51 @@ public class BodyFitnessGymController {
 	public String createClases(@Valid @RequestBody Clase p, @PathVariable("idServicio") Long idServicio, @PathVariable("idEntrenador") Long idEntrenador) {
 		Servicio servicio = servicioRepository.findById(idServicio).get();
 		Entrenador entrenador =entrenadorRepository.findById(idEntrenador).get();
-		p.setServicio(servicio);
 		p.setEntrendor(entrenador);
-		return JsonManager.toJson(claseRepository.save(p));
+		claseRepository.save(p);
+		servicio.addClase(p);
+		return JsonManager.toJson(p);
 	}
 
+	//-----------Horario------------------------------------------//
+	
+	@RequestMapping(value = "/horarios", method = RequestMethod.GET)
+	public String getHorarios() {
+		return JsonManager.toJson(horarioRepository.findAll());
+	}
+
+	@RequestMapping(value = "/horario/{id}", method = RequestMethod.GET)
+	public String getHorarios(@PathVariable Long id) {
+		return JsonManager.toJson(horarioRepository.findById(id));
+	}
+
+	@RequestMapping(value = "/horario/servicio/{id}", method = RequestMethod.GET)
+	public String getHorarioByIdServicio(@PathVariable Long id) {
+		//return JsonManager.toJson(horarioRepository.findAllClaseByIdServicio(id));
+		return "method ToDo";
+	}
+
+	@RequestMapping(value = "/horario/{id}", method = RequestMethod.DELETE)
+	public String deletHorario(@PathVariable Long id) {
+		horarioRepository.deleteById(id);
+		return "Borrado";
+
+	}
+
+	@RequestMapping(value = "/horario", method = RequestMethod.PUT)
+	public String updateHorario(@Valid @RequestBody Horario p) {
+		return JsonManager.toJson(horarioRepository.save(p));
+	}
+
+	@RequestMapping(value = "/horario/clase/{idClase}", method = RequestMethod.POST)
+	public String createHorario(@Valid @RequestBody Horario p, @PathVariable("idClase") Long idClase) {
+		Clase clase = claseRepository.findById(idClase).get();
+		horarioRepository.save(p);
+		clase.addHorario(p);;
+		claseRepository.save(clase);
+		return JsonManager.toJson(p);
+	}
+	
 	// ----------Entrenador---------------------------------------//
 
 	@RequestMapping(value = "/entrenadores", method = RequestMethod.GET)

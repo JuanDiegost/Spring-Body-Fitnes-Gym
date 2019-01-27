@@ -1,16 +1,13 @@
 package com.bodyFitnessGym.model.entity;
 
-import java.sql.Date;
-import java.sql.Time;
 import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Clase {
@@ -18,27 +15,21 @@ public class Clase {
 	@Id
     @GeneratedValue(strategy=GenerationType.AUTO)
 	private Long idClase;
-	private Date dia;
-	private Time horaInicio;
-	private Time horaFin;
 	private String descripcion;
 	private int numeroCupos;
 	
+	@OneToMany
+	private List<Horario> horarioClase;
+
 	@OneToOne
 	private Entrenador entrendor;
 	
-	@ManyToOne
-	private Servicio servicio;
-	
-	@OneToMany
-	private List<Alumno> asistencia;
-
 	public Clase() {
 		super();
 	}
 
-	public void addAsistencia(Alumno alumno) {
-		this.asistencia.add(alumno);
+	public void addHorario(Horario clase) {
+		this.horarioClase.add(clase);
 	}
 	
 	//--------Getters&Setters---------------------
@@ -51,30 +42,6 @@ public class Clase {
 		this.idClase = idClase;
 	}
 
-	public Date getDia() {
-		return dia;
-	}
-
-	public void setDia(Date dia) {
-		this.dia = dia;
-	}
-
-	public Time getHoraInicio() {
-		return horaInicio;
-	}
-
-	public void setHoraInicio(Time horaInicio) {
-		this.horaInicio = horaInicio;
-	}
-
-	public Time getHoraFin() {
-		return horaFin;
-	}
-
-	public void setHoraFin(Time horaFin) {
-		this.horaFin = horaFin;
-	}
-
 	public String getDescripcion() {
 		return descripcion;
 	}
@@ -83,12 +50,12 @@ public class Clase {
 		this.descripcion = descripcion;
 	}
 
-	public int getNumeroCupos() {
-		return numeroCupos;
+	public List<Horario> getHorarioClase() {
+		return horarioClase;
 	}
 
-	public void setNumeroCupos(int numeroCupos) {
-		this.numeroCupos = numeroCupos;
+	public void setHorarioClase(List<Horario> horarioClase) {
+		this.horarioClase = horarioClase;
 	}
 
 	public Entrenador getEntrendor() {
@@ -99,21 +66,11 @@ public class Clase {
 		this.entrendor = entrendor;
 	}
 
-	public Servicio getServicio() {
-		return servicio;
+	public int getNumeroCupos() {
+		return numeroCupos;
 	}
 
-	public void setServicio(Servicio servicio) {
-		this.servicio = servicio;
+	public void setNumeroCupos(int numeroCupos) {
+		this.numeroCupos = numeroCupos;
 	}
-
-	public List<Alumno> getAsistencia() {
-		return asistencia;
-	}
-
-	public void setAsistencia(List<Alumno> asistencia) {
-		this.asistencia = asistencia;
-	}
-	
-
 }

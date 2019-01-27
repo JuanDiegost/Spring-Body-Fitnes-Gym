@@ -31,6 +31,7 @@ public class Alumno {
 	private String contrasenia;
 	private Date fechaNacimiento;
 	private char genero;
+	private String grupoSanguineo;
 
 	@OneToMany(cascade = CascadeType.REMOVE)
 	private List<Subscripcion> historialSuscripcion;
@@ -48,7 +49,7 @@ public class Alumno {
 	private List<ProgresoImagen> historialProgresoImagen;
 
 	@OneToMany
-	private List<Clase> asistencia;
+	private List<Horario> asistencia;
 
 	public Alumno() {
 		super();
@@ -193,11 +194,11 @@ public class Alumno {
 		this.historialProgresoImagen = progresosImagen;
 	}
 
-	public List<Clase> getAsistencia() {
+	public List<Horario> getAsistencia() {
 		return asistencia;
 	}
 
-	public void setAsistencia(List<Clase> asistencia) {
+	public void setAsistencia(List<Horario> asistencia) {
 		this.asistencia = asistencia;
 	}
 
@@ -207,5 +208,13 @@ public class Alumno {
 
 	public void addSubscripcion(Subscripcion subscripcion) {
 		this.historialSuscripcion.add(subscripcion);
+	}
+
+	public String getGrupoSanguineo() {
+		return grupoSanguineo;
+	}
+
+	public void setGrupoSanguineo(String grupoSanguineo) {
+		this.grupoSanguineo = grupoSanguineo;
 	}
 }
