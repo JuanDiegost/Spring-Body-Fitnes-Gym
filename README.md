@@ -58,3 +58,11 @@
 - /suscripciones/{id} GET  (el id es de la suscripcion)
 - /suscripciones/ POST PUT , DELET
 - /suscripcion/alumno/{id}/servicio/{idServicio} POST   (el id es del alumno)
+
+
+//Todos-
+Relaciones Many To Many
+- Alumno - historial medico
+- alumno - asistencia
+- Entrenador - entrenador servicio
+
