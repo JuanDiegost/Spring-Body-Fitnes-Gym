@@ -15,6 +15,7 @@ import com.bodyFitnessGym.model.entity.Entrenador;
 import com.bodyFitnessGym.model.entity.Horario;
 import com.bodyFitnessGym.model.entity.ProgresoImagen;
 import com.bodyFitnessGym.model.entity.MovimientoCaja;
+import com.bodyFitnessGym.model.entity.Noticia;
 import com.bodyFitnessGym.model.entity.Pregunta;
 import com.bodyFitnessGym.model.entity.Progreso;
 import com.bodyFitnessGym.model.entity.Servicio;
@@ -27,6 +28,7 @@ import com.bodyFitnessGym.repository.EstudianteRepository;
 import com.bodyFitnessGym.repository.HorarioRepository;
 import com.bodyFitnessGym.repository.ImagenProgresoRepository;
 import com.bodyFitnessGym.repository.MovimientoRepository;
+import com.bodyFitnessGym.repository.NoticiaRepository;
 import com.bodyFitnessGym.repository.PreguntaRepository;
 import com.bodyFitnessGym.repository.ProgresoRepository;
 import com.bodyFitnessGym.repository.ServicioRepository;
@@ -58,6 +60,8 @@ public class BodyFitnessGymController {
 	private ServicioRepository servicioRepository;
 	@Autowired
 	private SubscripcionRepository subscripcionRepository;
+	@Autowired
+	private NoticiaRepository noticiaRepository;
 
 	//------------logins---------------------------------------//
 	
@@ -462,4 +466,33 @@ public class BodyFitnessGymController {
 		estudianteRepository.save(alumno);
 		return JsonManager.toJson(subscripcion);
 	}
+	
+	// ----------noticias---------------------------------------//
+
+		@RequestMapping(value = "/noticias", method = RequestMethod.GET)
+		public String getNoticias() {
+			return JsonManager.toJson(noticiaRepository.findAll());
+		}
+
+		@RequestMapping(value = "/noticia/{id}", method = RequestMethod.GET)
+		public String getNoticia(@PathVariable Long id) {
+			return JsonManager.toJson(noticiaRepository.findById(id));
+		}
+
+		@RequestMapping(value = "/noticia/{id}", method = RequestMethod.DELETE)
+		public String deleteNoticia(@PathVariable Long id) {
+			noticiaRepository.deleteById(id);
+			return "borrado";
+
+		}
+
+		@RequestMapping(value = "/noticia", method = RequestMethod.PUT)
+		public String updateNoticia(@Valid @RequestBody Noticia p) {
+			return JsonManager.toJson(noticiaRepository.save(p));
+		}
+
+		@RequestMapping(value = "/noticia", method = RequestMethod.POST)
+		public String createNoticia(@Valid @RequestBody Noticia p) {
+			return JsonManager.toJson(noticiaRepository.save(p));
+		}
 }
