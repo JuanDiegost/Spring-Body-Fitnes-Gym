@@ -69,6 +69,10 @@
 - /suscripciones/ POST PUT , DELET
 - /suscripcion/alumno/{id}/servicio/{idServicio} POST   (el id es del alumno)
 
+- /noticias GET
+- /noticia/{id} GET , DELET
+- /noticia POST PUT
+
 
 //Todos-
 Relaciones Many To Many
