@@ -138,8 +138,11 @@ public class BodyFitnessGymController {
 
 	@RequestMapping(value = "/alumno", method = RequestMethod.POST)
 	public String createAlumno(@Valid @RequestBody Alumno p) {
-		estudianteRepository.save(p);
-		return "Guardado";
+		if (p.validateAlumno()) {
+			estudianteRepository.save(p);
+			return "Guardado";
+		}
+		return "Usuario no guardado";
 	}
 
 	// ----------Servicios---------------------------------------//

@@ -5,12 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.ManyToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
@@ -23,9 +20,6 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 public class Alumno {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO, generator = "exception_seq_generator")
-	@SequenceGenerator(name = "exception_seq_generator", sequenceName = "exception_seq", allocationSize = 1)
-	private Long idAlumno;
 	private String dniAlumno;
 	private String nombreAlumno;
 	private String telefonoAlumno;
@@ -79,14 +73,19 @@ public class Alumno {
 		}
 	}
 	
+	//---------------validaciones------------------------------------------------------------------------------------
+	
+	public boolean validateAlumno() {
+		long fechaNacimiento = this.fechaNacimiento.getTime();
+		long actual = System.currentTimeMillis();
+		if ((actual-fechaNacimiento) < 1589414400000l) {
+			System.out.println("FechaMinimaExcedida");
+			return false;
+		}
+		return true;
+	}
+	
 	// -------------getters&Setters-----------------------------
-	public Long getIdAlumno() {
-		return idAlumno;
-	}
-
-	public void setIdAlumno(Long idAlumno) {
-		this.idAlumno = idAlumno;
-	}
 
 	public String getDniAlumno() {
 		return dniAlumno;
