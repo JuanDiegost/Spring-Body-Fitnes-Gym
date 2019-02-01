@@ -73,6 +73,10 @@
 - /noticia/{id} GET , DELET
 - /noticia POST PUT
 
+- /elementos GET
+- /elemento/{id} GET , DELET
+- /elemento POST PUT
+
 
 //Todos-
 Relaciones Many To Many

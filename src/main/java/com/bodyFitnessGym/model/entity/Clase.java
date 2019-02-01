@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -20,6 +21,9 @@ public class Clase {
 	
 	@OneToMany
 	private List<Horario> horarioClase;
+	
+	@ManyToMany
+	private List<Elemento> elementoClase;
 
 	@OneToOne
 	private Entrenador entrendor;
@@ -30,6 +34,11 @@ public class Clase {
 
 	public void addHorario(Horario clase) {
 		this.horarioClase.add(clase);
+	}
+	
+	public void addElemento(Elemento elemento) {
+		//Todo
+		this.elementoClase.add(elemento);
 	}
 	
 	//--------Getters&Setters---------------------

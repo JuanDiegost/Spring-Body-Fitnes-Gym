@@ -13,6 +13,8 @@ public class Noticia {
 	private Long idNoticia;
 	private String titular;
 	private String contenido;
+	private String urlImagen;
+	
 	public Long getIdNoticia() {
 		return idNoticia;
 	}
@@ -30,5 +32,11 @@ public class Noticia {
 	}
 	public void setContenido(String contenido) {
 		this.contenido = contenido;
+	}
+	public String getUrlImagen() {
+		return urlImagen;
+	}
+	public void setUrlImagen(String urlImagen) {
+		this.urlImagen = urlImagen;
 	}
 }
