@@ -8,7 +8,7 @@ import javax.persistence.ManyToMany;
 @Entity
 public class Entrenador {
 	@Id
-	private String dniEntrenador;
+	private Long dniEntrenador;
 	private String nombreEntrenador;
 	private String telefonoEntrenador;
 	private String emailEntrenador;
@@ -29,11 +29,11 @@ public class Entrenador {
 
 	//------------Getters&Setters---------------------------
 	
-	public String getDniEntrenador() {
+	public Long getDniEntrenador() {
 		return dniEntrenador;
 	}
 
-	public void setDniEntrenador(String dniEntrenador) {
+	public void setDniEntrenador(Long dniEntrenador) {
 		this.dniEntrenador = dniEntrenador;
 	}
 

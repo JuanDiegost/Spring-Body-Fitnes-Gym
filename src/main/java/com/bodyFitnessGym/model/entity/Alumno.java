@@ -20,7 +20,7 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 public class Alumno {
 
 	@Id
-	private String dniAlumno;
+	private Long dniAlumno;
 	private String nombreAlumno;
 	private String telefonoAlumno;
 	private String emailAlumno;
@@ -87,11 +87,11 @@ public class Alumno {
 	
 	// -------------getters&Setters-----------------------------
 
-	public String getDniAlumno() {
+	public Long getDniAlumno() {
 		return dniAlumno;
 	}
 
-	public void setDniAlumno(String dniAlumno) {
+	public void setDniAlumno(Long dniAlumno) {
 		this.dniAlumno = dniAlumno;
 	}
 
