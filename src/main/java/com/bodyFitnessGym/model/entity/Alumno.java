@@ -78,7 +78,7 @@ public class Alumno {
 	public boolean validateAlumno() {
 		long fechaNacimiento = this.fechaNacimiento.getTime();
 		long actual = System.currentTimeMillis();
-		if ((actual-fechaNacimiento) < 1589414400000l) {
+		if ((actual-fechaNacimiento) < 441504000000) {
 			System.out.println(actual-fechaNacimiento);
 			System.out.println("FechaMinimaExcedida");
 			return false;
