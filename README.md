@@ -48,10 +48,9 @@
 - /pregunta/{id} GET , DELET
 - /pregunta POST PUT
 
-- /progresos/alumno/{id} GET  (el id es del alumno)
+- /progresos{id} GET 
 - /progreso/{id} GET  (el id es del progreso)
 - /progreso POST PUT , DELET
-- /progreso/{id} POST   (el id es del alumno)
 
 - /progresoImagen/alumno/{id} GET  (el id es del alumno)
 - /progresoImagen/{id} GET  (el id es del progreso)

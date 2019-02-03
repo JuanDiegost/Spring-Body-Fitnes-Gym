@@ -10,7 +10,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.ManyToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.Valid;
 import org.springframework.data.annotation.Transient;
 import com.bodyFitnessGym.persistence.JsonManager;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -41,9 +40,6 @@ public class Alumno {
 
 	@ManyToMany
 	private List<Pregunta> historialMedico;
-
-	@OneToMany(cascade = CascadeType.REMOVE)
-	private List<Progreso> historialProgreso;
 
 	@OneToMany(cascade = CascadeType.REMOVE)
 	private List<ProgresoImagen> historialProgresoImagen;
@@ -78,8 +74,7 @@ public class Alumno {
 	public boolean validateAlumno() {
 		long fechaNacimiento = this.fechaNacimiento.getTime();
 		long actual = System.currentTimeMillis();
-		if ((actual-fechaNacimiento) < 441504000000L) {
-			System.out.println(actual-fechaNacimiento);
+		if ((actual-fechaNacimiento) < 441504000000l) {
 			System.out.println("FechaMinimaExcedida");
 			return false;
 		}
@@ -184,14 +179,6 @@ public class Alumno {
 		this.historialMedico = historialMedico;
 	}
 
-	public List<Progreso> getHistorialProgreso() {
-		return historialProgreso;
-	}
-
-	public void setHistorialProgreso(List<Progreso> historialProgreso) {
-		this.historialProgreso = historialProgreso;
-	}
-
 	public List<ProgresoImagen> getHistorialProgresoImagen() {
 		return historialProgresoImagen;
 	}
@@ -206,10 +193,6 @@ public class Alumno {
 
 	public void setAsistencia(List<Horario> asistencia) {
 		this.asistencia = asistencia;
-	}
-
-	public void addProgreso(@Valid Progreso p) {
-		this.historialProgreso.add(p);
 	}
 
 	public void addSubscripcion(Subscripcion subscripcion) {

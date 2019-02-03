@@ -13,6 +13,7 @@ import com.bodyFitnessGym.model.entity.Alumno;
 import com.bodyFitnessGym.model.entity.Clase;
 import com.bodyFitnessGym.model.entity.Elemento;
 import com.bodyFitnessGym.model.entity.Entrenador;
+import com.bodyFitnessGym.model.entity.HistorialProgreso;
 import com.bodyFitnessGym.model.entity.Horario;
 import com.bodyFitnessGym.model.entity.ProgresoImagen;
 import com.bodyFitnessGym.model.entity.MovimientoCaja;
@@ -27,6 +28,7 @@ import com.bodyFitnessGym.repository.ClaseRepository;
 import com.bodyFitnessGym.repository.ElementoRepository;
 import com.bodyFitnessGym.repository.EntrenadorRepository;
 import com.bodyFitnessGym.repository.EstudianteRepository;
+import com.bodyFitnessGym.repository.HistorialProgresoRepository;
 import com.bodyFitnessGym.repository.HorarioRepository;
 import com.bodyFitnessGym.repository.ImagenProgresoRepository;
 import com.bodyFitnessGym.repository.MovimientoRepository;
@@ -66,6 +68,8 @@ public class BodyFitnessGymController {
 	private NoticiaRepository noticiaRepository;
 	@Autowired
 	private ElementoRepository elementoRepository;
+	@Autowired
+	private HistorialProgresoRepository historialProgresoRepository;
 
 	// ------------logins---------------------------------------//
 
@@ -367,9 +371,9 @@ public class BodyFitnessGymController {
 
 	// ----------Progresos---------------------------------------//
 
-	@RequestMapping(value = "/progresos/alumno/{id}", method = RequestMethod.GET)
-	public String getProgresosAlumno(@PathVariable("id") Long idAlumno) {
-		return JsonManager.toJson(estudianteRepository.findById(idAlumno).get().getHistorialProgreso());
+	@RequestMapping(value = "/progresos", method = RequestMethod.GET)
+	public String getProgresos() {
+		return JsonManager.toJson(progresoRepository.findAll());
 	}
 
 	@RequestMapping(value = "/progreso/{id}", method = RequestMethod.GET)
@@ -381,7 +385,6 @@ public class BodyFitnessGymController {
 	public String deletProgreso(@PathVariable("id") Long idProgreso) {
 		progresoRepository.deleteById(idProgreso);
 		return "Borrado";
-
 	}
 
 	@RequestMapping(value = "/progreso", method = RequestMethod.PUT)
@@ -389,13 +392,37 @@ public class BodyFitnessGymController {
 		return JsonManager.toJson(progresoRepository.save(p));
 	}
 
-	@RequestMapping(value = "/progreso/{id}", method = RequestMethod.POST)
-	public String createProgreso(@Valid @PathVariable("id") Long idEstudiante, @Valid @RequestBody Progreso p) {
-		p = progresoRepository.save(p);
-		Alumno alumno = estudianteRepository.findById(idEstudiante).get();
-		alumno.addProgreso(p);
-		estudianteRepository.save(alumno);
-		return JsonManager.toJson(p);
+	@RequestMapping(value = "/progreso", method = RequestMethod.POST)
+	public String createProgreso(@Valid @RequestBody Progreso p) {
+		return JsonManager.toJson(progresoRepository.save(p));
+	}
+	
+	//---------------------------historial progresos--------------------//
+	
+	@RequestMapping(value = "/historialProgresos", method = RequestMethod.GET)
+	public String getHistorialProgresos() {
+		return JsonManager.toJson(historialProgresoRepository.findAll());
+	}
+
+	@RequestMapping(value = "/historialProgresos/{id}", method = RequestMethod.GET)
+	public String getHistorialProgreso(@PathVariable("id") Long idHistorialProgreso) {
+		return JsonManager.toJson(historialProgresoRepository.findById(idHistorialProgreso).get());
+	}
+
+	@RequestMapping(value = "/historialProgresos/{id}", method = RequestMethod.DELETE)
+	public String deletHistorialProgreso(@PathVariable("id") Long idHistorialProgreso) {
+		historialProgresoRepository.deleteById(idHistorialProgreso);
+		return "Borrado";
+	}
+
+	@RequestMapping(value = "/historialProgresos", method = RequestMethod.PUT)
+	public String updateProgreso(@Valid @RequestBody HistorialProgreso p) {
+		return JsonManager.toJson(historialProgresoRepository.save(p));
+	}
+
+	@RequestMapping(value = "/historialProgresos", method = RequestMethod.POST)
+	public String createHistorialProgreso(@Valid @RequestBody HistorialProgreso p) {
+		return JsonManager.toJson(historialProgresoRepository.save(p));
 	}
 
 	// ----------Progresos Imagen---------------------------------------//
@@ -441,7 +468,7 @@ public class BodyFitnessGymController {
 
 	@RequestMapping(value = "/suscripciones/alumno/{id}", method = RequestMethod.GET)
 	public String getSubscripcionesAlumno(@PathVariable("id") Long idAlumno) {
-		return JsonManager.toJson(estudianteRepository.findById(idAlumno).get().getHistorialProgreso());
+		return JsonManager.toJson(/*estudianteRepository.findById(idAlumno).get().getHistorialProgreso()*/"sd");
 	}
 
 	@RequestMapping(value = "/suscripciones", method = RequestMethod.GET)
@@ -455,8 +482,8 @@ public class BodyFitnessGymController {
 	}
 
 	@RequestMapping(value = "/suscripcion/{id}", method = RequestMethod.DELETE)
-	public String deletSubscripcion(@PathVariable("id") Long idProgreso) {
-		subscripcionRepository.deleteById(idProgreso);
+	public String deletSubscripcion(@PathVariable("id") Long idSubscription) {
+		subscripcionRepository.deleteById(idSubscription);
 		return "Borrado";
 
 	}

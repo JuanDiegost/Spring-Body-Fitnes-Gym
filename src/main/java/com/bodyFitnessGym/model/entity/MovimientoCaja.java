@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -22,7 +23,6 @@ public class MovimientoCaja {
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd-HH:mm:ss", timezone="GMT-5")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date fechaMovimiento;
-	
 
 	public MovimientoCaja() {
 		super();
@@ -69,5 +69,4 @@ public class MovimientoCaja {
 	public void setFechaMovimiento(Date fechaMovimiento) {
 		this.fechaMovimiento = fechaMovimiento;
 	}
-
 }
