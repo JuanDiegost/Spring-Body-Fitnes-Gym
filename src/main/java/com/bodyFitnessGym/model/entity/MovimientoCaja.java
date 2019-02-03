@@ -6,7 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -24,8 +23,6 @@ public class MovimientoCaja {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date fechaMovimiento;
 	
-	@OneToOne
-	private Subscripcion subscripcion;
 
 	public MovimientoCaja() {
 		super();
@@ -73,11 +70,4 @@ public class MovimientoCaja {
 		this.fechaMovimiento = fechaMovimiento;
 	}
 
-	public Subscripcion getSubscripcion() {
-		return subscripcion;
-	}
-
-	public void setSubscripcion(Subscripcion subscripcion) {
-		this.subscripcion = subscripcion;
-	}
 }
