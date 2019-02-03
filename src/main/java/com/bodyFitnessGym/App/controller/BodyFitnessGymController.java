@@ -471,6 +471,7 @@ public class BodyFitnessGymController {
 			@PathVariable("idServicio") Long idServicio) {
 		Servicio servicio = servicioRepository.findById(idServicio).get();
 		p.setServicio(servicio);
+		movimientoRepository.save(p.getMovimientoDeCaja());
 		Subscripcion subscripcion = subscripcionRepository.save(p);
 		Alumno alumno = estudianteRepository.findById(idEstudiante).get();
 		alumno.addSubscripcion(subscripcion);
