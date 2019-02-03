@@ -456,7 +456,7 @@ public class BodyFitnessGymController {
 
 	@RequestMapping(value = "/suscripcion/{id}", method = RequestMethod.DELETE)
 	public String deletSubscripcion(@PathVariable("id") Long idProgreso) {
-		progresoRepository.deleteById(idProgreso);
+		subscripcionRepository.deleteById(idProgreso);
 		return "Borrado";
 
 	}
