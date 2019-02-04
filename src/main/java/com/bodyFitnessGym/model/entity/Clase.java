@@ -19,6 +19,9 @@ public class Clase {
 	private String descripcion;
 	private int numeroCupos;
 	
+	@OneToOne
+	private Servicio servicio;
+	
 	@OneToMany
 	private List<Horario> horarioClase;
 	
@@ -81,5 +84,21 @@ public class Clase {
 
 	public void setNumeroCupos(int numeroCupos) {
 		this.numeroCupos = numeroCupos;
+	}
+
+	public Servicio getServicio() {
+		return servicio;
+	}
+
+	public void setServicio(Servicio servicio) {
+		this.servicio = servicio;
+	}
+
+	public List<Elemento> getElementoClase() {
+		return elementoClase;
+	}
+
+	public void setElementoClase(List<Elemento> elementoClase) {
+		this.elementoClase = elementoClase;
 	}
 }

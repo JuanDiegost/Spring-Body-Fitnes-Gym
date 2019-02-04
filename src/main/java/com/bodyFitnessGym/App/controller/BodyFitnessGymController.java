@@ -212,9 +212,8 @@ public class BodyFitnessGymController {
 		Servicio servicio = servicioRepository.findById(idServicio).get();
 		Entrenador entrenador = entrenadorRepository.findById(idEntrenador).get();
 		p.setEntrendor(entrenador);
+		p.setServicio(servicio);
 		claseRepository.save(p);
-		servicio.addClase(p);
-		servicioRepository.save(servicio);
 		return JsonManager.toJson(p);
 	}
 

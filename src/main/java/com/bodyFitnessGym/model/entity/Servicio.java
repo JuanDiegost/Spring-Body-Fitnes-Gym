@@ -19,15 +19,8 @@ public class Servicio {
 	private double precio;
 	private String tipoServicio;
 	
-	@OneToMany
-	private List<Clase> clases;
-	
 	public Servicio() {
 		super();
-	}
-	
-	public void addClase(Clase clase) {
-		this.clases.add(clase);
 	}
 		
 	//--------getter&setters-------------------------
@@ -70,13 +63,5 @@ public class Servicio {
 
 	public void setTipoServicio(String tipoServicio) {
 		this.tipoServicio = tipoServicio;
-	}
-
-	public List<Clase> getHorario() {
-		return clases;
-	}
-
-	public void setHorario(List<Clase> clases) {
-		this.clases = clases;
 	}
 }
