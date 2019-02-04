@@ -33,11 +33,6 @@
 - /entrenador/{id} GET , DELET
 - /entrenador POST PUT
 
-- /entrenadores GET
-- /entrenador/{id} GET , DELET
-- /entrenador/todos borra todos los entrenadores DELET
-- /entrenador POST PUT
-
 - /movimientos GET
 - /movimientos/{filtro}/{fechaInicial}/{fechaFinal}     filtro puede ser igual a = "todos" o por tipo p.ej: "ingreso" o "egreso" y las fechas vienen en el formato establecido (yyyy-MM-dd HH:mm:ss)
 - /movimiento/todos DELET borra todos
@@ -48,15 +43,11 @@
 - /pregunta/{id} GET , DELET
 - /pregunta POST PUT
 
-- /progresos{id} GET 
+- /progresos GET 
 - /progreso/{id} GET  (el id es del progreso)
 - /progreso POST PUT , DELET
 
-- /progresoImagen/alumno/{id} GET  (el id es del alumno)
-- /progresoImagen/{id} GET  (el id es del progreso)
-- /progresoImagen POST PUT , DELET
-- /progresoImagen/{id} POST   (el id es del alumno)
-
+- /progresosImagen GET
 - /progresoImagen/alumno/{id} GET  (el id es del alumno)
 - /progresoImagen/{id} GET  (el id es del progreso)
 - /progresoImagen POST PUT , DELET
@@ -76,6 +67,8 @@
 - /elemento/{id} GET , DELET
 - /elemento POST PUT
 
+- /historialProgresos/{id} GET, DELETE
+- /historialProgresos POST PUT
 
 //Todos-
 Relaciones Many To Many

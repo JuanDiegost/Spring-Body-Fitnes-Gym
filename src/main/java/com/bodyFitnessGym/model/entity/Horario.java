@@ -16,7 +16,7 @@ public class Horario {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long idPregunta;
+	private Long idHorario;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd-HH:mm:ss", timezone="GMT-5")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dia;
@@ -27,12 +27,12 @@ public class Horario {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date horaFin;
 
-	public Long getIdPregunta() {
-		return idPregunta;
+	public Long getIdHorario() {
+		return idHorario;
 	}
 
-	public void setIdPregunta(Long idPregunta) {
-		this.idPregunta = idPregunta;
+	public void setIdHorario(Long idHorario) {
+		this.idHorario = idHorario;
 	}
 
 	public Date getDia() {
