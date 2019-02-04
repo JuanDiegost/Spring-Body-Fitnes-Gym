@@ -10,7 +10,9 @@ import com.bodyFitnessGym.model.entity.Horario;
 
 public interface HorarioRepository extends CrudRepository<Horario, Long> {
 
-	@Query(value = "SELECT * FROM horario h WHERE h.dia <= (:diaFinal) AND h.dia >= (:diaInicial)", nativeQuery = true)
-	Collection<Clase> filterHorario(String diaInicial, String diaFinal);
+	@Query(value = "SELECT h.dia, h.hora_inicio, h.hora_fin, c.descripcion "
+			+ "from horario h join clase_horario_clase ch on h.id_horario=ch.horario_clase_id_horario join clase c on c.id_clase=ch.clase_id_clase "
+			+ "WHERE h.dia <= (:diaFinal) AND h.dia >= (:diaInicial)", nativeQuery = true)
+	Collection<Object> filterHorario(String diaInicial, String diaFinal);
 
 }
