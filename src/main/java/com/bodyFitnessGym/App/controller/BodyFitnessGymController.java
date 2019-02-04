@@ -225,6 +225,11 @@ public class BodyFitnessGymController {
 		return JsonManager.toJson(horarioRepository.findAll());
 	}
 
+	@RequestMapping(value = "/horario/filtro/{diaInicial}/{diaFinal}", method = RequestMethod.GET)
+	public String getHorariosFiltrados(@PathVariable String diaInicial, @PathVariable String diaFinal) {
+		return JsonManager.toJson(horarioRepository.filterHorario(diaInicial, diaFinal));
+	}
+	
 	@RequestMapping(value = "/horario/{id}", method = RequestMethod.GET)
 	public String getHorarios(@PathVariable Long id) {
 		return JsonManager.toJson(horarioRepository.findById(id));

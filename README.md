@@ -26,6 +26,7 @@
 - /clase/servicio/{idServicio}/entrenador/{idEntrenador} POST 
 
 - /horarios GET
+- /horario/filtro/{diaInicial}/{diaFinal} filtrar por dias (se tiene que ingresar la fecha con el formato completo
  - /horario/{id} GET , DELET
 - /horario/clase/{idClase} POST 
 
