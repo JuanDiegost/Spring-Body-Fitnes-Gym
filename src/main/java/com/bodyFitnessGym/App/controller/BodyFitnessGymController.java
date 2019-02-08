@@ -104,7 +104,36 @@ public class BodyFitnessGymController {
 	public String loginEntrenador(@PathVariable("usuario") String usuario, @PathVariable("password") String password) {
 		return JsonManager.toJson(entrenadorRepository.authenticate(usuario, password));
 	}
-
+	
+	@RequestMapping(value = "/cambiarContrasenia/{usuario}/{oldPassword}/{newPassword}", method = RequestMethod.GET)
+	public String changePassword(@PathVariable("usuario") String usuario, @PathVariable("oldPassword") String oldPassword, @PathVariable("newPassword") String newPassword) {
+		Collection<Administrador> admin = administradorRepository.authenticate(usuario, oldPassword);
+		if (admin.size() > 0) {
+			for (Administrador administrador : admin) {
+				administrador.setContrasena(newPassword);
+				administradorRepository.save(administrador);
+			}
+			return JsonManager.toJson(admin);
+		}
+		Collection<Alumno> alumnos = estudianteRepository.authenticate(usuario, oldPassword);
+		if (alumnos.size() > 0) {
+			for (Alumno alumno : alumnos) {
+				alumno.setContrasenia(newPassword);
+				estudianteRepository.save(alumno);
+			}
+			return JsonManager.toJson(alumnos);
+		}
+		Collection<Entrenador> entrenadores = entrenadorRepository.authenticate(usuario, oldPassword);
+		if (entrenadores.size() > 0) {
+			for (Entrenador entrenador : entrenadores) {
+				entrenador.setContraseniaEntrenador(newPassword);
+				entrenadorRepository.save(entrenador);
+			}
+			return JsonManager.toJson(entrenadores);
+		}
+		return "Usuario no existe";
+	}
+	
 	// ----------Alumnos---------------------------------------//
 
 	@RequestMapping(value = "/alumnos", method = RequestMethod.GET)

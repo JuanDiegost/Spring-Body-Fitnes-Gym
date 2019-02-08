@@ -10,6 +10,8 @@
 - /login/admin/{usuario}/{contrasenia}    login especifico para admins
 - /login/entrenador/{usuario}/{contrasenia} login especifico para entrenadores
 
+- /cambiarContrasenia/{usuario}/{oldPassord}/{newPassord} este devuelve un alumno, entrenador o admin, lo que encuentre primero con esas credenciales pero con la contrasenia ya cambiada, si no encuentra a nadie con esas credenciales devuelve mensaje de usuario no encontrado
+
 - https://spring-body-fitness-gym.herokuapp.com/alumnos  Devuelve la lista de alumnos [GET]
 - https://spring-body-fitness-gym.herokuapp.com/alumno/{ID} devuelve el alumno con el id {ID} [G]
 - https://spring-body-fitness-gym.herokuapp.com/alumno Guarda un alumno con peticion [POST]
