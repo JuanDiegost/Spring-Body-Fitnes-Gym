@@ -31,6 +31,7 @@
 - /horario/filtro/{diaInicial}/{diaFinal} filtrar por dias (se tiene que ingresar la fecha con el formato completo) y devuelve objetos de texto con el siguiente formato: DIA, hora_inicio, hora_fin, descripcion_clase, nombre_servicio, entrenador_nombre
  - /horario/{id} GET , DELET
 - /horario/clase/{idClase} POST 
+- /horario/asistencia/{idHorario} POST hay que enviar lista de alumnos
 
 - /entrenadores GET
 - /entrenador/{id} GET , DELET

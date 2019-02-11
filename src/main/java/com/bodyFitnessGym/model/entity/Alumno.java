@@ -50,6 +50,10 @@ public class Alumno {
 	public Alumno() {
 		super();
 	}
+	
+	public void addAsistencia(Horario h) {
+		asistencia.add(h);
+	}
 
 	public void addProgresoImagen(ProgresoImagen progresoImagen) throws UnirestException {
 		ArrayList<Double> clusters = JsonManager.getClusterValues(progresoImagen.getUrl());
