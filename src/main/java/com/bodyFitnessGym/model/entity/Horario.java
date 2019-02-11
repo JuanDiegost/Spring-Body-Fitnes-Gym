@@ -30,7 +30,7 @@ public class Horario {
 	private Date horaFin;
 
 	@ManyToMany
-	private List<Horario> asistencia;
+	private List<Alumno> asistencia;
 
 	public Long getIdHorario() {
 		return idHorario;
