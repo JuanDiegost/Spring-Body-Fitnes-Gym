@@ -292,17 +292,6 @@ public class BodyFitnessGymController {
 		return JsonManager.toJson(p);
 	}
 	
-	@RequestMapping(value = "/horario/asistencia/{idHorario}", method = RequestMethod.POST)
-	public String createAsistencias( @PathVariable("idHorario") Long idHorario, @Valid @RequestBody List<Alumno> p) {
-		Horario h = horarioRepository.findById(idHorario).get();
-		for (Alumno alumno : p) {
-			Alumno alumnoHorario = estudianteRepository.findById(alumno.getDniAlumno()).get();
-			alumnoHorario.addAsistencia(h);
-			estudianteRepository.save(alumnoHorario);
-		}
-		return "";
-	}
-	
 	// ----------Entrenador---------------------------------------//
 
 	@RequestMapping(value = "/entrenadores", method = RequestMethod.GET)

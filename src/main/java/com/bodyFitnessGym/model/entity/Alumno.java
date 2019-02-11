@@ -44,17 +44,11 @@ public class Alumno {
 	@OneToMany(cascade = CascadeType.REMOVE)
 	private List<ProgresoImagen> historialProgresoImagen;
 
-	@ManyToMany
-	private List<Horario> asistencia;
 
 	public Alumno() {
 		super();
 	}
 	
-	public void addAsistencia(Horario h) {
-		asistencia.add(h);
-	}
-
 	public void addProgresoImagen(ProgresoImagen progresoImagen) throws UnirestException {
 		ArrayList<Double> clusters = JsonManager.getClusterValues(progresoImagen.getUrl());
 		progresoImagen.setClusterCuerpo(clusters.get(0));
@@ -189,14 +183,6 @@ public class Alumno {
 
 	public void setHistorialProgresoImagen(List<ProgresoImagen> progresosImagen) {
 		this.historialProgresoImagen = progresosImagen;
-	}
-
-	public List<Horario> getAsistencia() {
-		return asistencia;
-	}
-
-	public void setAsistencia(List<Horario> asistencia) {
-		this.asistencia = asistencia;
 	}
 
 	public void addSubscripcion(Subscripcion subscripcion) {
