@@ -260,9 +260,9 @@ public class BodyFitnessGymController {
 		return JsonManager.toJson(horarioRepository.filterHorario(diaInicial, diaFinal));
 	}
 	
-	@RequestMapping(value = "/horario/filtroSinFechas/{diaInicial}/{diaFinal}", method = RequestMethod.GET)
-	public String getHorariosFiltradosSinFechas(@PathVariable String diaInicial, @PathVariable String diaFinal) {
-		return JsonManager.toJson(horarioRepository.filterHorarioSinFechas(diaInicial, diaFinal));
+	@RequestMapping(value = "/horario/filtroSinFechas", method = RequestMethod.GET)
+	public String getHorariosFiltradosSinFechas() {
+		return JsonManager.toJson(horarioRepository.filterHorarioSinFechas());
 	}
 	
 	@RequestMapping(value = "/horario/{id}", method = RequestMethod.GET)
