@@ -64,11 +64,11 @@ public class Horario {
 		this.horaFin = horaFin;
 	}
 
-	public List<Horario> getAsistencia() {
+	public List<Alumno> getAsistencia() {
 		return asistencia;
 	}
 
-	public void setAsistencia(List<Horario> asistencia) {
+	public void setAsistencia(List<Alumno> asistencia) {
 		this.asistencia = asistencia;
 	}
 	
