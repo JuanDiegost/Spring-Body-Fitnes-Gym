@@ -29,6 +29,7 @@
 
 - /horarios GET
 - /horario/filtro/{diaInicial}/{diaFinal} filtrar por dias (se tiene que ingresar la fecha con el formato completo) y devuelve objetos de texto con el siguiente formato: DIA, hora_inicio, hora_fin, descripcion_clase, nombre_servicio, entrenador_nombre
+- /horario/filtroSinFechas/{diaInicial}/{diaFinal} filtrar por dias sin fecha inicial ni final
  - /horario/{id} GET , DELET
 - /horario/clase/{idClase} POST 
 
