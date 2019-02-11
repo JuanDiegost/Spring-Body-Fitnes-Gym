@@ -1,7 +1,6 @@
 # Spring-Body-Fitnes-Gym
  
 ## URL JSON
-  j
 - Servicio de login
 
 - /login/{usuario}/{contrasenia}   este devuelve un alumno, entrenador o admin, lo que encuentre primero con esas credenciales
