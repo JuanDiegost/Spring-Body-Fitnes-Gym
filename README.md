@@ -32,6 +32,7 @@
 - /horario/filtroSinFechas filtrar por dias sin fecha inicial ni final
  - /horario/{id} GET , DELET
 - /horario/clase/{idClase} POST 
+- /horario/suscribirAlumnos/{idHorario} [PUT] Enviando una lista de alumnos se setea en la asistencia de un horario
 
 - /entrenadores GET
 - /entrenador/{id} GET , DELET

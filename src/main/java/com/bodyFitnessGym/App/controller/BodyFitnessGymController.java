@@ -303,6 +303,13 @@ public class BodyFitnessGymController {
 		return JsonManager.toJson(p);
 	}
 	
+	@RequestMapping(value = "/horario/suscribirAlumnos/{idHorario}", method = RequestMethod.PUT)
+	public String subscribirAlumnosAHorario(@Valid @RequestBody List<Alumno> p, @PathVariable("idHorario") Long idHorario) {
+		Horario h = horarioRepository.findById(idHorario).get();
+		h.setAsistencia(p);
+		return JsonManager.toJson(horarioRepository.save(h));
+	}
+	
 	// ----------Entrenador---------------------------------------//
 
 	@RequestMapping(value = "/entrenadores", method = RequestMethod.GET)
