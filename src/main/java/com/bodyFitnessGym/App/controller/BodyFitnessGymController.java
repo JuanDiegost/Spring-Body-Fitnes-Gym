@@ -253,7 +253,13 @@ public class BodyFitnessGymController {
 		claseRepository.save(p);
 		return JsonManager.toJson(p);
 	}
-
+	
+	@RequestMapping(value = "/clase/{idClase}/getHorarios", method = RequestMethod.GET)
+	public String getHorarioDeClase(@PathVariable("idClase") Long idClase) {
+		Clase c = claseRepository.findById(idClase).get();
+		return JsonManager.toJson(c.getHorarioClase());
+	}
+	
 	// -----------Horario------------------------------------------//
 
 	@RequestMapping(value = "/horarios", method = RequestMethod.GET)
