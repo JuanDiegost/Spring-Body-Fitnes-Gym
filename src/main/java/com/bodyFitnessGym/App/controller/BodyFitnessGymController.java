@@ -167,19 +167,25 @@ public class BodyFitnessGymController {
 
 	@RequestMapping(value = "/alumno", method = RequestMethod.PUT)
 	public String updateAlumno(@Valid @RequestBody Alumno p) {
-		estudianteRepository.save(p);
-		return JsonManager.toJson(p);
+		return JsonManager.toJson(estudianteRepository.save(p));
 	}
 
 	@RequestMapping(value = "/alumno", method = RequestMethod.POST)
 	public String createAlumno(@Valid @RequestBody Alumno p) {
 		if (p.validateAlumno()) {
-			estudianteRepository.save(p);
-			return "Guardado";
+			return JsonManager.toJson(estudianteRepository.save(p));
 		}
 		return "Usuario no guardado";
 	}
 
+	@RequestMapping(value = "/alumnos", method = RequestMethod.PUT)
+	public String updateAlumnos(@Valid @RequestBody List<Alumno> p) {
+		estudianteRepository.deleteAll();
+		for (Alumno alumno : p) {
+			estudianteRepository.save(alumno);
+		}
+		return JsonManager.toJson(estudianteRepository.findAll());
+	}
 	// ----------Servicios---------------------------------------//
 
 	@RequestMapping(value = "/servicios", method = RequestMethod.GET)

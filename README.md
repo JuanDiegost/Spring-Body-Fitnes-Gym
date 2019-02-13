@@ -17,6 +17,7 @@
 - https://spring-body-fitness-gym.herokuapp.com/alumno/{ID} Borrar una alumno de id {ID} con una peticion [DELET]
 - https://spring-body-fitness-gym.herokuapp.com/alumno/todos Borrar todos los alumnos con una peticion [DELET]
 -https://spring-body-fitness-gym.herokuapp.com/alumno Editar un alumno con una peticion [PUT]
+- /alumnos Actualiza la lista de alumnos [PUT]
 
 - /servicios obtener todos los servicios
 - /servicio/{ID} obtener el servicio con el {ID} con [GET], y para borrarlo con [DELET]

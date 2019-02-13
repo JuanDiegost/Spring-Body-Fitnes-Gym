@@ -21,9 +21,6 @@ public class Horario {
 	private Long idHorario;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd-HH:mm:ss", timezone="GMT-5")
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date dia;
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd-HH:mm:ss", timezone="GMT-5")
-	@Temporal(TemporalType.TIMESTAMP)
 	private Date horaInicio;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd-HH:mm:ss", timezone="GMT-5")
 	@Temporal(TemporalType.TIMESTAMP)
@@ -38,14 +35,6 @@ public class Horario {
 
 	public void setIdHorario(Long idHorario) {
 		this.idHorario = idHorario;
-	}
-
-	public Date getDia() {
-		return dia;
-	}
-
-	public void setDia(Date dia) {
-		this.dia = dia;
 	}
 
 	public Date getHoraInicio() {
