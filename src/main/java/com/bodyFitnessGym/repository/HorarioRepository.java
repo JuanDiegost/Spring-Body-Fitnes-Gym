@@ -23,4 +23,14 @@ public interface HorarioRepository extends CrudRepository<Horario, Long> {
 			+ "join entrenador e on c.entrendor_dni_entrenador=e.dni_entrenador", nativeQuery = true)
 	Collection<Object> filterHorarioSinFechas();
 	
+	@Query(value = "SELECT h.hora_inicio, hora_fin, s.nombre_servicio FROM "
+			+ "horario h join clase_horario_clase hc on (hc.horario_clase_id_horario=h.id_horario) "
+			+ "join clase c on (hc.clase_id_clase=c.id_clase) "
+			+ "join servicio_clases sc on(sc.clases_id_clase= c.id_clase) "
+			+ "join servicio s on (sc.servicio_id_servicio=s.id_servicio)"
+			+ "WHERE h.hora_inicio <= (:hora_inicio) AND h.hora_fin >= (:hora_inicio) "
+			+ "AND s.nombre_servicio = (:nombreServicio)", nativeQuery = true)
+	Collection<Object> getHorarioALaMismaHora(String nombreServicio, String hora_inicio);
+	
+	
 }
