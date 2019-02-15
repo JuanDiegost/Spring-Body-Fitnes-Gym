@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="progresos" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="af23a899-f3cf-4b15-be8d-1dc7a68423df">
+	<subDataset name="chartDataSet" uuid="119b7f0e-01ef-4e2b-b628-d76f51e83768">
+		<field name="fechaProgresoImagen" class="java.util.Date"/>
+		<field name="masaCorporal" class="java.lang.Double"/>
+		<field name="url" class="java.lang.String"/>
+		<field name="grasaCorporal" class="java.lang.Double"/>
+		<field name="id" class="java.lang.Long"/>
+	</subDataset>
+	<subDataset name="chartDataSetGrasa" uuid="22caffc2-9e29-4edd-b4a8-b6a378539408">
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+		<queryString>
+			<![CDATA[]]>
+		</queryString>
+		<field name="id" class="java.lang.Double"/>
+		<field name="grasaCorporal" class="java.lang.Double"/>
+		<field name="fechaProgresoImagen" class="java.util.Date"/>
+	</subDataset>
+	<parameter name="CHART_DATASET" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource" isForPrompting="false"/>
+	<parameter name="NOMBRE" class="java.lang.String"/>
+	<parameter name="CHART_DATASET_GRASA" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
+	<parameter name="urlFirtsIMG" class="java.lang.String"/>
+	<parameter name="urlSecondIMG" class="java.lang.String"/>
+	<parameter name="urlImgUser" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="106" splitType="Stretch">
+			<rectangle>
+				<reportElement x="-20" y="-20" width="595" height="120" backcolor="#4B8AF4" uuid="75cfec67-4245-4461-82fb-a666e5a76115"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="80" y="0" width="410" height="30" forecolor="#FFFFFF" uuid="753fa10e-5a1d-4319-927c-eb82cf8e05fb"/>
+				<textElement textAlignment="Center">
+					<font size="19"/>
+				</textElement>
+				<text><![CDATA[Progresos Body Fitness Gym]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="70" y="42" width="100" height="30" forecolor="#FFFFFF" uuid="193a86a2-2bc2-4c1a-9716-666939a29e18"/>
+				<textElement textAlignment="Right">
+					<font size="15"/>
+				</textElement>
+				<text><![CDATA[Nombre:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="180" y="42" width="100" height="30" forecolor="#FFFFFF" uuid="9ea57817-ac16-4f26-9b82-73f15c04c4e8"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{NOMBRE}]]></textFieldExpression>
+			</textField>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="360" y="42" width="193" height="30" forecolor="#FFFFFF" uuid="80e2e533-6b4d-4bdb-9dd7-eba2d42a511f"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="0" y="10" width="50" height="50" uuid="469ef2c3-9b46-457f-88a7-0b7ea4af611d"/>
+				<imageExpression><![CDATA[$P{urlImgUser}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<detail>
+		<band height="460">
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+			<timeSeriesChart>
+				<chart evaluationTime="Report">
+					<reportElement x="20" y="10" width="260" height="210" uuid="c1d8a3f2-7fd5-431e-8c94-5ed3529ab6d0"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend position="Top"/>
+				</chart>
+				<timeSeriesDataset timePeriod="Month">
+					<dataset>
+						<datasetRun subDataset="chartDataSet" uuid="ba4ad0c2-7fc3-4342-a207-0bd4a8e53462">
+							<dataSourceExpression><![CDATA[$P{CHART_DATASET}]]></dataSourceExpression>
+						</datasetRun>
+					</dataset>
+					<timeSeries>
+						<seriesExpression><![CDATA["Masa Corporal"]]></seriesExpression>
+						<timePeriodExpression><![CDATA[$F{fechaProgresoImagen}]]></timePeriodExpression>
+						<valueExpression><![CDATA[$F{masaCorporal}]]></valueExpression>
+						<labelExpression><![CDATA["Masa Corporal"]]></labelExpression>
+					</timeSeries>
+				</timeSeriesDataset>
+				<timeSeriesPlot isShowShapes="false">
+					<plot backgroundAlpha="1.0" foregroundAlpha="1.0"/>
+					<timeAxisFormat>
+						<axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
+					</timeAxisFormat>
+					<valueAxisFormat>
+						<axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
+					</valueAxisFormat>
+				</timeSeriesPlot>
+			</timeSeriesChart>
+			<timeSeriesChart>
+				<chart isShowLegend="true" evaluationTime="Report">
+					<reportElement x="290" y="10" width="270" height="220" uuid="8d31d4d6-4b86-48f0-9a56-33d5eb1c5550"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend position="Top"/>
+				</chart>
+				<timeSeriesDataset timePeriod="Month">
+					<dataset>
+						<datasetRun subDataset="chartDataSetGrasa" uuid="1464f961-5fe0-4d1d-8491-affbffe2833a">
+							<dataSourceExpression><![CDATA[$P{CHART_DATASET_GRASA}]]></dataSourceExpression>
+						</datasetRun>
+					</dataset>
+					<timeSeries>
+						<seriesExpression><![CDATA["Grasa Corporal"]]></seriesExpression>
+						<timePeriodExpression><![CDATA[$F{fechaProgresoImagen}]]></timePeriodExpression>
+						<valueExpression><![CDATA[$F{grasaCorporal}]]></valueExpression>
+						<labelExpression><![CDATA["Masa Corporal"]]></labelExpression>
+					</timeSeries>
+				</timeSeriesDataset>
+				<timeSeriesPlot isShowShapes="false">
+					<plot/>
+					<timeAxisFormat>
+						<axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
+					</timeAxisFormat>
+					<valueAxisFormat>
+						<axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
+					</valueAxisFormat>
+				</timeSeriesPlot>
+			</timeSeriesChart>
+			<image>
+				<reportElement x="26" y="310" width="180" height="110" uuid="9ba6b5de-d1b4-4d9f-a4b3-ca026122c358"/>
+				<imageExpression><![CDATA[$P{urlFirtsIMG}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="300" y="310" width="186" height="110" uuid="421edd32-4f05-43cf-8b3d-e9f2e2e748fd"/>
+				<imageExpression><![CDATA[$P{urlSecondIMG}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="66" y="430" width="100" height="30" uuid="a59fa246-4e85-44da-858a-4147f9e9a66e"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Antes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="343" y="430" width="100" height="30" uuid="ce71eef1-7990-49c7-b232-12c68af79f95"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Ahora]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="26" y="260" width="244" height="30" uuid="80a69f98-b9c2-498a-a9e0-7be41ef989dc"/>
+				<textElement>
+					<font size="16"/>
+				</textElement>
+				<text><![CDATA[Comparación por imagen:]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="176" y="12" width="203" height="30" uuid="16bf0054-230d-438c-8573-28796d744a3d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Page " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>
