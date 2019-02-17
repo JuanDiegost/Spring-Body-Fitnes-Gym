@@ -1,10 +1,16 @@
 package com.bodyFitnessGym.App.controller;
 
+import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.expression.ParseException;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +31,7 @@ import com.bodyFitnessGym.model.entity.Progreso;
 import com.bodyFitnessGym.model.entity.Servicio;
 import com.bodyFitnessGym.model.entity.Subscripcion;
 import com.bodyFitnessGym.persistence.JsonManager;
+import com.bodyFitnessGym.reports.Reports;
 import com.bodyFitnessGym.repository.AdministradorRepository;
 import com.bodyFitnessGym.repository.ClaseRepository;
 import com.bodyFitnessGym.repository.ElementoRepository;
@@ -40,6 +47,8 @@ import com.bodyFitnessGym.repository.ProgresoRepository;
 import com.bodyFitnessGym.repository.ServicioRepository;
 import com.bodyFitnessGym.repository.SubscripcionRepository;
 import com.mashape.unirest.http.exceptions.UnirestException;
+
+import net.sf.jasperreports.engine.JRException;
 
 @RestController
 public class BodyFitnessGymController {
@@ -106,9 +115,10 @@ public class BodyFitnessGymController {
 	public String loginEntrenador(@PathVariable("usuario") String usuario, @PathVariable("password") String password) {
 		return JsonManager.toJson(entrenadorRepository.authenticate(usuario, password));
 	}
-	
+
 	@RequestMapping(value = "/cambiarContrasenia/{usuario}/{oldPassword}/{newPassword}", method = RequestMethod.GET)
-	public String changePassword(@PathVariable("usuario") String usuario, @PathVariable("oldPassword") String oldPassword, @PathVariable("newPassword") String newPassword) {
+	public String changePassword(@PathVariable("usuario") String usuario,
+			@PathVariable("oldPassword") String oldPassword, @PathVariable("newPassword") String newPassword) {
 		Collection<Administrador> admin = administradorRepository.authenticate(usuario, oldPassword);
 		if (admin.size() > 0) {
 			for (Administrador administrador : admin) {
@@ -135,7 +145,7 @@ public class BodyFitnessGymController {
 		}
 		return "Usuario no existe";
 	}
-	
+
 	// ----------Alumnos---------------------------------------//
 
 	@RequestMapping(value = "/alumnos", method = RequestMethod.GET)
@@ -186,6 +196,7 @@ public class BodyFitnessGymController {
 		}
 		return JsonManager.toJson(estudianteRepository.findAll());
 	}
+
 	// ----------Servicios---------------------------------------//
 
 	@RequestMapping(value = "/servicios", method = RequestMethod.GET)
@@ -253,13 +264,13 @@ public class BodyFitnessGymController {
 		claseRepository.save(p);
 		return JsonManager.toJson(p);
 	}
-	
+
 	@RequestMapping(value = "/clase/{idClase}/getHorarios", method = RequestMethod.GET)
 	public String getHorarioDeClase(@PathVariable("idClase") Long idClase) {
 		Clase c = claseRepository.findById(idClase).get();
 		return JsonManager.toJson(c.getHorarioClase());
 	}
-	
+
 	// -----------Horario------------------------------------------//
 
 	@RequestMapping(value = "/horarios", method = RequestMethod.GET)
@@ -271,12 +282,12 @@ public class BodyFitnessGymController {
 	public String getHorariosFiltrados(@PathVariable String diaInicial, @PathVariable String diaFinal) {
 		return JsonManager.toJson(horarioRepository.filterHorario(diaInicial, diaFinal));
 	}
-	
+
 	@RequestMapping(value = "/horario/filtroSinFechas", method = RequestMethod.GET)
 	public String getHorariosFiltradosSinFechas() {
 		return JsonManager.toJson(horarioRepository.filterHorarioSinFechas());
 	}
-	
+
 	@RequestMapping(value = "/horario/{id}", method = RequestMethod.GET)
 	public String getHorarios(@PathVariable Long id) {
 		return JsonManager.toJson(horarioRepository.findById(id));
@@ -308,14 +319,15 @@ public class BodyFitnessGymController {
 		claseRepository.save(clase);
 		return JsonManager.toJson(p);
 	}
-	
+
 	@RequestMapping(value = "/horario/suscribirAlumnos/{idHorario}", method = RequestMethod.PUT)
-	public String subscribirAlumnosAHorario(@Valid @RequestBody List<Alumno> p, @PathVariable("idHorario") Long idHorario) {
+	public String subscribirAlumnosAHorario(@Valid @RequestBody List<Alumno> p,
+			@PathVariable("idHorario") Long idHorario) {
 		Horario h = horarioRepository.findById(idHorario).get();
 		h.setAsistencia(p);
 		return JsonManager.toJson(horarioRepository.save(h));
 	}
-	
+
 	// ----------Entrenador---------------------------------------//
 
 	@RequestMapping(value = "/entrenadores", method = RequestMethod.GET)
@@ -455,9 +467,9 @@ public class BodyFitnessGymController {
 	public String createProgreso(@Valid @RequestBody Progreso p) {
 		return JsonManager.toJson(progresoRepository.save(p));
 	}
-	
-	//---------------------------historial progresos--------------------//
-	
+
+	// ---------------------------historial progresos--------------------//
+
 	@RequestMapping(value = "/historialProgresos", method = RequestMethod.GET)
 	public String getHistorialProgresos() {
 		return JsonManager.toJson(historialProgresoRepository.findAll());
@@ -467,10 +479,11 @@ public class BodyFitnessGymController {
 	public String getHistorialProgreso(@PathVariable("id") Long idHistorialProgreso) {
 		return JsonManager.toJson(historialProgresoRepository.findById(idHistorialProgreso).get());
 	}
-	
+
 	@RequestMapping(value = "/historialProgresos/alumno/{idAlumno}", method = RequestMethod.GET)
 	public String getHistorialProgresoAlumno(@PathVariable("idAlumno") Long idAlumno) {
-		return JsonManager.toJson("editar metodo " + historialProgresoRepository.findById(idAlumno).get());//editar metodo
+		return JsonManager.toJson("editar metodo " + historialProgresoRepository.findById(idAlumno).get());// editar
+																											// metodo
 	}
 
 	@RequestMapping(value = "/historialProgresos/{id}", method = RequestMethod.DELETE)
@@ -495,9 +508,9 @@ public class BodyFitnessGymController {
 	public String getProgresosImagen() {
 		return JsonManager.toJson(progresoImagenRepository.findAll());
 	}
-	
+
 	@RequestMapping(value = "/progresosImagen/alumno/{id}", method = RequestMethod.GET)
-	public String getProgresosImagenAlumno(@PathVariable("id") Long idAlumno) {//sort por fecha
+	public String getProgresosImagenAlumno(@PathVariable("id") Long idAlumno) {// sort por fecha
 		return JsonManager.toJson(estudianteRepository.findById(idAlumno).get().getHistorialProgresoImagen());
 	}
 
@@ -533,11 +546,29 @@ public class BodyFitnessGymController {
 		return JsonManager.toJson(p);
 	}
 
+	@RequestMapping(value = "/alumno/{id}/reporte.pdf", method = RequestMethod.GET)
+	public ResponseEntity<ByteArrayResource> generarProgresos(@PathVariable Long id) {
+		byte[] array;
+		try {
+			array = Reports.generarProgresosPDF(estudianteRepository.findById(id).get());
+			ByteArrayResource resource = new ByteArrayResource(array);
+			return ResponseEntity.ok()
+					.header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=reporte.pdf")
+					.contentType(MediaType.APPLICATION_OCTET_STREAM) //
+					.contentLength(array.length) //
+					.body(resource);
+
+		} catch (ParseException | ClassNotFoundException | IOException | JRException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
 	// ----------subscripciones---------------------------------------//
 
 	@RequestMapping(value = "/suscripciones/alumno/{id}", method = RequestMethod.GET)
 	public String getSubscripcionesAlumno(@PathVariable("id") Long idAlumno) {
-		return JsonManager.toJson(/*estudianteRepository.findById(idAlumno).get().getHistorialProgreso()*/"sd");
+		return JsonManager.toJson(/* estudianteRepository.findById(idAlumno).get().getHistorialProgreso() */"sd");
 	}
 
 	@RequestMapping(value = "/suscripciones", method = RequestMethod.GET)

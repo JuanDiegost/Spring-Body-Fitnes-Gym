@@ -57,7 +57,7 @@ public class Reports {
 		parameters.put("urlSecondIMG", imagens.get(imagens.size()-1).getUrl());
 		JasperPrint print = JasperFillManager.fillReport(jasperReport, parameters, new JREmptyDataSource());
 		// Make sure the output directory exists
-		String outFilePath = PDF_REPORTS_DIR + "PROGRESOS" + alumno.getDniAlumno() + ".pdf";// REPORTS_DIR
+		String outFilePath = PDF_REPORTS_DIR + "Reporte-" + alumno.getDniAlumno() + ".pdf";// REPORTS_DIR
 
 		// +persona.getDNI()+persona.getPrimerApellido()+"_"+persona.getPrimerNombre()+"_Carnet.pdf";
 		JasperExportManager.exportReportToPdfFile(print, outFilePath);
