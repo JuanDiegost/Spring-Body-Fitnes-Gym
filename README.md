@@ -77,8 +77,13 @@
 - /historialProgresos/{id} GET, DELETE
 - /historialProgresos POST PUT
 
+- /addErrors GET agregar todos los errores del sistema en caso de que esten vacios
+
 //Todos-
 Relaciones Many To Many
 - Alumno - historial medico
 - alumno - asistencia
 - Entrenador - entrenador servicio
+
+
+

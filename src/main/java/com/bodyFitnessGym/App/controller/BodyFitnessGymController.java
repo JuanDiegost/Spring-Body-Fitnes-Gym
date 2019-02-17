@@ -1,6 +1,7 @@
 package com.bodyFitnessGym.App.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -21,6 +22,7 @@ import com.bodyFitnessGym.model.entity.Alumno;
 import com.bodyFitnessGym.model.entity.Clase;
 import com.bodyFitnessGym.model.entity.Elemento;
 import com.bodyFitnessGym.model.entity.Entrenador;
+import com.bodyFitnessGym.model.entity.ErrorSistema;
 import com.bodyFitnessGym.model.entity.HistorialProgreso;
 import com.bodyFitnessGym.model.entity.Horario;
 import com.bodyFitnessGym.model.entity.ProgresoImagen;
@@ -36,6 +38,7 @@ import com.bodyFitnessGym.repository.AdministradorRepository;
 import com.bodyFitnessGym.repository.ClaseRepository;
 import com.bodyFitnessGym.repository.ElementoRepository;
 import com.bodyFitnessGym.repository.EntrenadorRepository;
+import com.bodyFitnessGym.repository.ErrorRepository;
 import com.bodyFitnessGym.repository.EstudianteRepository;
 import com.bodyFitnessGym.repository.HistorialProgresoRepository;
 import com.bodyFitnessGym.repository.HorarioRepository;
@@ -82,6 +85,7 @@ public class BodyFitnessGymController {
 	@Autowired
 	private HistorialProgresoRepository historialProgresoRepository;
 
+	private ErrorRepository errorRepository;
 	// ------------logins---------------------------------------//
 
 	@RequestMapping(value = "/login/{usuario}/{password}", method = RequestMethod.GET)
@@ -662,5 +666,16 @@ public class BodyFitnessGymController {
 	@RequestMapping(value = "/elemento", method = RequestMethod.POST)
 	public String createElemento(@Valid @RequestBody Elemento p) {
 		return JsonManager.toJson(elementoRepository.save(p));
+	}
+	
+	//---------------------ERRORES-------------------------------//
+	@RequestMapping(value = "/addErrors", method = RequestMethod.GET)
+	public void addSystemErrors() {
+		if (errorRepository.count()==0) {
+			errorRepository.save(new ErrorSistema("nombre de programa repetido"));
+			errorRepository.save(new ErrorSistema("nombre de noticias repetido"));
+			errorRepository.save(new ErrorSistema("horarios cruzados con el mismo entrenador"));
+			errorRepository.save(new ErrorSistema("Nombre de usuario de en uso"));
+		}
 	}
 }
