@@ -554,7 +554,7 @@ public class BodyFitnessGymController {
 			ByteArrayResource resource = new ByteArrayResource(array);
 			return ResponseEntity.ok()
 					.header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=reporte.pdf")
-					.contentType(MediaType.APPLICATION_OCTET_STREAM) //
+					.contentType(MediaType.APPLICATION_PDF) //
 					.contentLength(array.length) //
 					.body(resource);
 
