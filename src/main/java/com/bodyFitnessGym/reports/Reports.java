@@ -26,7 +26,7 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 public class Reports {
 
-	private static final String PDF_REPORTS_DIR = "/app/src/main/java/com/bodyfitnessGym/reports/";
+	private static final String PDF_REPORTS_DIR = "src/main/java/com/bodyfitnessGym/reports/";
 	private static final String REPORT_TEMPLATE_FILENAME = PDF_REPORTS_DIR + "progresos.jrxml";
 
 	/**
