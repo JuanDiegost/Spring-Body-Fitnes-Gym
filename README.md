@@ -58,6 +58,7 @@
 - /progresoImagen/{id} GET  (el id es del progreso)
 - /progresoImagen POST PUT , DELET
 - /progresoImagen/{id} POST   (el id es del alumno)
+- /alumno/{id}/reporte.pdf GET (el id es del alumno) descarga un pdf con los reportes
 
 - /suscripciones/alumno/{id} GET  (el id es del alumno)
 - /suscripciones GET  
