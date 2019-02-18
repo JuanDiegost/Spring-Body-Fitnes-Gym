@@ -1,5 +1,6 @@
 package com.bodyFitnessGym.reports;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -26,7 +27,7 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 public class Reports {
 
-	private static final String PDF_REPORTS_DIR = "src/main/java/com/bodyfitnessGym/reports/";
+	private static final String PDF_REPORTS_DIR = "/src/main/java/com/bodyfitnessGym/reports/";
 	private static final String REPORT_TEMPLATE_FILENAME = PDF_REPORTS_DIR + "progresos.jrxml";
 
 	/**
@@ -40,7 +41,7 @@ public class Reports {
 	 */
 	public static byte[] generarProgresosPDF(Alumno alumno)
 			throws ClassNotFoundException, IOException, ParseException, JRException {
-		JasperReport jasperReport = JasperCompileManager.compileReport(REPORT_TEMPLATE_FILENAME);
+		JasperReport jasperReport = JasperCompileManager.compileReport(new File(".").getCanonicalPath()+REPORT_TEMPLATE_FILENAME);
 		Map<String, Object> parameters = new HashMap<String, Object>();
 		List<ProgresoImagen> imagens = alumno.getHistorialProgresoImagen();
 		Collections.sort(imagens, new Comparator<ProgresoImagen>() {
@@ -57,7 +58,7 @@ public class Reports {
 		parameters.put("urlSecondIMG", imagens.get(imagens.size()-1).getUrl());
 		JasperPrint print = JasperFillManager.fillReport(jasperReport, parameters, new JREmptyDataSource());
 		// Make sure the output directory exists
-		String outFilePath = PDF_REPORTS_DIR + "Reporte-" + alumno.getDniAlumno() + ".pdf";// REPORTS_DIR
+		String outFilePath =new File(".").getCanonicalPath()+ PDF_REPORTS_DIR + "Reporte-" + alumno.getDniAlumno() + ".pdf";// REPORTS_DIR
 
 		// +persona.getDNI()+persona.getPrimerApellido()+"_"+persona.getPrimerNombre()+"_Carnet.pdf";
 		JasperExportManager.exportReportToPdfFile(print, outFilePath);
@@ -68,4 +69,5 @@ public class Reports {
 		Path pdfPath = Paths.get(filePath);
 		return Files.readAllBytes(pdfPath);
 	}
+	
 }
