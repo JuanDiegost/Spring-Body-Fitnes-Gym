@@ -363,8 +363,9 @@ public class BodyFitnessGymController {
 
 	@RequestMapping(value = "/horario/cuposDisponibles/{id}", method = RequestMethod.GET)
 	public String getNumeroDeCuposDisponibles(@PathVariable Long id) {
+		Horario h = horarioRepository.findById(id).get();
 		for (Integer integer : horarioRepository.getCuposHorario(id)) {
-			return JsonManager.toJson(integer);
+			return JsonManager.toJson(integer-h.getAsistencia().size());
 		}
 		return "0";
 	}
