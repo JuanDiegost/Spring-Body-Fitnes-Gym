@@ -9,6 +9,6 @@ import com.bodyFitnessGym.model.entity.Servicio;
 
 public interface ServicioRepository extends CrudRepository<Servicio, Long> {
 
-	@Query(value = "SELECT * FROM Servicio s WHERE s.nombre = ?1", nativeQuery = true)
-	Collection<Servicio> findAllServicesByName(String name);
+	@Query(value = "SELECT * FROM Servicio s WHERE s.nombre_servicio = (:nombreServicio)", nativeQuery = true)
+	Collection<Servicio> findAllServicesByName(String nombreServicio);
 }

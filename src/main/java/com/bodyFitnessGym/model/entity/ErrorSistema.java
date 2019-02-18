@@ -7,20 +7,30 @@ import javax.persistence.Id;
 
 @Entity
 public class ErrorSistema {
+	
+	public static String USUARIO_NO_EXISTE = "No se encuentra usuario";
+	public static String PROGRAMA_YA_EXISTE = "Nombre de programa repetido";
+	public static String NOTICIA_YA_EXISTE = "Nombre de noticias repetido";
+	public static String HORARIO_CRUZADO = "Norarios cruzados con el mismo entrenador";
+	public static String USUARIO_EN_USO = "Nombre de usuario de en uso";
+
+	
+	
+	
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long idPregunta;
+	private Long idError;
 	private String descripcionError;
 	
 	public ErrorSistema(String descripcionError) {
 		this.setDescripcionError(descripcionError);
 	}
-	public Long getIdPregunta() {
-		return idPregunta;
+	public Long getIdError() {
+		return idError;
 	}
-	public void setIdPregunta(Long idPregunta) {
-		this.idPregunta = idPregunta;
+	public void setIdError(Long idPregunta) {
+		this.idError = idPregunta;
 	}
 	public String getDescripcionError() {
 		return descripcionError;

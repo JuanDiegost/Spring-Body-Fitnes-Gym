@@ -1,7 +1,6 @@
 package com.bodyFitnessGym.App.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -84,7 +83,7 @@ public class BodyFitnessGymController {
 	private ElementoRepository elementoRepository;
 	@Autowired
 	private HistorialProgresoRepository historialProgresoRepository;
-
+	@Autowired
 	private ErrorRepository errorRepository;
 	// ------------logins---------------------------------------//
 
@@ -102,7 +101,10 @@ public class BodyFitnessGymController {
 		if (entrenador.size() > 0) {
 			return JsonManager.toJson(entrenador);
 		}
-		return "Usuario no existe";
+		if (errorRepository.count() == 0) {
+			addSystemErrors();
+		}
+		return JsonManager.toJson(errorRepository.findError(ErrorSistema.USUARIO_NO_EXISTE));
 	}
 
 	@RequestMapping(value = "/login/alumno/{usuario}/{password}", method = RequestMethod.GET)
@@ -226,7 +228,13 @@ public class BodyFitnessGymController {
 
 	@RequestMapping(value = "/servicio", method = RequestMethod.POST)
 	public String createServicio(@Valid @RequestBody Servicio p) {
-		return JsonManager.toJson(servicioRepository.save(p));
+		if (servicioRepository.findAllServicesByName(p.getNombreServicio()).size()==0) {
+			return JsonManager.toJson(servicioRepository.save(p));
+		}
+		if (errorRepository.count() == 0) {
+			addSystemErrors();
+		}
+		return JsonManager.toJson(errorRepository.findError(ErrorSistema.PROGRAMA_YA_EXISTE));
 	}
 
 	// ----------Clases---------------------------------------//
@@ -556,8 +564,7 @@ public class BodyFitnessGymController {
 		try {
 			array = Reports.generarProgresosPDF(estudianteRepository.findById(id).get());
 			ByteArrayResource resource = new ByteArrayResource(array);
-			return ResponseEntity.ok()
-					.header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=reporte.pdf")
+			return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=reporte.pdf")
 					.contentType(MediaType.APPLICATION_PDF) //
 					.contentLength(array.length) //
 					.body(resource);
@@ -667,15 +674,16 @@ public class BodyFitnessGymController {
 	public String createElemento(@Valid @RequestBody Elemento p) {
 		return JsonManager.toJson(elementoRepository.save(p));
 	}
-	
-	//---------------------ERRORES-------------------------------//
+
+	// ---------------------ERRORES-------------------------------//
 	@RequestMapping(value = "/addErrors", method = RequestMethod.GET)
 	public void addSystemErrors() {
-		if (errorRepository.count()==0) {
-			errorRepository.save(new ErrorSistema("nombre de programa repetido"));
-			errorRepository.save(new ErrorSistema("nombre de noticias repetido"));
-			errorRepository.save(new ErrorSistema("horarios cruzados con el mismo entrenador"));
-			errorRepository.save(new ErrorSistema("Nombre de usuario de en uso"));
+		if (errorRepository.count() == 0) {
+			errorRepository.save(new ErrorSistema(ErrorSistema.USUARIO_NO_EXISTE));
+			errorRepository.save(new ErrorSistema(ErrorSistema.PROGRAMA_YA_EXISTE));
+			errorRepository.save(new ErrorSistema(ErrorSistema.NOTICIA_YA_EXISTE));
+			errorRepository.save(new ErrorSistema(ErrorSistema.HORARIO_CRUZADO));
+			errorRepository.save(new ErrorSistema(ErrorSistema.USUARIO_EN_USO));
 		}
 	}
 }
