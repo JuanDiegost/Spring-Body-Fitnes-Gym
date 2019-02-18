@@ -30,8 +30,8 @@
 - /clase/{idClase}/getHorarios GET obtiene los horarios de una clase
 
 - /horarios GET
-- /horario/filtro/{diaInicial}/{diaFinal} filtrar por dias (se tiene que ingresar la fecha con el formato completo) y devuelve objetos de texto con el siguiente formato: DIA, hora_inicio, hora_fin, descripcion_clase, nombre_servicio, entrenador_nombre
-- /horario/filtroSinFechas filtrar por dias sin fecha inicial ni final
+- /horario/filtro/{diaInicial}/{diaFinal} filtrar por dias (se tiene que ingresar la fecha con el formato completo) y devuelve objetos de texto con el siguiente formato: hora_inicio, hora_fin, descripcion_clase, nombre_servicio, entrenador_nombre
+- /horario/filtroSinFechas filtrar por dias sin fecha inicial ni final (cupos disponibles, hora_inicio, hora_fin, descripcion_clase, nombre_servicio, entrenador_nombre)
  - /horario/{id} GET , DELET
 - /horario/clase/{idClase} POST 
 - /horario/suscribirAlumnos/{idHorario} [PUT] Enviando una lista de alumnos se setea en la asistencia de un horario

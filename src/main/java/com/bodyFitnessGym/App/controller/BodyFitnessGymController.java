@@ -1,6 +1,7 @@
 package com.bodyFitnessGym.App.controller;
 
 import java.io.IOException;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -318,9 +319,27 @@ public class BodyFitnessGymController {
 
 	@RequestMapping(value = "/horario/filtroSinFechas", method = RequestMethod.GET)
 	public String getHorariosFiltradosSinFechas() {
-		return JsonManager.toJson(horarioRepository.filterHorarioSinFechas());
+		ArrayList<Object[]> result = new ArrayList<>();
+		for (Object horario : horarioRepository.filterHorarioSinFechas()) {
+			Object [] horarioVector = (Object[]) horario;
+			Horario h = horarioRepository.findById(Long.parseLong(((BigInteger) horarioVector[0]).toString())).get();
+			for (Integer integer : horarioRepository.getCuposHorario(h.getIdHorario())) {
+				horarioVector[0] = JsonManager.toJson(integer-h.getAsistencia().size());
+			}
+			result.add(horarioVector);
+		}
+		return JsonManager.toJson(result);
 	}
 
+	@RequestMapping(value = "/horario/cuposDisponibles/{id}", method = RequestMethod.GET)
+	public String getNumeroDeCuposDisponibles(@PathVariable Long id) {
+		Horario h = horarioRepository.findById(id).get();
+		for (Integer integer : horarioRepository.getCuposHorario(id)) {
+			return JsonManager.toJson(integer-h.getAsistencia().size());
+		}
+		return "0";
+	}
+	
 	@RequestMapping(value = "/horario/{id}", method = RequestMethod.GET)
 	public String getHorarios(@PathVariable Long id) {
 		return JsonManager.toJson(horarioRepository.findById(id));
@@ -361,14 +380,7 @@ public class BodyFitnessGymController {
 		return JsonManager.toJson(horarioRepository.save(h));
 	}
 
-	@RequestMapping(value = "/horario/cuposDisponibles/{id}", method = RequestMethod.GET)
-	public String getNumeroDeCuposDisponibles(@PathVariable Long id) {
-		Horario h = horarioRepository.findById(id).get();
-		for (Integer integer : horarioRepository.getCuposHorario(id)) {
-			return JsonManager.toJson(integer-h.getAsistencia().size());
-		}
-		return "0";
-	}
+	
 
 	// ----------Entrenador---------------------------------------//
 
