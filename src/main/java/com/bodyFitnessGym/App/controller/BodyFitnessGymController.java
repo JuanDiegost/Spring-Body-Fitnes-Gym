@@ -697,17 +697,22 @@ public class BodyFitnessGymController {
 	@RequestMapping(value = "/addErrors", method = RequestMethod.GET)
 	public void addSystemErrors() {
 		if (errorRepository.count() == 0) {
-		}
 		ErrorSistema e1 = new ErrorSistema();
 		e1.setDescripcionError(ErroresSistema.USUARIO_NO_EXISTE);
+		errorRepository.save(e1);
 		ErrorSistema e2 = new ErrorSistema();
 		e2.setDescripcionError(ErroresSistema.PROGRAMA_YA_EXISTE);
+		errorRepository.save(e2);
 		ErrorSistema e3 = new ErrorSistema();
 		e3.setDescripcionError(ErroresSistema.NOTICIA_YA_EXISTE);
+		errorRepository.save(e3);
 		ErrorSistema e4 = new ErrorSistema();
 		e4.setDescripcionError(ErroresSistema.HORARIO_CRUZADO);
+		errorRepository.save(e4);
 		ErrorSistema e5 = new ErrorSistema();
 		e5.setDescripcionError(ErroresSistema.USUARIO_EN_USO);
+		errorRepository.save(e5);
+		}
 	}
 
 	@RequestMapping(value = "/errores", method = RequestMethod.GET)
