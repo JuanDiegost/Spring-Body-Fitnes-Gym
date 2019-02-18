@@ -35,6 +35,8 @@
  - /horario/{id} GET , DELET
 - /horario/clase/{idClase} POST 
 - /horario/suscribirAlumnos/{idHorario} [PUT] Enviando una lista de alumnos se setea en la asistencia de un horario
+- /horario/cuposDisponibles/{id} GET obtiene el numero de cupos disponibles
+
 
 - /entrenadores GET
 - /entrenador/{id} GET , DELET

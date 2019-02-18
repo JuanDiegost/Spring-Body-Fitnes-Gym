@@ -4,8 +4,6 @@ import java.util.Collection;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
-
-import com.bodyFitnessGym.model.entity.Clase;
 import com.bodyFitnessGym.model.entity.Horario;
 
 public interface HorarioRepository extends CrudRepository<Horario, Long> {
@@ -31,6 +29,12 @@ public interface HorarioRepository extends CrudRepository<Horario, Long> {
 			+ "WHERE h.hora_inicio <= (:hora_inicio) AND h.hora_fin >= (:hora_inicio) "
 			+ "AND s.nombre_servicio = (:nombreServicio)", nativeQuery = true)
 	Collection<Object> getHorarioALaMismaHora(String nombreServicio, String hora_inicio);
+	
+	@Query(value = "SELECT c.numero_cupos FROM "
+			+ "horario h join clase_horario_clase hc on (hc.horario_clase_id_horario=h.id_horario) "
+			+ "join clase c on (hc.clase_id_clase=c.id_clase) "
+			+ "WHERE h.id_horario=(:idHorario)", nativeQuery = true)
+	Collection<Integer> getCuposHorario(Long idHorario);
 	
 	
 }

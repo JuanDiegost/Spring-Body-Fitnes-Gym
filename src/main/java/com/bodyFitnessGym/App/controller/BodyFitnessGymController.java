@@ -1,6 +1,7 @@
 package com.bodyFitnessGym.App.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -358,6 +359,14 @@ public class BodyFitnessGymController {
 		Horario h = horarioRepository.findById(idHorario).get();
 		h.setAsistencia(p);
 		return JsonManager.toJson(horarioRepository.save(h));
+	}
+
+	@RequestMapping(value = "/horario/cuposDisponibles/{id}", method = RequestMethod.GET)
+	public String getNumeroDeCuposDisponibles(@PathVariable Long id) {
+		for (Integer integer : horarioRepository.getCuposHorario(id)) {
+			return JsonManager.toJson(integer);
+		}
+		return "0";
 	}
 
 	// ----------Entrenador---------------------------------------//
@@ -731,6 +740,7 @@ public class BodyFitnessGymController {
 	public String addError(@Valid @RequestBody ErrorSistema p) {
 		return JsonManager.toJson(errorRepository.save(p));
 	}
+
 	@RequestMapping(value = "/errores", method = RequestMethod.GET)
 	public String getErrores() {
 		return JsonManager.toJson(errorRepository.findAll());
