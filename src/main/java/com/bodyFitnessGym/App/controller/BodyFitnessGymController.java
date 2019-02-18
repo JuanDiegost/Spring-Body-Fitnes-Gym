@@ -657,11 +657,12 @@ public class BodyFitnessGymController {
 	public String createNoticia(@Valid @RequestBody Noticia p) {
 		if (noticiaRepository.finNoticiaByName(p.getTitular()).size() == 0) {
 			return JsonManager.toJson(noticiaRepository.save(p));
+		} else {
+			if (errorRepository.count() == 0) {
+				addSystemErrors();
+			}
+			return JsonManager.toJson(errorRepository.findError(ErroresSistema.NOTICIA_YA_EXISTE));
 		}
-		if (errorRepository.count() == 0) {
-			addSystemErrors();
-		}
-		return JsonManager.toJson(errorRepository.findError(ErroresSistema.NOTICIA_YA_EXISTE));
 	}
 
 	// ----------Elementos---------------------------------------//
@@ -697,21 +698,21 @@ public class BodyFitnessGymController {
 	@RequestMapping(value = "/addErrors", method = RequestMethod.GET)
 	public void addSystemErrors() {
 		if (errorRepository.count() == 0) {
-		ErrorSistema e1 = new ErrorSistema();
-		e1.setDescripcionError(ErroresSistema.USUARIO_NO_EXISTE);
-		errorRepository.save(e1);
-		ErrorSistema e2 = new ErrorSistema();
-		e2.setDescripcionError(ErroresSistema.PROGRAMA_YA_EXISTE);
-		errorRepository.save(e2);
-		ErrorSistema e3 = new ErrorSistema();
-		e3.setDescripcionError(ErroresSistema.NOTICIA_YA_EXISTE);
-		errorRepository.save(e3);
-		ErrorSistema e4 = new ErrorSistema();
-		e4.setDescripcionError(ErroresSistema.HORARIO_CRUZADO);
-		errorRepository.save(e4);
-		ErrorSistema e5 = new ErrorSistema();
-		e5.setDescripcionError(ErroresSistema.USUARIO_EN_USO);
-		errorRepository.save(e5);
+			ErrorSistema e1 = new ErrorSistema();
+			e1.setDescripcionError(ErroresSistema.USUARIO_NO_EXISTE);
+			errorRepository.save(e1);
+			ErrorSistema e2 = new ErrorSistema();
+			e2.setDescripcionError(ErroresSistema.PROGRAMA_YA_EXISTE);
+			errorRepository.save(e2);
+			ErrorSistema e3 = new ErrorSistema();
+			e3.setDescripcionError(ErroresSistema.NOTICIA_YA_EXISTE);
+			errorRepository.save(e3);
+			ErrorSistema e4 = new ErrorSistema();
+			e4.setDescripcionError(ErroresSistema.HORARIO_CRUZADO);
+			errorRepository.save(e4);
+			ErrorSistema e5 = new ErrorSistema();
+			e5.setDescripcionError(ErroresSistema.USUARIO_EN_USO);
+			errorRepository.save(e5);
 		}
 	}
 
