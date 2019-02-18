@@ -189,20 +189,28 @@ public class BodyFitnessGymController {
 
 	@RequestMapping(value = "/alumno", method = RequestMethod.POST)
 	public String createAlumno(@Valid @RequestBody Alumno p) {
-		if (estudianteRepository.findAllByName(p.getUsuarioAlumno()).size() == 0) {
-			if (p.validateAlumno()) {
-				return JsonManager.toJson(estudianteRepository.save(p));
+		if (!estudianteRepository.findById(p.getDniAlumno()).isPresent()) {
+
+			if (estudianteRepository.findAllByName(p.getUsuarioAlumno()).size() == 0) {
+				if (p.validateAlumno()) {
+					return JsonManager.toJson(estudianteRepository.save(p));
+				} else {
+					if (errorRepository.count() == 0) {
+						addSystemErrors();
+					}
+					return JsonManager.toJson(errorRepository.findError(ErroresSistema.USUARIO_CON_EDAD_INVALIDA));
+				}
 			} else {
 				if (errorRepository.count() == 0) {
 					addSystemErrors();
 				}
-				return JsonManager.toJson(errorRepository.findError(ErroresSistema.USUARIO_CON_EDAD_INVALIDA));
+				return JsonManager.toJson(errorRepository.findError(ErroresSistema.USUARIO_EN_USO));
 			}
 		} else {
 			if (errorRepository.count() == 0) {
 				addSystemErrors();
 			}
-			return JsonManager.toJson(errorRepository.findError(ErroresSistema.USUARIO_EN_USO));
+			return JsonManager.toJson(errorRepository.findError(ErroresSistema.DNI_EN_USO));
 		}
 	}
 
@@ -713,9 +721,16 @@ public class BodyFitnessGymController {
 			ErrorSistema e5 = new ErrorSistema();
 			e5.setDescripcionError(ErroresSistema.USUARIO_EN_USO);
 			errorRepository.save(e5);
+			ErrorSistema e6 = new ErrorSistema();
+			e6.setDescripcionError(ErroresSistema.DNI_EN_USO);
+			errorRepository.save(e6);
 		}
 	}
 
+	@RequestMapping(value = "/error", method = RequestMethod.POST)
+	public String addError(@Valid @RequestBody ErrorSistema p) {
+		return JsonManager.toJson(errorRepository.save(p));
+	}
 	@RequestMapping(value = "/errores", method = RequestMethod.GET)
 	public String getErrores() {
 		return JsonManager.toJson(errorRepository.findAll());
