@@ -703,4 +703,10 @@ public class BodyFitnessGymController {
 			errorRepository.save(new ErrorSistema(ErrorSistema.USUARIO_EN_USO));
 		}
 	}
+
+	@RequestMapping(value = "/errores", method = RequestMethod.GET)
+	public String getErrores() {
+		return JsonManager.toJson(errorRepository.findAll());
+	}
+	
 }
