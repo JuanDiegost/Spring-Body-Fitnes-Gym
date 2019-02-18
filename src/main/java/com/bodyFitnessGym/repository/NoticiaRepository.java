@@ -8,7 +8,7 @@ import com.bodyFitnessGym.model.entity.Noticia;
 
 public interface NoticiaRepository extends CrudRepository<Noticia, Long>{
 
-	@Query(value = "SELECT * FROM NOTICIA n WHERE b.titular = (:titular)", nativeQuery = true)
+	@Query(value = "SELECT * FROM NOTICIA n WHERE n.titular = (:titular)", nativeQuery = true)
 	Collection<Noticia> finNoticiaByName(String titular);
 
 }
