@@ -1,9 +1,14 @@
 package com.bodyFitnessGym.repository;
 
-import org.springframework.data.repository.CrudRepository;
+import java.util.Collection;
 
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
 import com.bodyFitnessGym.model.entity.Noticia;
 
 public interface NoticiaRepository extends CrudRepository<Noticia, Long>{
+
+	@Query(value = "SELECT * FROM NOTICIA n WHERE b.titular = (:titular)", nativeQuery = true)
+	Collection<Noticia> finNoticiaByName(String titular);
 
 }

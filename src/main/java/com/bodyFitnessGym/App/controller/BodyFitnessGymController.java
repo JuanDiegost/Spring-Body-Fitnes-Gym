@@ -188,10 +188,21 @@ public class BodyFitnessGymController {
 
 	@RequestMapping(value = "/alumno", method = RequestMethod.POST)
 	public String createAlumno(@Valid @RequestBody Alumno p) {
-		if (p.validateAlumno()) {
-			return JsonManager.toJson(estudianteRepository.save(p));
+		if (estudianteRepository.findAllByName(p.getUsuarioAlumno()).size()==0) {
+			if (p.validateAlumno()) {
+				return JsonManager.toJson(estudianteRepository.save(p));
+			}else {
+				if (errorRepository.count() == 0) {
+					addSystemErrors();
+				}
+				return JsonManager.toJson(errorRepository.findError(ErrorSistema.USUARIO_CON_EDAD_INVALIDA));
+			}
+		}else {
+			if (errorRepository.count() == 0) {
+				addSystemErrors();
+			}
+			return JsonManager.toJson(errorRepository.findError(ErrorSistema.USUARIO_EN_USO));
 		}
-		return "Usuario no guardado";
 	}
 
 	@RequestMapping(value = "/alumnos", method = RequestMethod.PUT)
@@ -643,7 +654,13 @@ public class BodyFitnessGymController {
 
 	@RequestMapping(value = "/noticia", method = RequestMethod.POST)
 	public String createNoticia(@Valid @RequestBody Noticia p) {
-		return JsonManager.toJson(noticiaRepository.save(p));
+		if (noticiaRepository.finNoticiaByName(p.getTitular()).size()==0) {
+			return JsonManager.toJson(noticiaRepository.save(p));
+		}
+		if (errorRepository.count() == 0) {
+			addSystemErrors();
+		}
+		return JsonManager.toJson(errorRepository.findError(ErrorSistema.NOTICIA_YA_EXISTE));
 	}
 
 	// ----------Elementos---------------------------------------//
