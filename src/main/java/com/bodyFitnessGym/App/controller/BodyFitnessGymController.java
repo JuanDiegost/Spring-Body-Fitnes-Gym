@@ -22,6 +22,7 @@ import com.bodyFitnessGym.model.entity.Clase;
 import com.bodyFitnessGym.model.entity.Elemento;
 import com.bodyFitnessGym.model.entity.Entrenador;
 import com.bodyFitnessGym.model.entity.ErrorSistema;
+import com.bodyFitnessGym.model.entity.ErroresSistema;
 import com.bodyFitnessGym.model.entity.HistorialProgreso;
 import com.bodyFitnessGym.model.entity.Horario;
 import com.bodyFitnessGym.model.entity.ProgresoImagen;
@@ -104,7 +105,7 @@ public class BodyFitnessGymController {
 		if (errorRepository.count() == 0) {
 			addSystemErrors();
 		}
-		return JsonManager.toJson(errorRepository.findError(ErrorSistema.USUARIO_NO_EXISTE));
+		return JsonManager.toJson(errorRepository.findError(ErroresSistema.USUARIO_NO_EXISTE));
 	}
 
 	@RequestMapping(value = "/login/alumno/{usuario}/{password}", method = RequestMethod.GET)
@@ -188,20 +189,20 @@ public class BodyFitnessGymController {
 
 	@RequestMapping(value = "/alumno", method = RequestMethod.POST)
 	public String createAlumno(@Valid @RequestBody Alumno p) {
-		if (estudianteRepository.findAllByName(p.getUsuarioAlumno()).size()==0) {
+		if (estudianteRepository.findAllByName(p.getUsuarioAlumno()).size() == 0) {
 			if (p.validateAlumno()) {
 				return JsonManager.toJson(estudianteRepository.save(p));
-			}else {
+			} else {
 				if (errorRepository.count() == 0) {
 					addSystemErrors();
 				}
-				return JsonManager.toJson(errorRepository.findError(ErrorSistema.USUARIO_CON_EDAD_INVALIDA));
+				return JsonManager.toJson(errorRepository.findError(ErroresSistema.USUARIO_CON_EDAD_INVALIDA));
 			}
-		}else {
+		} else {
 			if (errorRepository.count() == 0) {
 				addSystemErrors();
 			}
-			return JsonManager.toJson(errorRepository.findError(ErrorSistema.USUARIO_EN_USO));
+			return JsonManager.toJson(errorRepository.findError(ErroresSistema.USUARIO_EN_USO));
 		}
 	}
 
@@ -239,13 +240,13 @@ public class BodyFitnessGymController {
 
 	@RequestMapping(value = "/servicio", method = RequestMethod.POST)
 	public String createServicio(@Valid @RequestBody Servicio p) {
-		if (servicioRepository.findAllServicesByName(p.getNombreServicio()).size()==0) {
+		if (servicioRepository.findAllServicesByName(p.getNombreServicio()).size() == 0) {
 			return JsonManager.toJson(servicioRepository.save(p));
 		}
 		if (errorRepository.count() == 0) {
 			addSystemErrors();
 		}
-		return JsonManager.toJson(errorRepository.findError(ErrorSistema.PROGRAMA_YA_EXISTE));
+		return JsonManager.toJson(errorRepository.findError(ErroresSistema.PROGRAMA_YA_EXISTE));
 	}
 
 	// ----------Clases---------------------------------------//
@@ -654,13 +655,13 @@ public class BodyFitnessGymController {
 
 	@RequestMapping(value = "/noticia", method = RequestMethod.POST)
 	public String createNoticia(@Valid @RequestBody Noticia p) {
-		if (noticiaRepository.finNoticiaByName(p.getTitular()).size()==0) {
+		if (noticiaRepository.finNoticiaByName(p.getTitular()).size() == 0) {
 			return JsonManager.toJson(noticiaRepository.save(p));
 		}
 		if (errorRepository.count() == 0) {
 			addSystemErrors();
 		}
-		return JsonManager.toJson(errorRepository.findError(ErrorSistema.NOTICIA_YA_EXISTE));
+		return JsonManager.toJson(errorRepository.findError(ErroresSistema.NOTICIA_YA_EXISTE));
 	}
 
 	// ----------Elementos---------------------------------------//
@@ -696,17 +697,21 @@ public class BodyFitnessGymController {
 	@RequestMapping(value = "/addErrors", method = RequestMethod.GET)
 	public void addSystemErrors() {
 		if (errorRepository.count() == 0) {
-			errorRepository.save(new ErrorSistema(ErrorSistema.USUARIO_NO_EXISTE));
-			errorRepository.save(new ErrorSistema(ErrorSistema.PROGRAMA_YA_EXISTE));
-			errorRepository.save(new ErrorSistema(ErrorSistema.NOTICIA_YA_EXISTE));
-			errorRepository.save(new ErrorSistema(ErrorSistema.HORARIO_CRUZADO));
-			errorRepository.save(new ErrorSistema(ErrorSistema.USUARIO_EN_USO));
 		}
+		ErrorSistema e1 = new ErrorSistema();
+		e1.setDescripcionError(ErroresSistema.USUARIO_NO_EXISTE);
+		ErrorSistema e2 = new ErrorSistema();
+		e2.setDescripcionError(ErroresSistema.PROGRAMA_YA_EXISTE);
+		ErrorSistema e3 = new ErrorSistema();
+		e3.setDescripcionError(ErroresSistema.NOTICIA_YA_EXISTE);
+		ErrorSistema e4 = new ErrorSistema();
+		e4.setDescripcionError(ErroresSistema.HORARIO_CRUZADO);
+		ErrorSistema e5 = new ErrorSistema();
+		e5.setDescripcionError(ErroresSistema.USUARIO_EN_USO);
 	}
 
 	@RequestMapping(value = "/errores", method = RequestMethod.GET)
 	public String getErrores() {
 		return JsonManager.toJson(errorRepository.findAll());
 	}
-	
 }

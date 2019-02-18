@@ -3,8 +3,9 @@
 ## URL JSON
 - Servicio de login
 
-- /login/{usuario}/{contrasenia}   este devuelve un alumno, entrenador o admin, lo que encuentre primero con esas credenciales
+- /errores muiestra todos los errores del sistema
 
+- /login/{usuario}/{contrasenia}   este devuelve un alumno, entrenador o admin, lo que encuentre primero con esas credenciales
 - /login/alumno/{usuario}/{contrasenia}   login especifico para alumnos
 - /login/admin/{usuario}/{contrasenia}    login especifico para admins
 - /login/entrenador/{usuario}/{contrasenia} login especifico para entrenadores
