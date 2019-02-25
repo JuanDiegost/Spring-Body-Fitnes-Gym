@@ -479,6 +479,30 @@ public class BodyFitnessGymController {
 		return JsonManager.toJson(movimientoRepository.save(p));
 	}
 
+	@RequestMapping(value = "/movimientos/{filtro}/{fechaInicio}/{fechaFinal}/generarReporte", method = RequestMethod.GET)
+	public ResponseEntity<ByteArrayResource> generarReporte(@PathVariable("filtro") String filtro,
+			@PathVariable("fechaInicio") String fechaInicio, @PathVariable("fechaFinal") String fechaFinal) {
+		byte[] array;
+		List<MovimientoCaja> movimientos;
+		if (filtro.toLowerCase().equals("todos")) {
+			movimientos = (List<MovimientoCaja>) movimientoRepository.findAll(fechaInicio, fechaFinal);
+		}else {
+			movimientos = (List<MovimientoCaja>) movimientoRepository.findAllFiltered(filtro, fechaInicio, fechaFinal);
+		}
+		try {
+			array = Reports.generarMovimientoPDF(movimientos);
+			ByteArrayResource resource = new ByteArrayResource(array);
+			return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=reporte.pdf")
+					.contentType(MediaType.APPLICATION_PDF) //
+					.contentLength(array.length) //
+					.body(resource);
+
+		} catch (ParseException | ClassNotFoundException | IOException | JRException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
 	// ----------Preguntas---------------------------------------//
 
 	@RequestMapping(value = "/preguntas", method = RequestMethod.GET)

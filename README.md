@@ -44,6 +44,7 @@
 - /entrenador POST PUT
 
 - /movimientos GET
+- /movimientos/{filtro}/{fechaInicio}/{fechaFinal}/generarReporte metodo de filtrar pero obtiene el reporte en pdf
 - /movimientos/{filtro}/{fechaInicial}/{fechaFinal}     filtro puede ser igual a = "todos" o por tipo p.ej: "ingreso" o "egreso" y las fechas vienen en el formato establecido (yyyy-MM-dd HH:mm:ss)
 - /movimiento/todos DELET borra todos
 - /movimiento/{id} GET , DELET
