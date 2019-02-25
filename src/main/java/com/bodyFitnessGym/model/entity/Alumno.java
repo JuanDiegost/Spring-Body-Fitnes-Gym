@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -23,6 +24,7 @@ public class Alumno {
 	private String nombreAlumno;
 	private String telefonoAlumno;
 	private String emailAlumno;
+	@Column( length = 100000 )
 	private String urlImagenUsuario;
 	private String usuarioAlumno;
 	private String contrasenia;

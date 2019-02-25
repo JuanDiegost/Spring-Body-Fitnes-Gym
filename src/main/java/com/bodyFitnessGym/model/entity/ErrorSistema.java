@@ -1,5 +1,6 @@
 package com.bodyFitnessGym.model.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,6 +12,7 @@ public class ErrorSistema {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long idError;
+	@Column( length = 100000 )
 	private String descripcionError;
 
 	public Long getIdError() {

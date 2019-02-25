@@ -1,6 +1,7 @@
 package com.bodyFitnessGym.model.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -11,6 +12,7 @@ public class Servicio {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long idServicio;
 	private String nombreServicio;
+	@Column( length = 100000 )
 	private String descripcionServicio;
 	private double precio;
 	private String tipoServicio;

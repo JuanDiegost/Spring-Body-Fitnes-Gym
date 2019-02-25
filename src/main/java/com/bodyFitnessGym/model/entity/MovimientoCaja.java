@@ -2,6 +2,7 @@ package com.bodyFitnessGym.model.entity;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,6 +17,7 @@ public class MovimientoCaja {
 	@Id
     @GeneratedValue(strategy=GenerationType.AUTO)
 	private Long idMovimiento;
+	@Column( length = 100000 )
 	private String descripcionMovimiento;
 	private double valor;
 	private String tipo;

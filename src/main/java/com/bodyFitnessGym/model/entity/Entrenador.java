@@ -1,6 +1,8 @@
 package com.bodyFitnessGym.model.entity;
 
 import java.util.List;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
@@ -12,6 +14,7 @@ public class Entrenador {
 	private String nombreEntrenador;
 	private String telefonoEntrenador;
 	private String emailEntrenador;
+	@Column( length = 100000 )
 	private String urlImagenEntrenador;
 	private String usuarioEntrenador;
 	private String contraseniaEntrenador;

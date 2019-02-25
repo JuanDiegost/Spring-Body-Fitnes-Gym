@@ -1,5 +1,6 @@
 package com.bodyFitnessGym.model.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,7 +13,9 @@ public class Noticia {
     @GeneratedValue(strategy=GenerationType.AUTO)
 	private Long idNoticia;
 	private String titular;
+	@Column( length = 100000 )
 	private String contenido;
+	@Column( length = 100000 )
 	private String urlImagen;
 	
 	public Long getIdNoticia() {

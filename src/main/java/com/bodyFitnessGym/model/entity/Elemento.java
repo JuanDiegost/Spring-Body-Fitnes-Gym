@@ -1,5 +1,6 @@
 package com.bodyFitnessGym.model.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,6 +13,7 @@ public class Elemento {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long idElemento;
 	private Long nombre;
+	@Column( length = 100000 )
 	private Long descripcion;
 	public Long getIdElemento() {
 		return idElemento;

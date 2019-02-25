@@ -394,8 +394,6 @@ public class BodyFitnessGymController {
 		return JsonManager.toJson(horarioRepository.save(h));
 	}
 
-	
-
 	// ----------Entrenador---------------------------------------//
 
 	@RequestMapping(value = "/entrenadores", method = RequestMethod.GET)
@@ -779,11 +777,14 @@ public class BodyFitnessGymController {
 			e4.setDescripcionError(ErroresSistema.HORARIO_CRUZADO);
 			errorRepository.save(e4);
 			ErrorSistema e5 = new ErrorSistema();
-			e5.setDescripcionError(ErroresSistema.USUARIO_EN_USO);
+			e5.setDescripcionError(ErroresSistema.HORARIO_CRUZADO);
 			errorRepository.save(e5);
 			ErrorSistema e6 = new ErrorSistema();
-			e6.setDescripcionError(ErroresSistema.DNI_EN_USO);
+			e6.setDescripcionError(ErroresSistema.USUARIO_EN_USO);
 			errorRepository.save(e6);
+			ErrorSistema e7 = new ErrorSistema();
+			e7.setDescripcionError(ErroresSistema.DNI_EN_USO);
+			errorRepository.save(e7);
 		}
 	}
 

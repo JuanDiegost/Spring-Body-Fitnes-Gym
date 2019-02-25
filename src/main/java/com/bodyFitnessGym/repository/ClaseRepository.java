@@ -9,6 +9,6 @@ import com.bodyFitnessGym.model.entity.Clase;
 
 public interface ClaseRepository extends CrudRepository<Clase, Long> {
 
-	@Query(value = "SELECT * FROM CLASE c WHERE c.servicio_id = ?1", nativeQuery = true)
+	@Query(value = "SELECT * FROM clase c WHERE c.servicio_id = ?1", nativeQuery = true)
 	Collection<Clase> findAllClaseByIdServicio(Long status);
 }
