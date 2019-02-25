@@ -14,6 +14,7 @@ import java.util.Map;
 import org.springframework.expression.ParseException;
 
 import com.bodyFitnessGym.model.entity.Alumno;
+import com.bodyFitnessGym.model.entity.Horario;
 import com.bodyFitnessGym.model.entity.MovimientoCaja;
 import com.bodyFitnessGym.model.entity.ProgresoImagen;
 
@@ -32,6 +33,7 @@ public class Reports {
 	private static final String PDF_REPORTS_DIR = "src/main/java/com/bodyfitnessGym/reports/";
 	private static final String REPORT_TEMPLATE_FILENAME = "https://firebasestorage.googleapis.com/v0/b/body-fitnes-gym.appspot.com/o/progresos.jrxml?alt=media&token=81a199bd-a7f6-4a3a-9856-fcee3a3e375f";
 	private static final String REPORT_TEMPLATE_CONTABILIDAD = "https://firebasestorage.googleapis.com/v0/b/body-fitnes-gym.appspot.com/o/Blank_A4.jrxml?alt=media&token=c56ad74b-01e1-4278-83b8-e57a12e21c72";
+	private static final String REPORT_TEMPLATE_LIST_STUDENT_BY_SCHEDULE = "https://firebasestorage.googleapis.com/v0/b/body-fitnes-gym.appspot.com/o/ListStudent.jrxml?alt=media&token=4115cb1b-c6db-4f89-a961-a0fd3a531448";
 
 	/**
 	 * Retorna un PDF con los progresos del alumno, el alumno debe tener una lista
@@ -82,6 +84,29 @@ public class Reports {
 		return JasperExportManager.exportReportToPdf(print);
 
 	}
+	
+	/**
+	 * Genera una lista de los alumno que estan inscritos para la asistencia en ese determinado horario
+	 * @param horario
+	 * @return pdf con la lista de alumnos en un byte[]
+	 * @throws ClassNotFoundException
+	 * @throws IOException
+	 * @throws ParseException
+	 * @throws JRException
+	 */
+	public static byte[] generarListaAlumnosPorHorarioPDF(Horario horario)
+			throws ClassNotFoundException, IOException, ParseException, JRException {
+		URL url = new URL(REPORT_TEMPLATE_LIST_STUDENT_BY_SCHEDULE);
+		JasperReport jasperReport = JasperCompileManager.compileReport(url.openStream());
+		Map<String, Object> parameters = new HashMap<String, Object>();
+
+		parameters.put("LIST_ESTUDENT", new JRBeanCollectionDataSource(horario.getAsistencia()));
+		parameters.put("FECHA_HORARIO", horario.getHoraInicio());
+		JasperPrint print = JasperFillManager.fillReport(jasperReport, parameters, new JREmptyDataSource());
+		// Make sure the output directory exists
+		return JasperExportManager.exportReportToPdf(print);
+
+	}
 
 	public static byte[] getPDFAsByte(String filePath) throws IOException {
 		Path pdfPath = Paths.get(filePath);
@@ -99,5 +124,7 @@ public class Reports {
 		}
 		return count;
 	}
+	
+	
 
 }
