@@ -388,16 +388,16 @@ public class BodyFitnessGymController {
 	
 	@RequestMapping(value = "/horario/filtroSinFechas/entrenador/{idEntrenador}", method = RequestMethod.GET)
 	public String getHorariosFiltradosSinFechasPorEntrenador(@PathVariable Long idEntrenador) {
-		ArrayList<Object[]> result = new ArrayList<>();
-		for (Object horario : horarioRepository.filterHorarioSinFechasPorEntrenador(idEntrenador)) {
-			Object [] horarioVector = (Object[]) horario;
-			Horario h = horarioRepository.findById(Long.parseLong(((BigInteger) horarioVector[0]).toString())).get();
-			for (Integer integer : horarioRepository.getCuposHorario(h.getIdHorario())) {
-				horarioVector[0] = JsonManager.toJson(integer-h.getAsistencia().size());
-			}
-			result.add(horarioVector);
-		}
-		return JsonManager.toJson(result);
+//		ArrayList<Object[]> result = new ArrayList<>();
+//		for (Object horario : horarioRepository.filterHorarioSinFechasPorEntrenador(idEntrenador)) {
+//			Object [] horarioVector = (Object[]) horario;
+//			Horario h = horarioRepository.findById(Long.parseLong(((BigInteger) horarioVector[0]).toString())).get();
+//			for (Integer integer : horarioRepository.getCuposHorario(h.getIdHorario())) {
+//				horarioVector[0] = JsonManager.toJson(integer-h.getAsistencia().size());
+//			}
+//			result.add(horarioVector);
+//		}
+		return JsonManager.toJson(horarioRepository.filterHorarioSinFechasPorEntrenador(idEntrenador));
 	}
 
 	@RequestMapping(value = "/horario/cuposDisponibles/{id}", method = RequestMethod.GET)
