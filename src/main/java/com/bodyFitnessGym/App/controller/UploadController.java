@@ -8,11 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,7 +30,8 @@ public class UploadController {
  
 	List<String> files = new ArrayList<String>();
  
-	@RequestMapping(value="/postImage", method = RequestMethod.POST,consumes = { "multipart/form-data" })
+	@RequestMapping(value="/postImage", method = RequestMethod.POST,produces = { MediaType.ALL_VALUE })
+	@ResponseBody
 	public ResponseEntity<String> handleFileUpload(@RequestParam("file") MultipartFile file) {
 		String message = "";
 		System.out.println("LOAD IMAGE..");
