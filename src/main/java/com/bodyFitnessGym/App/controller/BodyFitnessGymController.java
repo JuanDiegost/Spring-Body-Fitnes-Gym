@@ -138,7 +138,7 @@ public class BodyFitnessGymController {
 	@ResponseBody
 	public ResponseEntity<org.springframework.core.io.Resource> getFile(@PathVariable String filename) {
 		org.springframework.core.io.Resource file = storageService.loadFile(filename);
-		return ResponseEntity.ok().contentType(MediaType.ALL)
+		return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG)
 				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"")
 				.body(file);
 	}
