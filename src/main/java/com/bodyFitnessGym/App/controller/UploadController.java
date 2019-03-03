@@ -30,7 +30,7 @@ public class UploadController {
  
 	List<String> files = new ArrayList<String>();
  
-	@RequestMapping(value="/postImage", method = RequestMethod.POST,produces = { MediaType.ALL_VALUE })
+	@RequestMapping(value="/postImage", method = RequestMethod.POST,produces = { MediaType.IMAGE_PNG_VALUE })
 	@ResponseBody
 	public ResponseEntity<String> handleFileUpload(@RequestParam("file") MultipartFile file) {
 		String message = "";
