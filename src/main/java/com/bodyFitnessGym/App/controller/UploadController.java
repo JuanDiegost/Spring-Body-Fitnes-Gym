@@ -31,21 +31,7 @@ public class UploadController {
  
 	List<String> files = new ArrayList<String>();
  
-	@PostMapping(value="/postImage")
-	public ResponseEntity<String> handleFileUpload(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
-		String message = "";
-		System.out.println("LOAD IMAGE..");
-		try {
-			storageService.store(file);
-			files.add(file.getOriginalFilename());
- 
-			message = "You successfully uploaded " + file.getOriginalFilename() + "!";
-			return ResponseEntity.status(HttpStatus.OK).body(message);
-		} catch (Exception e) {
-			message = "FAIL to upload " + file.getOriginalFilename() + "!";
-			return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(message);
-		}
-	}
+
  
 	@GetMapping("/getallfiles")
 	public ResponseEntity<List<String>> getListFiles(Model model) {
