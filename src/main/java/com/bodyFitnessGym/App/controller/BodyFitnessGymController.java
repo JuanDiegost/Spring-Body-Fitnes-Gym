@@ -112,10 +112,10 @@ public class BodyFitnessGymController {
 		String message = "";
 		System.out.println("UPLOADING IMAGE..");
 		try {
-			storageService.store(file);
+			String nameFile=storageService.store(file);
 			files.add(file.getOriginalFilename());
  
-			message = "/files/" + file.getOriginalFilename();
+			message = "/files/" + nameFile;
 			return ResponseEntity.status(HttpStatus.OK).body(message);
 		} catch (Exception e) {
 			message = "FAIL to upload " + file.getOriginalFilename() + "!";
