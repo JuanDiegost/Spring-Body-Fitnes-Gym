@@ -110,12 +110,12 @@ public class BodyFitnessGymController {
 	@PostMapping(value="/uploadImage")
 	public ResponseEntity<String> handleFileUpload(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
 		String message = "";
-		System.out.println("LOAD IMAGE..");
+		System.out.println("UPLOADING IMAGE..");
 		try {
 			storageService.store(file);
 			files.add(file.getOriginalFilename());
  
-			message = "You successfully uploaded " + file.getOriginalFilename() + "!";
+			message = "/files/" + file.getOriginalFilename();
 			return ResponseEntity.status(HttpStatus.OK).body(message);
 		} catch (Exception e) {
 			message = "FAIL to upload " + file.getOriginalFilename() + "!";
