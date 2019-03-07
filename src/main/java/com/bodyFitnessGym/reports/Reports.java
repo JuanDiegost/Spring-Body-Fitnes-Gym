@@ -5,6 +5,7 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -17,6 +18,7 @@ import com.bodyFitnessGym.model.entity.Alumno;
 import com.bodyFitnessGym.model.entity.Horario;
 import com.bodyFitnessGym.model.entity.MovimientoCaja;
 import com.bodyFitnessGym.model.entity.ProgresoImagen;
+import com.ibm.icu.util.GregorianCalendar;
 
 import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JRException;
@@ -84,9 +86,11 @@ public class Reports {
 		return JasperExportManager.exportReportToPdf(print);
 
 	}
-	
+
 	/**
-	 * Genera una lista de los alumno que estan inscritos para la asistencia en ese determinado horario
+	 * Genera una lista de los alumno que estan inscritos para la asistencia en ese
+	 * determinado horario
+	 * 
 	 * @param horario
 	 * @return pdf con la lista de alumnos en un byte[]
 	 * @throws ClassNotFoundException
@@ -100,7 +104,7 @@ public class Reports {
 		JasperReport jasperReport = JasperCompileManager.compileReport(url.openStream());
 		Map<String, Object> parameters = new HashMap<String, Object>();
 
-		parameters.put("LIST_ESTUDENT", new JRBeanCollectionDataSource(horario.getAsistencia()));
+		parameters.put("LIST_STUDENT", new JRBeanCollectionDataSource(horario.getAsistencia()));
 		parameters.put("FECHA_HORARIO", horario.getHoraInicio());
 		JasperPrint print = JasperFillManager.fillReport(jasperReport, parameters, new JREmptyDataSource());
 		// Make sure the output directory exists
@@ -124,7 +128,5 @@ public class Reports {
 		}
 		return count;
 	}
-	
-	
 
-}
+	}
