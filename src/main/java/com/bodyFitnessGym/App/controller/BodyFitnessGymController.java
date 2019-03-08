@@ -386,6 +386,23 @@ public class BodyFitnessGymController {
 		return JsonManager.toJson(result);
 	}
 	
+	@RequestMapping(value = "/horarios/{idHorario}/reporte.pdf", method = RequestMethod.GET)
+	public ResponseEntity<ByteArrayResource> generarListaDeAlumnosPorHorario(@PathVariable Long idHorario) {
+		byte[] array;
+		try {
+			array = Reports.generarListaAlumnosPorHorarioPDF(horarioRepository.findById(idHorario).get());
+			ByteArrayResource resource = new ByteArrayResource(array);
+			return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=reporte.pdf")
+					.contentType(MediaType.APPLICATION_PDF) //
+					.contentLength(array.length) //
+					.body(resource);
+
+		} catch (ParseException | ClassNotFoundException | IOException | JRException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
 	@RequestMapping(value = "/horario/filtroSinFechas/entrenador/{idEntrenador}", method = RequestMethod.GET)
 	public String getHorariosFiltradosSinFechasPorEntrenador(@PathVariable Long idEntrenador) {
 //		ArrayList<Object[]> result = new ArrayList<>();
