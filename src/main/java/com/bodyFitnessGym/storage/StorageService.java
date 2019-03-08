@@ -65,7 +65,6 @@ public class StorageService {
 		try {
 			Files.createDirectory(rootLocation);
 		} catch (IOException e) {
-			throw new RuntimeException("Could not initialize storage!");
 		}
 	}
 }
