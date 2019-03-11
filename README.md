@@ -1,6 +1,5 @@
 # Spring-Body-Fitnes-Gym
  
-## URL JSON
 - Servicio de login
 
 - /errores muiestra todos los errores del sistema
